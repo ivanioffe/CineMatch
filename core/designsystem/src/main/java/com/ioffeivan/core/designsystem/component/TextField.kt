@@ -89,7 +89,6 @@ private fun PrimaryTextFieldPreview() {
         PrimaryTextField(
             value = "",
             onValueChange = {
-
             },
         )
     }

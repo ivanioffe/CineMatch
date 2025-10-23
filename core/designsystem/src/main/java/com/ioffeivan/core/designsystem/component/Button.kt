@@ -49,17 +49,19 @@ fun PrimaryButton(
         enabled = enabled,
         shape = shape,
         contentPadding = contentPadding,
-        modifier = modifier
-            .height(60.dp)
-            .dropShadow(
-                shape = shape,
-                shadow = Shadow(
-                    radius = 16.dp,
-                    spread = 4.dp,
-                    color = MaterialTheme.colorScheme.primary,
-                    alpha = 0.25f,
+        modifier =
+            modifier
+                .height(60.dp)
+                .dropShadow(
+                    shape = shape,
+                    shadow =
+                        Shadow(
+                            radius = 16.dp,
+                            spread = 4.dp,
+                            color = MaterialTheme.colorScheme.primary,
+                            alpha = 0.25f,
+                        ),
                 ),
-            ),
         content = content,
     )
 }
@@ -93,11 +95,12 @@ fun PrimaryButton(
             text = text,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
-            style = MaterialTheme.typography.labelLarge
-                .copy(
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.W800,
-                ),
+            style =
+                MaterialTheme.typography.labelLarge
+                    .copy(
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.W800,
+                    ),
         )
     }
 }
@@ -131,8 +134,9 @@ fun PrimaryOutlinedButton(
         shape = shape,
         border = border,
         contentPadding = contentPadding,
-        modifier = modifier
-            .height(60.dp),
+        modifier =
+            modifier
+                .height(60.dp),
         content = content,
     )
 }
@@ -166,12 +170,13 @@ fun PrimaryOutlinedButton(
             text = text,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
-            style = MaterialTheme.typography.labelLarge
-                .copy(
-                    color = MaterialTheme.colorScheme.primary,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.W800,
-                ),
+            style =
+                MaterialTheme.typography.labelLarge
+                    .copy(
+                        color = MaterialTheme.colorScheme.primary,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.W800,
+                    ),
         )
     }
 }
@@ -183,8 +188,9 @@ private fun PrimaryButtonPreview() {
         PrimaryButton(
             text = "Button",
             onClick = {},
-            modifier = Modifier
-                .padding(16.dp),
+            modifier =
+                Modifier
+                    .padding(16.dp),
         )
     }
 }
