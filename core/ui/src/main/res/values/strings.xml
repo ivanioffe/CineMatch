@@ -1,0 +1,8 @@
+<resources>
+    <string name="login">Вход</string>
+    <string name="signup">Регистрация</string>
+    <string name="email">Электронная почта</string>
+    <string name="password">Пароль</string>
+    <string name="enter_email">Введите электронную почту</string>
+    <string name="enter_password">Введите пароль</string>
+</resources>
