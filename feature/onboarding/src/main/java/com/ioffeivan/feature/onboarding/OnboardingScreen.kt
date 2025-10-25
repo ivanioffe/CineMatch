@@ -32,6 +32,19 @@ import com.ioffeivan.core.ui.R
 import com.ioffeivan.feature.onboarding.R as onboardingR
 
 @Composable
+internal fun OnboardingRoute(
+    onLoginButtonClick: () -> Unit,
+    onSignupButtonClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    OnboardingScreen(
+        onLoginButtonClick = onLoginButtonClick,
+        onSignupButtonClick = onSignupButtonClick,
+        modifier = modifier,
+    )
+}
+
+@Composable
 internal fun OnboardingScreen(
     onLoginButtonClick: () -> Unit,
     onSignupButtonClick: () -> Unit,
