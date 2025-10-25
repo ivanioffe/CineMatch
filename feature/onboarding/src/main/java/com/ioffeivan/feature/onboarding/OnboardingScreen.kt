@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -97,7 +98,8 @@ internal fun OnboardingScreen(
                 onClick = onLoginButtonClick,
                 modifier =
                     Modifier
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .testTag("loginButton"),
             )
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -107,7 +109,8 @@ internal fun OnboardingScreen(
                 onClick = onSignupButtonClick,
                 modifier =
                     Modifier
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .testTag("signupButton"),
             )
         }
     }
