@@ -19,7 +19,7 @@ jobs:
           java-version: 17
 
       - name: Gradle cache
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v4
 
       - name: Run Roborazzi Verification
         run: ./gradlew verifyRoborazziDebug --stacktrace
@@ -37,7 +37,7 @@ jobs:
         if: ${{ failure() }}
         with:
           name: screenshot-diff
-          path: '**/build/outputs/roborazzi'
+          path: '**/build/outputs/roborazzi/'
           retention-days: 7
 
       - name: Upload test report
