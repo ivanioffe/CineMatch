@@ -12,14 +12,17 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v4
 
-      - name: setup Java
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: 17
 
+      - name: Gradle cache
+        uses: gradle/gradle-build-action@v2
+
       - name: Run Roborazzi Verification
-        run: ./gradlew verifyRoborazziDebug
+        run: ./gradlew verifyRoborazziDebug --stacktrace
 
       - name: Upload Roborazzi Failure Reports
         if: ${{ failure() }}
@@ -28,6 +31,15 @@ jobs:
           name: roborazzi-visual-diffs
           path: '**/build/reports/roborazzi/'
           retention-days: 7
+
+      - name: Upload Roborazzi Failure Outputs
+        uses: actions/upload-artifact@v4
+        if: ${{ failure() }}
+        with:
+          name: screenshot-diff
+          path: '**/build/outputs/roborazzi'
+          retention-days: 7
+
       - name: Upload test report
         if: ${{ failure() }}
         uses: actions/upload-artifact@v4
