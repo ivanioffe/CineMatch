@@ -28,6 +28,7 @@ jobs:
           retention-days: 7
 
   verify-screenshots:
+    needs: [ record-screenshots ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
