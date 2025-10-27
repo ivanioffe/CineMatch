@@ -7,7 +7,7 @@ on:
 
 jobs:
   unit-test:
-#    needs: [ ktlint ]
+    #    needs: [ ktlint ]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -23,23 +23,24 @@ jobs:
           name: unit_test_report
           path: '**/build/reports/tests/testDebugUnitTest/'
 
-#  verify-screenshots:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout the code
-#        uses: actions/checkout@v4
-#
-#      - name: Run Roborazzi Verification
-#        run: ./gradlew verifyAndRecordRoborazziDebug
-#
-#      - name: Upload Roborazzi Failure Reports
-#        if: ${{ failure() }}
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: roborazzi-visual-diffs
-#          path: '**/build/reports/roborazzi/'
-#          retention-days: 7
-#
+  verify-screenshots:
+    needs: [ unit-test ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      - name: Run Roborazzi Verification
+        run: ./gradlew verifyRoborazziDebug
+
+      - name: Upload Roborazzi Failure Reports
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: roborazzi-visual-diffs
+          path: '**/build/reports/roborazzi/'
+          retention-days: 7
+
 #  ktlint:
 #    runs-on: ubuntu-latest
 #    timeout-minutes: 5
