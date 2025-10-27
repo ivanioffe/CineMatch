@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Roborazzi Verification
-        run: ./gradlew verifyRoborazziDebug
+        run: ./gradlew verifyAndRecordRoborazziDebug
 
       - name: Upload Roborazzi Failure Reports
         if: ${{ failure() }}
