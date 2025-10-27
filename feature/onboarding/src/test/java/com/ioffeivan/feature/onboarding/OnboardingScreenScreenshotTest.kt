@@ -1,9 +1,9 @@
 package com.ioffeivan.feature.onboarding
 
-import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onRoot
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
+import com.github.takahirom.roborazzi.RoborazziActivity
 import com.github.takahirom.roborazzi.RoborazziRule
 import com.ioffeivan.core.designsystem.theme.CineMatchTheme
 import org.junit.Rule
@@ -19,7 +19,7 @@ import java.io.File
 @Config(sdk = [33], qualifiers = RobolectricDeviceQualifiers.Pixel5)
 class OnboardingScreenScreenshotTest {
     @get:Rule
-    val composeTestRule = createAndroidComposeRule<ComponentActivity>()
+    val composeTestRule = createAndroidComposeRule<RoborazziActivity>()
 
     @get:Rule
     val roborazziRule =
