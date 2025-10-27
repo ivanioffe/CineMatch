@@ -19,7 +19,7 @@ jobs:
           java-version: 17
 
       - name: Run Roborazzi Record
-        run: ./gradlew recordRoborazziDebug --stacktrace
+        run: ./gradlew recordRoborazziDebug --stacktrace --rerun-tasks
 
       - uses: actions/upload-artifact@v4
         with:
