@@ -6,23 +6,40 @@ on:
   workflow_dispatch:
 
 jobs:
-  verify-screenshots:
+  unit-test:
+    needs: [ ktlint ]
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4
 
-      - name: Run Roborazzi Verification
-        run: ./gradlew verifyAndRecordRoborazziDebug
+      - name: Run unit tests
+        run: ./gradlew testDebugUnitTest
 
-      - name: Upload Roborazzi Failure Reports
-        if: ${{ failure() }}
+      - name: Upload test report
         uses: actions/upload-artifact@v4
         with:
-          name: roborazzi-visual-diffs
-          path: '**/build/reports/roborazzi/'
-          retention-days: 7
+          name: unit_test_report
+          path: '**/build/reports/tests/testDebugUnitTest/'
 
+#  verify-screenshots:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout the code
+#        uses: actions/checkout@v4
+#
+#      - name: Run Roborazzi Verification
+#        run: ./gradlew verifyAndRecordRoborazziDebug
+#
+#      - name: Upload Roborazzi Failure Reports
+#        if: ${{ failure() }}
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: roborazzi-visual-diffs
+#          path: '**/build/reports/roborazzi/'
+#          retention-days: 7
+#
 #  ktlint:
 #    runs-on: ubuntu-latest
 #    timeout-minutes: 5
@@ -38,23 +55,6 @@ jobs:
 #        with:
 #          name: ktlint.html
 #          path: '**/build/reports/ktlint/'
-#
-#  unit-test:
-#    needs: [ ktlint ]
-#    runs-on: ubuntu-latest
-#    timeout-minutes: 10
-#    steps:
-#      - name: Checkout the code
-#        uses: actions/checkout@v4
-#
-#      - name: Run unit tests
-#        run: ./gradlew testDebugUnitTest
-#
-#      - name: Upload test report
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: unit_test_report
-#          path: '**/build/reports/tests/testDebugUnitTest/'
 #
 #  instrumentation-test:
 #    needs: [ unit-test ]
