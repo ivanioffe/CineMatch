@@ -12,6 +12,12 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v4
 
+      - name: setup Java
+        uses: actions/setup-java@4
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
       - name: Run Roborazzi Verification
         run: ./gradlew verifyRoborazziDebug
 
