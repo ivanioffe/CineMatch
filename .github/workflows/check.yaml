@@ -22,6 +22,11 @@ jobs:
           name: roborazzi-visual-diffs
           path: '**/build/reports/roborazzi/'
           retention-days: 7
+      - name: Upload test report
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit_test_report
+          path: '**/build/reports/tests/testDebugUnitTest/'
 
 #  ktlint:
 #    runs-on: ubuntu-latest
