@@ -8,6 +8,7 @@ composeBom = "2025.10.00"
 coreKtx = "1.17.0"
 datastorePreferences = "1.1.7"
 hilt = "2.57.2"
+jetbrainsKotlinJvm = "2.2.0"
 junit5 = "5.14.0"
 kotlin = "2.2.0"
 kotlinxCoroutines = "1.10.2"
@@ -56,6 +57,7 @@ truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
