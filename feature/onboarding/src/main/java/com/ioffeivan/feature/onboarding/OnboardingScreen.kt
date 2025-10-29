@@ -1,7 +1,6 @@
 package com.ioffeivan.feature.onboarding
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -9,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -51,28 +49,28 @@ internal fun OnboardingScreen(
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier.fillMaxSize()) {
-        /*Image(
+        Image(
             painter = painterResource(onboardingR.drawable.onboarding),
             contentDescription = null,
             contentScale = ContentScale.FillHeight,
             modifier =
                 Modifier
                     .fillMaxSize(),
-        )*/
+        )
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier =
                 Modifier
                     .align(Alignment.BottomCenter)
-                    .background(
+                    /*.background(
                         color = Color.Black.copy(alpha = 0.75f),
                         shape =
                             RoundedCornerShape(
                                 topStart = 10.dp,
                                 topEnd = 10.dp,
                             ),
-                    )
+                    )*/
                     .padding(
                         horizontal = 16.dp,
                         vertical = 24.dp,

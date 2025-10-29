@@ -1,10 +1,5 @@
 package com.ioffeivan.feature.onboarding
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onRoot
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
@@ -17,7 +12,6 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
-import com.ioffeivan.feature.onboarding.R as onboardingR
 
 @RunWith(RobolectricTestRunner::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
@@ -49,13 +43,9 @@ class OnboardingScreenScreenshotTest {
         with(composeTestRule) {
             setContent {
                 CineMatchTheme {
-                    Image(
-                        painter = painterResource(onboardingR.drawable.onboarding),
-                        contentDescription = null,
-                        contentScale = ContentScale.FillHeight,
-                        modifier =
-                            Modifier
-                                .fillMaxSize(),
+                    OnboardingScreen(
+                        onLoginButtonClick = {},
+                        onSignupButtonClick = {},
                     )
                 }
             }
