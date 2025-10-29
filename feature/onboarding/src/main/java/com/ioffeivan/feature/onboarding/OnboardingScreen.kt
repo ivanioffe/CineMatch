@@ -50,15 +50,15 @@ internal fun OnboardingScreen(
     onSignupButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Box(modifier = modifier) {
-        Image(
+    Box(modifier = modifier.fillMaxSize()) {
+        /*Image(
             painter = painterResource(onboardingR.drawable.onboarding),
             contentDescription = null,
             contentScale = ContentScale.FillHeight,
             modifier =
                 Modifier
                     .fillMaxSize(),
-        )
+        )*/
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
