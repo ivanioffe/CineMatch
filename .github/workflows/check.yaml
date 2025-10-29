@@ -6,29 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  record-screenshots:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v4
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: 17
-
-      - name: Run Roborazzi Record
-        run: ./gradlew recordRoborazziDebug --stacktrace --rerun-tasks
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: screenshots
-          path: '**/build/outputs/roborazzi/'
-          retention-days: 7
-
   verify-screenshots:
-    needs: [ record-screenshots ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
