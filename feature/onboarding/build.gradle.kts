@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.hilt.navigation.compose)
 
+    testImplementation(libs.junit.vintage.engine)
     testImplementation(libs.truth)
     testImplementation(libs.robolectric)
     testImplementation(libs.roborazzi)
