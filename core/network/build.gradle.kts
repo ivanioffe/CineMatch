@@ -35,5 +35,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.retrofit.core)
 }
