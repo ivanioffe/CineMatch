@@ -6,6 +6,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 val backendBaseUrl =
@@ -54,7 +56,12 @@ android {
 dependencies {
     implementation(projects.core.common)
 
+    implementation(libs.hilt.android)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.okhttp.logging)
     implementation(libs.retrofit.core)
+    implementation(libs.retrofit.kotlin.serialization)
+
+    ksp(libs.hilt.compiler)
 }
