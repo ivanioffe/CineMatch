@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ioffeivan.core.designsystem.component.PrimaryButton
 import com.ioffeivan.core.designsystem.component.PrimaryOutlinedButton
-import com.ioffeivan.core.designsystem.theme.Black50
 import com.ioffeivan.core.designsystem.theme.CineMatchTheme
 import com.ioffeivan.core.ui.R
 import com.ioffeivan.feature.onboarding.R as onboardingR
@@ -51,11 +49,16 @@ internal fun OnboardingScreen(
     onSignupButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Box(modifier = modifier.fillMaxSize()) {
+    Box(
+        modifier =
+            modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background),
+    ) {
         Image(
             painter = painterResource(onboardingR.drawable.onboarding),
             contentDescription = null,
-            contentScale = ContentScale.FillHeight,
+            contentScale = ContentScale.Crop,
             modifier =
                 Modifier
                     .fillMaxSize(),
@@ -66,14 +69,6 @@ internal fun OnboardingScreen(
             modifier =
                 Modifier
                     .align(Alignment.BottomCenter)
-                    .background(
-                        color = Black50,
-                        shape =
-                            RoundedCornerShape(
-                                topStart = 10.dp,
-                                topEnd = 10.dp,
-                            ),
-                    )
                     .padding(
                         horizontal = 16.dp,
                         vertical = 24.dp,
