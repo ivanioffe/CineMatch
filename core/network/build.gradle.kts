@@ -64,4 +64,6 @@ dependencies {
     implementation(libs.retrofit.kotlin.serialization)
 
     ksp(libs.hilt.compiler)
+
+    androidTestImplementation(libs.androidx.test.runner)
 }
