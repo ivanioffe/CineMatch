@@ -67,7 +67,7 @@ internal fun OnboardingScreen(
                 Modifier
                     .align(Alignment.BottomCenter)
                     .background(
-                        color = Color.DarkGray.copy(alpha = 0.35f),
+                        color = Black50,
                         shape =
                             RoundedCornerShape(
                                 topStart = 10.dp,
