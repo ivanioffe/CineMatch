@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ioffeivan.core.designsystem.component.PrimaryButton
 import com.ioffeivan.core.designsystem.component.PrimaryOutlinedButton
+import com.ioffeivan.core.designsystem.theme.Black50
 import com.ioffeivan.core.designsystem.theme.CineMatchTheme
 import com.ioffeivan.core.ui.R
 import com.ioffeivan.feature.onboarding.R as onboardingR
@@ -66,7 +67,7 @@ internal fun OnboardingScreen(
                 Modifier
                     .align(Alignment.BottomCenter)
                     .background(
-                        color = Color.Black.copy(alpha = 0.5f),
+                        color = Black50,
                         shape =
                             RoundedCornerShape(
                                 topStart = 10.dp,
