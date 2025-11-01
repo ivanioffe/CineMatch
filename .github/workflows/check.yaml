@@ -13,6 +13,12 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v4
 
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
       - name: Run ktlint
         run: ./gradlew ktlintCheck
 
@@ -22,13 +28,58 @@ jobs:
           name: ktlint.html
           path: '**/build/reports/ktlint/'
 
-  unit-test:
+  verify-screenshots:
     needs: [ ktlint ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
+      - name: Run Roborazzi Verification
+        run: ./gradlew verifyRoborazziDebug --stacktrace
+
+      - name: Upload Roborazzi Failure Reports
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: roborazzi-visual-diffs
+          path: '**/build/reports/roborazzi/'
+          retention-days: 7
+
+      - name: Upload Roborazzi Failure Outputs
+        uses: actions/upload-artifact@v4
+        if: ${{ failure() }}
+        with:
+          name: screenshot-diff
+          path: '**/build/outputs/roborazzi/'
+          retention-days: 7
+
+      - name: Upload test report
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit_test_report
+          path: '**/build/reports/tests/testDebugUnitTest/'
+
+  unit-test:
+    needs: [ verify-screenshots ]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 17
 
       - name: Run unit tests
         run: ./gradlew testDebugUnitTest
@@ -52,6 +103,12 @@ jobs:
 
       - name: Checkout the code
         uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 17
 
       - name: Run instrumentation tests
         uses: reactivecircus/android-emulator-runner@v2
