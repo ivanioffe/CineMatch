@@ -2,12 +2,12 @@ package com.ioffeivan.core.network.call.adapter
 
 import com.ioffeivan.core.common.result.Result
 import com.ioffeivan.core.network.model.ErrorDto
+import com.ioffeivan.core.network.utils.NetworkJson
 import com.ioffeivan.core.network.utils.registerOnCancellation
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlinx.serialization.json.Json
 import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.Callback
@@ -64,8 +64,7 @@ private fun <T> Call<T>.registerCallback(
                         } else {
                             val errorDto =
                                 response.errorBody()?.let { error ->
-                                    val json = Json { ignoreUnknownKeys = true }
-                                    json.decodeFromString<ErrorDto>(error.string())
+                                    NetworkJson.json.decodeFromString<ErrorDto>(error.string())
                                 }
 
                             Result.Error(message = errorDto?.message)
