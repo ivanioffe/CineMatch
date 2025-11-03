@@ -29,4 +29,5 @@ include(":core:designsystem")
 include(":core:network")
 include(":core:ui")
 
+include(":feature:auth")
 include(":feature:onboarding")
