@@ -14,6 +14,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.CallAdapter
 import retrofit2.Converter
 import retrofit2.Retrofit
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -23,7 +24,11 @@ internal object BaseNetworkModule {
     fun provideBaseOkHttpClientBuilder(
         interceptors: Set<@JvmSuppressWildcards Interceptor>,
     ): OkHttpClient.Builder {
-        val builder = OkHttpClient.Builder()
+        val builder =
+            OkHttpClient.Builder()
+                .connectTimeout(1, TimeUnit.MINUTES)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
 
         interceptors.forEach { interceptor ->
             builder.addInterceptor(interceptor)
