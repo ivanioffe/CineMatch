@@ -55,4 +55,6 @@ dependencies {
 
     testRuntimeOnly(libs.test.junit.platform.launcher)
     testRuntimeOnly(libs.test.junit5.engine)
+
+    androidTestImplementation(libs.androidx.test.runner)
 }
