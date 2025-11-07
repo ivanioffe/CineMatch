@@ -31,26 +31,26 @@ class IsLoggedInUseCaseTest {
     @Test
     fun whenRepositoryReturnsTrue_shouldReturnsTrue() =
         runTest {
-            val expectedResult = true
-            every { authRepository.isLoggedIn } returns flowOf(expectedResult)
+            val expected = true
+            every { authRepository.isLoggedIn } returns flowOf(expected)
 
             val flow = isLoggedInUseCase.invoke()
-            val actualResult = flow.first()
+            val actual = flow.first()
 
-            assertThat(actualResult).isEqualTo(expectedResult)
+            assertThat(actual).isEqualTo(expected)
             verify(exactly = 1) { authRepository.isLoggedIn }
         }
 
     @Test
     fun whenRepositoryReturnsFalse_shouldReturnsFalse() =
         runTest {
-            val expectedResult = false
-            every { authRepository.isLoggedIn } returns flowOf(expectedResult)
+            val expected = false
+            every { authRepository.isLoggedIn } returns flowOf(expected)
 
             val flow = isLoggedInUseCase.invoke()
-            val actualResult = flow.first()
+            val actual = flow.first()
 
-            assertThat(actualResult).isEqualTo(expectedResult)
+            assertThat(actual).isEqualTo(expected)
             verify(exactly = 1) { authRepository.isLoggedIn }
         }
 }

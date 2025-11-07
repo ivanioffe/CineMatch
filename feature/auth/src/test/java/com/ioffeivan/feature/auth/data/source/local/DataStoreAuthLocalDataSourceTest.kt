@@ -32,24 +32,24 @@ class DataStoreAuthLocalDataSourceTest {
     @Test
     fun isLoggedIn_whenLocalDataSourceReturnsFalse_shouldReturnsFalse() =
         runTest {
-            val expectedResult = false
-            every { authManager.isLoggedIn } returns flowOf(expectedResult)
+            val expected = false
+            every { authManager.isLoggedIn } returns flowOf(expected)
 
-            val actualResult = dataSource.isLoggedIn.first()
+            val actual = dataSource.isLoggedIn.first()
 
-            assertThat(actualResult).isEqualTo(expectedResult)
+            assertThat(actual).isEqualTo(expected)
             verify(exactly = 1) { authManager.isLoggedIn }
         }
 
     @Test
     fun isLoggedIn_whenLocalDataSourceReturnsTrue_shouldReturnsTrue() =
         runTest {
-            val expectedResult = true
-            every { authManager.isLoggedIn } returns flowOf(expectedResult)
+            val expected = true
+            every { authManager.isLoggedIn } returns flowOf(expected)
 
-            val actualResult = dataSource.isLoggedIn.first()
+            val actual = dataSource.isLoggedIn.first()
 
-            assertThat(actualResult).isEqualTo(expectedResult)
+            assertThat(actual).isEqualTo(expected)
             verify(exactly = 1) { authManager.isLoggedIn }
         }
 

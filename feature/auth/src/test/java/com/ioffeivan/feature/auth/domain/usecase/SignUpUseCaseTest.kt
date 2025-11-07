@@ -41,39 +41,39 @@ class SignUpUseCaseTest {
     @Test
     fun whenRepositoryReturnsSuccess_shouldReturnsSuccess() =
         runTest {
-            val expectedResult = Result.Success(Unit)
-            every { authRepository.signUp(testCredentials) } returns flowOf(expectedResult)
+            val expected = Result.Success(Unit)
+            every { authRepository.signUp(testCredentials) } returns flowOf(expected)
 
             val flow = signUpUseCase.invoke(testCredentials)
-            val actualResult = flow.first()
+            val actual = flow.first()
 
-            assertThat(actualResult).isEqualTo(expectedResult)
+            assertThat(actual).isEqualTo(expected)
             verify(exactly = 1) { authRepository.signUp(testCredentials) }
         }
 
     @Test
     fun whenRepositoryReturnsError_shouldReturnsError() =
         runTest {
-            val expectedResult = Result.Error("error")
-            every { authRepository.signUp(testCredentials) } returns flowOf(expectedResult)
+            val expected = Result.Error("error")
+            every { authRepository.signUp(testCredentials) } returns flowOf(expected)
 
             val flow = signUpUseCase.invoke(testCredentials)
-            val actualResult = flow.first()
+            val actual = flow.first()
 
-            assertThat(actualResult).isEqualTo(expectedResult)
+            assertThat(actual).isEqualTo(expected)
             verify(exactly = 1) { authRepository.signUp(testCredentials) }
         }
 
     @Test
     fun whenRepositoryReturnsException_shouldReturnsException() =
         runTest {
-            val expectedResult = Result.Exception(IOException())
-            every { authRepository.signUp(testCredentials) } returns flowOf(expectedResult)
+            val expected = Result.Exception(IOException())
+            every { authRepository.signUp(testCredentials) } returns flowOf(expected)
 
             val flow = signUpUseCase.invoke(testCredentials)
-            val actualResult = flow.first()
+            val actual = flow.first()
 
-            assertThat(actualResult).isEqualTo(expectedResult)
+            assertThat(actual).isEqualTo(expected)
             verify(exactly = 1) { authRepository.signUp(testCredentials) }
         }
 }

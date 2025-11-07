@@ -64,33 +64,33 @@ class AuthApiServiceTest {
         @Test
         fun whenApiReturnsSuccess_shouldReturnsSuccess() =
             runTest {
-                val expectedResult = Result.Success(Unit)
+                val expected = Result.Success(Unit)
                 val mockResponse =
                     MockResponse()
                         .setBody("{}")
                 mockWebServer.enqueue(mockResponse)
 
-                val actualResult = authApiService.signUp(signUpCredentialsDto).first()
+                val actual = authApiService.signUp(signUpCredentialsDto).first()
                 mockWebServer.takeRequest()
 
-                assertThat(actualResult).isEqualTo(expectedResult)
+                assertThat(actual).isEqualTo(expected)
             }
 
         @Test
         fun whenApiReturnsBadRequest_shouldReturnsError() =
             runTest {
                 val message = "invalid email"
-                val expectedResult = Result.Error(message)
+                val expected = Result.Error(message)
                 val mockResponse =
                     MockResponse()
                         .setResponseCode(400)
                         .setBody("""{ "error": "$message" }""")
                 mockWebServer.enqueue(mockResponse)
 
-                val actualResult = authApiService.signUp(signUpCredentialsDto).first()
+                val actual = authApiService.signUp(signUpCredentialsDto).first()
                 mockWebServer.takeRequest()
 
-                assertThat(actualResult).isEqualTo(expectedResult)
+                assertThat(actual).isEqualTo(expected)
             }
 
         @Test
@@ -102,10 +102,10 @@ class AuthApiServiceTest {
                         .setBody("""{ "erro": "message" }""")
                 mockWebServer.enqueue(mockResponse)
 
-                val actualResult = authApiService.signUp(signUpCredentialsDto).first()
+                val actual = authApiService.signUp(signUpCredentialsDto).first()
                 mockWebServer.takeRequest()
 
-                assertThat(actualResult).isInstanceOf(Result.Exception::class.java)
+                assertThat(actual).isInstanceOf(Result.Exception::class.java)
             }
     }
 
@@ -143,33 +143,33 @@ class AuthApiServiceTest {
         @Test
         fun whenApiReturnsSuccess_shouldReturnsSuccess() =
             runTest {
-                val expectedResult = Result.Success(loginResponseDto)
+                val expected = Result.Success(loginResponseDto)
                 val mockResponse =
                     MockResponse()
                         .setBody(NetworkJson.json.encodeToString(loginResponseDto))
                 mockWebServer.enqueue(mockResponse)
 
-                val actualResult = authApiService.login(loginCredentialsDto).first()
+                val actual = authApiService.login(loginCredentialsDto).first()
                 mockWebServer.takeRequest()
 
-                assertThat(actualResult).isEqualTo(expectedResult)
+                assertThat(actual).isEqualTo(expected)
             }
 
         @Test
         fun whenApiReturnsBadRequest_shouldReturnsError() =
             runTest {
                 val message = "invalid credentials"
-                val expectedResult = Result.Error(message)
+                val expected = Result.Error(message)
                 val mockResponse =
                     MockResponse()
                         .setResponseCode(400)
                         .setBody("""{ "error": "$message" }""")
                 mockWebServer.enqueue(mockResponse)
 
-                val actualResult = authApiService.login(loginCredentialsDto).first()
+                val actual = authApiService.login(loginCredentialsDto).first()
                 mockWebServer.takeRequest()
 
-                assertThat(actualResult).isEqualTo(expectedResult)
+                assertThat(actual).isEqualTo(expected)
             }
 
         @Test
@@ -181,10 +181,10 @@ class AuthApiServiceTest {
                         .setBody("""{ "erro": "message" }""")
                 mockWebServer.enqueue(mockResponse)
 
-                val actualResult = authApiService.login(loginCredentialsDto).first()
+                val actual = authApiService.login(loginCredentialsDto).first()
                 mockWebServer.takeRequest()
 
-                assertThat(actualResult).isInstanceOf(Result.Exception::class.java)
+                assertThat(actual).isInstanceOf(Result.Exception::class.java)
             }
     }
 }

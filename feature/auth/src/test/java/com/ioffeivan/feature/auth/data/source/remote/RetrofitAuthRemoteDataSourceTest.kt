@@ -46,36 +46,36 @@ class RetrofitAuthRemoteDataSourceTest {
         @Test
         fun whenApiServiceReturnsSuccess_shouldReturnsSuccess() =
             runTest {
-                val expectedResult = Result.Success(Unit)
-                every { authApiService.signUp(signUpCredentialsDto) } returns flowOf(expectedResult)
+                val expected = Result.Success(Unit)
+                every { authApiService.signUp(signUpCredentialsDto) } returns flowOf(expected)
 
-                val actualResult = dataSource.signUp(signUpCredentialsDto).first()
+                val actual = dataSource.signUp(signUpCredentialsDto).first()
 
-                assertThat(actualResult).isEqualTo(expectedResult)
+                assertThat(actual).isEqualTo(expected)
                 verify(exactly = 1) { authApiService.signUp(signUpCredentialsDto) }
             }
 
         @Test
         fun whenApiServiceReturnsError_shouldReturnsError() =
             runTest {
-                val expectedResult = Result.Error("error")
-                every { authApiService.signUp(signUpCredentialsDto) } returns flowOf(expectedResult)
+                val expected = Result.Error("error")
+                every { authApiService.signUp(signUpCredentialsDto) } returns flowOf(expected)
 
-                val actualResult = dataSource.signUp(signUpCredentialsDto).first()
+                val actual = dataSource.signUp(signUpCredentialsDto).first()
 
-                assertThat(actualResult).isEqualTo(expectedResult)
+                assertThat(actual).isEqualTo(expected)
                 verify(exactly = 1) { authApiService.signUp(signUpCredentialsDto) }
             }
 
         @Test
         fun whenApiServiceReturnsException_shouldReturnsException() =
             runTest {
-                val expectedResult = Result.Exception(IOException())
-                every { authApiService.signUp(signUpCredentialsDto) } returns flowOf(expectedResult)
+                val expected = Result.Exception(IOException())
+                every { authApiService.signUp(signUpCredentialsDto) } returns flowOf(expected)
 
-                val actualResult = dataSource.signUp(signUpCredentialsDto).first()
+                val actual = dataSource.signUp(signUpCredentialsDto).first()
 
-                assertThat(actualResult).isEqualTo(expectedResult)
+                assertThat(actual).isEqualTo(expected)
                 verify(exactly = 1) { authApiService.signUp(signUpCredentialsDto) }
             }
     }
@@ -96,36 +96,36 @@ class RetrofitAuthRemoteDataSourceTest {
                         accessToken = "accessToken",
                         refreshToken = "refreshToken",
                     )
-                val expectedResult = Result.Success(loginResponseDto)
-                every { authApiService.login(loginCredentialsDto) } returns flowOf(expectedResult)
+                val expected = Result.Success(loginResponseDto)
+                every { authApiService.login(loginCredentialsDto) } returns flowOf(expected)
 
-                val actualResult = dataSource.login(loginCredentialsDto).first()
+                val actual = dataSource.login(loginCredentialsDto).first()
 
-                assertThat(actualResult).isEqualTo(expectedResult)
+                assertThat(actual).isEqualTo(expected)
                 verify(exactly = 1) { authApiService.login(loginCredentialsDto) }
             }
 
         @Test
         fun whenApiServiceReturnsError_shouldReturnsError() =
             runTest {
-                val expectedResult = Result.Error("error")
-                every { authApiService.login(loginCredentialsDto) } returns flowOf(expectedResult)
+                val expected = Result.Error("error")
+                every { authApiService.login(loginCredentialsDto) } returns flowOf(expected)
 
-                val actualResult = dataSource.login(loginCredentialsDto).first()
+                val actual = dataSource.login(loginCredentialsDto).first()
 
-                assertThat(actualResult).isEqualTo(expectedResult)
+                assertThat(actual).isEqualTo(expected)
                 verify(exactly = 1) { authApiService.login(loginCredentialsDto) }
             }
 
         @Test
         fun whenApiServiceReturnsException_shouldReturnsException() =
             runTest {
-                val expectedResult = Result.Exception(IOException())
-                every { authApiService.login(loginCredentialsDto) } returns flowOf(expectedResult)
+                val expected = Result.Exception(IOException())
+                every { authApiService.login(loginCredentialsDto) } returns flowOf(expected)
 
-                val actualResult = dataSource.login(loginCredentialsDto).first()
+                val actual = dataSource.login(loginCredentialsDto).first()
 
-                assertThat(actualResult).isEqualTo(expectedResult)
+                assertThat(actual).isEqualTo(expected)
                 verify(exactly = 1) { authApiService.login(loginCredentialsDto) }
             }
     }

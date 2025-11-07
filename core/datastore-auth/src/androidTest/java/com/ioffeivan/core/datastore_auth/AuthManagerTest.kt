@@ -53,9 +53,9 @@ class AuthManagerTest {
     @Test
     fun isLoggedIn_whenAccessTokenIsNull_shouldReturnsFalse() {
         testCoroutineScope.runTest {
-            val actualResult = authManager.isLoggedIn.first()
+            val result = authManager.isLoggedIn.first()
 
-            assertThat(actualResult).isFalse()
+            assertThat(result).isFalse()
         }
     }
 
@@ -64,30 +64,30 @@ class AuthManagerTest {
         testCoroutineScope.runTest {
             authManager.saveAccessToken("token")
 
-            val actualResult = authManager.isLoggedIn.first()
+            val result = authManager.isLoggedIn.first()
 
-            assertThat(actualResult).isTrue()
+            assertThat(result).isTrue()
         }
     }
 
     @Test
     fun getAccessToken_whenAccessTokenIsNull_shouldReturnsNull() {
         testCoroutineScope.runTest {
-            val actualResult = authManager.getAccessToken()
+            val result = authManager.getAccessToken()
 
-            assertThat(actualResult).isNull()
+            assertThat(result).isNull()
         }
     }
 
     @Test
     fun saveAccessToken_whenCalled_shouldSetAccessToken() {
         testCoroutineScope.runTest {
-            val expectedResult = "access_token"
-            authManager.saveAccessToken(expectedResult)
+            val expected = "access_token"
+            authManager.saveAccessToken(expected)
 
-            val actualResult = authManager.getAccessToken()
+            val result = authManager.getAccessToken()
 
-            assertThat(actualResult).isEqualTo(expectedResult)
+            assertThat(result).isEqualTo(expected)
         }
     }
 
@@ -96,30 +96,30 @@ class AuthManagerTest {
         testCoroutineScope.runTest {
             authManager.deleteAccessToken()
 
-            val actualResult = authManager.getAccessToken()
+            val result = authManager.getAccessToken()
 
-            assertThat(actualResult).isNull()
+            assertThat(result).isNull()
         }
     }
 
     @Test
     fun getRefreshToken_whenRefreshTokenIsNull_shouldReturnsNull() {
         testCoroutineScope.runTest {
-            val actualResult = authManager.getRefreshToken()
+            val result = authManager.getRefreshToken()
 
-            assertThat(actualResult).isNull()
+            assertThat(result).isNull()
         }
     }
 
     @Test
     fun saveRefreshToken_whenCalled_shouldSetRefreshToken() {
         testCoroutineScope.runTest {
-            val expectedResult = "refresh_token"
-            authManager.saveRefreshToken(expectedResult)
+            val expected = "refresh_token"
+            authManager.saveRefreshToken(expected)
 
-            val actualResult = authManager.getRefreshToken()
+            val result = authManager.getRefreshToken()
 
-            assertThat(actualResult).isEqualTo(expectedResult)
+            assertThat(result).isEqualTo(expected)
         }
     }
 
@@ -128,9 +128,9 @@ class AuthManagerTest {
         testCoroutineScope.runTest {
             authManager.deleteRefreshToken()
 
-            val actualResult = authManager.getRefreshToken()
+            val result = authManager.getRefreshToken()
 
-            assertThat(actualResult).isNull()
+            assertThat(result).isNull()
         }
     }
 }
