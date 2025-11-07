@@ -28,6 +28,7 @@ include(":core:common")
 include(":core:datastore-auth")
 include(":core:designsystem")
 include(":core:network")
+include(":core:presentation")
 include(":core:ui")
 
 include(":feature:auth")

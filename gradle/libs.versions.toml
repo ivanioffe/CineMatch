@@ -19,6 +19,7 @@ kotlinxSerializationJson = "1.9.0"
 ksp = "2.2.0-2.0.2"
 ktlint = "13.1.0"
 lifecycleRuntimeKtx = "2.9.4"
+lifecycleViewModelKtx = "2.9.4"
 mockwebserver = "5.3.0"
 okhttp = "5.1.0"
 retrofit = "3.0.0"
@@ -36,6 +37,7 @@ androidx-datastore-preferences = { group = "androidx.datastore", name = "datasto
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewModelKtx" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigationCompose" }
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
