@@ -36,4 +36,11 @@ android {
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    testImplementation(platform(libs.test.junit5.bom))
+    testImplementation(libs.test.junit5.api)
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    testRuntimeOnly(libs.test.junit5.engine)
+    testRuntimeOnly(libs.test.junit.platform.launcher)
 }
