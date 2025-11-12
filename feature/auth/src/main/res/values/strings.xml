@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_email_blank">Электронная почта не может быть пустой</string>
+    <string name="error_email_invalid">Некорректный формат электронной почты</string>
+    <string name="error_email_duplicate">Аккаунт с такой электронной почтой уже существует</string>
+
+    <string name="error_username_blank">Имя пользователя не может быть пустым</string>
+    <string name="error_username_invalid_chars">Имя пользователя может содержать только латинские буквы и цифры</string>
+    <string name="error_username_invalid_length">Имя пользователя должно содержать от %1$d до %2$d символов</string>
+
+    <string name="error_password_blank">Пароль не может быть пустым</string>
+    <string name="error_password_invalid_length">Пароль должен содержать от %1$d до %2$d символов</string>
+    <string name="error_password_mismatch">Пароли не совпадают</string>
+
+    <string name="error_invalid_characters">Недопустимые символы</string>
+    <string name="error_something_went_wrong">Что-то пошло не так. Повторите попытку позже.</string>
+</resources>

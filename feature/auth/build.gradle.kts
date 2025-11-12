@@ -40,6 +40,8 @@ dependencies {
     implementation(projects.core.common)
     implementation(projects.core.datastoreAuth)
     implementation(projects.core.network)
+    implementation(projects.core.presentation)
+    implementation(projects.core.ui)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.hilt.android)
@@ -53,6 +55,7 @@ dependencies {
     testImplementation(platform(libs.test.junit5.bom))
     testImplementation(libs.test.junit5.api)
     testImplementation(libs.truth)
+    testImplementation(testFixtures(projects.core.presentation))
 
     testRuntimeOnly(libs.test.junit.platform.launcher)
     testRuntimeOnly(libs.test.junit5.engine)
