@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
@@ -39,11 +40,17 @@ android {
 dependencies {
     implementation(projects.core.common)
     implementation(projects.core.datastoreAuth)
+    implementation(projects.core.designsystem)
     implementation(projects.core.network)
     implementation(projects.core.presentation)
     implementation(projects.core.ui)
 
     implementation(libs.androidx.core.ktx)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
     implementation(libs.hilt.android)
     implementation(libs.kotlinx.coroutines.core)
 
@@ -61,4 +68,6 @@ dependencies {
     testRuntimeOnly(libs.test.junit5.engine)
 
     androidTestImplementation(libs.androidx.test.runner)
+
+    debugImplementation(libs.androidx.ui.tooling)
 }

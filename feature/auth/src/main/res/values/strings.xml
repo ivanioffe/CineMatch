@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="email_label">Электронная почта</string>
+    <string name="username_label">Имя пользователя</string>
+    <string name="password_label">Пароль</string>
+    <string name="confirm_password_label">Подтвердите пароль</string>
+
+    <string name="email_placeholder">example@example.com</string>
+    <string name="username_placeholder">username1234</string>
+    <string name="password_placeholder">Введите пароль</string>
+    <string name="confirm_password_placeholder">Повторите пароль</string>
+
     <string name="error_email_blank">Электронная почта не может быть пустой</string>
     <string name="error_email_invalid">Некорректный формат электронной почты</string>
     <string name="error_email_duplicate">Аккаунт с такой электронной почтой уже существует</string>
