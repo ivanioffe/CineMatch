@@ -39,7 +39,7 @@ class ValidatorTest {
     inner class UsernameValidatorTest {
         @Test
         fun validate_whenValidUsername_shouldReturnNull() {
-            val actual = UsernameValidator.validate("user123")
+            val actual = UsernameValidator.validate("User123")
 
             assertThat(actual).isNull()
         }
@@ -57,7 +57,7 @@ class ValidatorTest {
         fun validate_whenUsernameWithInvalidChars_shouldReturnInvalidCharsError() {
             val expected = UiText.StringResource(R.string.error_username_invalid_chars)
 
-            val actual = UsernameValidator.validate("user@name")
+            val actual = UsernameValidator.validate("юзерname1234")
 
             assertThat(actual).isEqualTo(expected)
         }

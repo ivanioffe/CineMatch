@@ -42,7 +42,7 @@ internal object UsernameValidator : Validator {
             value.isBlank() ->
                 UiText.StringResource(id = R.string.error_username_blank)
 
-            value.any { !it.isLetterOrDigit() } ->
+            value.any { it !in 'a'..'z' && it !in 'A'..'Z' && it !in '0'..'9' } ->
                 UiText.StringResource(id = R.string.error_username_invalid_chars)
 
             value.length !in MIN_LENGTH..MAX_LENGTH ->
