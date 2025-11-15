@@ -28,6 +28,7 @@ import com.ioffeivan.core.designsystem.component.PrimaryButton
 import com.ioffeivan.core.designsystem.component.PrimaryOutlinedButton
 import com.ioffeivan.core.designsystem.theme.CineMatchTheme
 import com.ioffeivan.core.ui.R
+import com.ioffeivan.core.ui.onDebounceClick
 import com.ioffeivan.feature.onboarding.R as onboardingR
 
 @Composable
@@ -104,7 +105,7 @@ internal fun OnboardingScreen(
 
             PrimaryButton(
                 text = stringResource(R.string.login),
-                onClick = onLoginButtonClick,
+                onClick = onDebounceClick(onClick = onLoginButtonClick),
                 modifier =
                     Modifier
                         .fillMaxWidth()
@@ -115,7 +116,7 @@ internal fun OnboardingScreen(
 
             PrimaryOutlinedButton(
                 text = stringResource(R.string.signup),
-                onClick = onSignupButtonClick,
+                onClick = onDebounceClick(onClick = onSignupButtonClick),
                 modifier =
                     Modifier
                         .fillMaxWidth()
