@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ioffeivan.core.designsystem.component.PrimaryButton
 import com.ioffeivan.core.designsystem.component.PrimaryOutlinedButton
-import com.ioffeivan.core.designsystem.theme.CineMatchTheme
+import com.ioffeivan.core.designsystem.preview.PreviewContainer
 import com.ioffeivan.core.ui.R
 import com.ioffeivan.core.ui.onDebounceClick
 import com.ioffeivan.feature.onboarding.R as onboardingR
@@ -129,7 +129,7 @@ internal fun OnboardingScreen(
 @Preview
 @Composable
 private fun OnboardingScreenPreview() {
-    CineMatchTheme {
+    PreviewContainer {
         OnboardingScreen(
             onLoginButtonClick = {},
             onSignupButtonClick = {},

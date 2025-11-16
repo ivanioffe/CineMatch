@@ -9,7 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.ioffeivan.core.designsystem.component.PrimaryTextField
 import com.ioffeivan.core.designsystem.component.icon.PrimaryIcon
 import com.ioffeivan.core.designsystem.component.icon.PrimaryIcons
-import com.ioffeivan.core.designsystem.theme.CineMatchTheme
+import com.ioffeivan.core.designsystem.preview.PreviewContainer
 import com.ioffeivan.core.ui.UiText
 import com.ioffeivan.feature.auth.R
 
@@ -49,7 +49,7 @@ internal fun EmailTextField(
 @Preview(name = "Empty State")
 @Composable
 private fun EmailTextFieldEmptyPreview() {
-    CineMatchTheme {
+    PreviewContainer {
         EmailTextField(
             email = "",
             onEmailChange = {},
@@ -66,7 +66,7 @@ private fun EmailTextFieldEmptyPreview() {
 @Preview(name = "Filled State")
 @Composable
 private fun EmailTextFieldFilledPreview() {
-    CineMatchTheme {
+    PreviewContainer {
         EmailTextField(
             email = "john.doe@email.com",
             onEmailChange = {},
@@ -83,7 +83,7 @@ private fun EmailTextFieldFilledPreview() {
 @Preview(name = "Error State")
 @Composable
 private fun EmailTextFieldErrorPreview() {
-    CineMatchTheme {
+    PreviewContainer {
         EmailTextField(
             email = "invalid@",
             onEmailChange = {},

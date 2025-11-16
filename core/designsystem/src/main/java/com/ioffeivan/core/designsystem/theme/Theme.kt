@@ -53,9 +53,7 @@ private val darkScheme =
  */
 @Composable
 fun CineMatchTheme(
-    content:
-        @Composable()
-        () -> Unit,
+    content: @Composable () -> Unit,
 ) {
     MaterialTheme(
         colorScheme = darkScheme,

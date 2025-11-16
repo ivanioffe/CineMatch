@@ -9,7 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.ioffeivan.core.designsystem.component.PrimaryTextField
 import com.ioffeivan.core.designsystem.component.icon.PrimaryIcon
 import com.ioffeivan.core.designsystem.component.icon.PrimaryIcons
-import com.ioffeivan.core.designsystem.theme.CineMatchTheme
+import com.ioffeivan.core.designsystem.preview.PreviewContainer
 import com.ioffeivan.core.ui.UiText
 import com.ioffeivan.feature.auth.R
 
@@ -49,7 +49,7 @@ internal fun UsernameTextField(
 @Preview(name = "Empty State")
 @Composable
 private fun UsernameTextFieldEmptyPreview() {
-    CineMatchTheme {
+    PreviewContainer {
         UsernameTextField(
             username = "",
             onUsernameChange = {},
@@ -66,7 +66,7 @@ private fun UsernameTextFieldEmptyPreview() {
 @Preview(name = "Filled State")
 @Composable
 private fun UsernameTextFieldFilledPreview() {
-    CineMatchTheme {
+    PreviewContainer {
         UsernameTextField(
             username = "username123",
             onUsernameChange = {},
@@ -83,7 +83,7 @@ private fun UsernameTextFieldFilledPreview() {
 @Preview(name = "Error State")
 @Composable
 private fun UsernameTextFieldErrorPreview() {
-    CineMatchTheme {
+    PreviewContainer {
         UsernameTextField(
             username = "short",
             onUsernameChange = {},

@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.ioffeivan.core.designsystem.component.PrimaryTextField
 import com.ioffeivan.core.designsystem.component.icon.PrimaryIcon
 import com.ioffeivan.core.designsystem.component.icon.PrimaryIcons
-import com.ioffeivan.core.designsystem.theme.CineMatchTheme
+import com.ioffeivan.core.designsystem.preview.PreviewContainer
 import com.ioffeivan.core.ui.UiText
 import com.ioffeivan.feature.auth.R
 
@@ -82,7 +82,7 @@ fun PasswordVisibilityToggleIcon(
 @Preview(name = "Empty State")
 @Composable
 private fun PasswordTextFieldEmptyPreview() {
-    CineMatchTheme {
+    PreviewContainer {
         PasswordTextField(
             password = "",
             onPasswordChange = {},
@@ -101,7 +101,7 @@ private fun PasswordTextFieldEmptyPreview() {
 @Preview(name = "Revealed Filled State")
 @Composable
 private fun PasswordTextFieldRevealedPreview() {
-    CineMatchTheme {
+    PreviewContainer {
         PasswordTextField(
             password = "MySecurePassword123",
             onPasswordChange = {},
@@ -120,7 +120,7 @@ private fun PasswordTextFieldRevealedPreview() {
 @Preview(name = "Masked Filled State")
 @Composable
 private fun PasswordTextFieldMaskedPreview() {
-    CineMatchTheme {
+    PreviewContainer {
         PasswordTextField(
             password = "MySecurePassword123",
             onPasswordChange = {},
@@ -139,7 +139,7 @@ private fun PasswordTextFieldMaskedPreview() {
 @Preview(name = "Revealed Error State")
 @Composable
 private fun PasswordTextFieldRevealedErrorPreview() {
-    CineMatchTheme {
+    PreviewContainer {
         PasswordTextField(
             password = "123",
             onPasswordChange = {},
@@ -164,7 +164,7 @@ private fun PasswordTextFieldRevealedErrorPreview() {
 @Preview(name = "Masked Error State")
 @Composable
 private fun PasswordTextFieldMaskedErrorPreview() {
-    CineMatchTheme {
+    PreviewContainer {
         PasswordTextField(
             password = "123",
             onPasswordChange = {},
