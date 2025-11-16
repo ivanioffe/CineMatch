@@ -46,7 +46,7 @@ internal fun UsernameTextField(
     )
 }
 
-@Preview(name = "Empty State")
+@Preview
 @Composable
 private fun UsernameTextFieldEmptyPreview() {
     PreviewContainer {
@@ -63,7 +63,7 @@ private fun UsernameTextFieldEmptyPreview() {
     }
 }
 
-@Preview(name = "Filled State")
+@Preview
 @Composable
 private fun UsernameTextFieldFilledPreview() {
     PreviewContainer {
@@ -80,7 +80,7 @@ private fun UsernameTextFieldFilledPreview() {
     }
 }
 
-@Preview(name = "Error State")
+@Preview
 @Composable
 private fun UsernameTextFieldErrorPreview() {
     PreviewContainer {

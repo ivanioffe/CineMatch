@@ -79,7 +79,7 @@ fun PasswordVisibilityToggleIcon(
     }
 }
 
-@Preview(name = "Empty State")
+@Preview
 @Composable
 private fun PasswordTextFieldEmptyPreview() {
     PreviewContainer {
@@ -98,9 +98,9 @@ private fun PasswordTextFieldEmptyPreview() {
     }
 }
 
-@Preview(name = "Revealed Filled State")
+@Preview
 @Composable
-private fun PasswordTextFieldRevealedPreview() {
+private fun PasswordTextFieldRevealedFilledPreview() {
     PreviewContainer {
         PasswordTextField(
             password = "MySecurePassword123",
@@ -117,9 +117,9 @@ private fun PasswordTextFieldRevealedPreview() {
     }
 }
 
-@Preview(name = "Masked Filled State")
+@Preview
 @Composable
-private fun PasswordTextFieldMaskedPreview() {
+private fun PasswordTextFieldMaskedFilledPreview() {
     PreviewContainer {
         PasswordTextField(
             password = "MySecurePassword123",
@@ -136,7 +136,7 @@ private fun PasswordTextFieldMaskedPreview() {
     }
 }
 
-@Preview(name = "Revealed Error State")
+@Preview
 @Composable
 private fun PasswordTextFieldRevealedErrorPreview() {
     PreviewContainer {
@@ -161,7 +161,7 @@ private fun PasswordTextFieldRevealedErrorPreview() {
     }
 }
 
-@Preview(name = "Masked Error State")
+@Preview
 @Composable
 private fun PasswordTextFieldMaskedErrorPreview() {
     PreviewContainer {

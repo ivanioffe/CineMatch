@@ -46,7 +46,7 @@ internal fun EmailTextField(
     )
 }
 
-@Preview(name = "Empty State")
+@Preview
 @Composable
 private fun EmailTextFieldEmptyPreview() {
     PreviewContainer {
@@ -63,7 +63,7 @@ private fun EmailTextFieldEmptyPreview() {
     }
 }
 
-@Preview(name = "Filled State")
+@Preview
 @Composable
 private fun EmailTextFieldFilledPreview() {
     PreviewContainer {
@@ -80,7 +80,7 @@ private fun EmailTextFieldFilledPreview() {
     }
 }
 
-@Preview(name = "Error State")
+@Preview
 @Composable
 private fun EmailTextFieldErrorPreview() {
     PreviewContainer {
