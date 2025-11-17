@@ -193,9 +193,21 @@ class SignUpReducerTest {
             createReducerResult(
                 state =
                     invalidState.copy(
-                        email = invalidState.email.copy(errorMessage = ERROR_EMAIL_INVALID),
-                        username = invalidState.username.copy(errorMessage = ERROR_USERNAME_INVALID),
-                        password = invalidState.password.copy(errorMessage = ERROR_PASSWORD_LENGTH_INVALID),
+                        email =
+                            invalidState.email.copy(
+                                isError = true,
+                                errorMessage = ERROR_EMAIL_INVALID,
+                            ),
+                        username =
+                            invalidState.username.copy(
+                                isError = true,
+                                errorMessage = ERROR_USERNAME_INVALID,
+                            ),
+                        password =
+                            invalidState.password.copy(
+                                isError = true,
+                                errorMessage = ERROR_PASSWORD_LENGTH_INVALID,
+                            ),
                         confirmPassword = invalidState.confirmPassword.copy(errorMessage = null),
                     ),
             )

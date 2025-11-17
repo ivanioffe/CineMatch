@@ -96,7 +96,6 @@ class SignUpValidationTest {
             )
         val expected =
             SignUpValidation.Result.Error(
-                passwordError = mismatchPasswordsError,
                 confirmPasswordError = mismatchPasswordsError,
             )
 

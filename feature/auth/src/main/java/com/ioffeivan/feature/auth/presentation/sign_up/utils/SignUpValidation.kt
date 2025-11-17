@@ -21,23 +21,19 @@ internal object SignUpValidation {
     fun validate(state: SignUpState): Result {
         val emailError = EmailValidator.validate(state.email.value)
         val usernameError = UsernameValidator.validate(state.username.value)
-        var passwordError = PasswordValidator.validate(state.password.value)
-        var confirmPasswordError: UiText? = null
-
-        if (passwordError == null) {
-            val mismatchError =
+        val passwordError = PasswordValidator.validate(state.password.value)
+        val confirmPasswordError: UiText? =
+            if (passwordError == null) {
                 PasswordValidator.validateMismatch(
                     password = state.password.value,
                     confirmPassword = state.confirmPassword.value,
                 )
-
-            if (mismatchError != null) {
-                passwordError = mismatchError
-                confirmPasswordError = mismatchError
+            } else {
+                null
             }
-        }
 
-        val hasError = emailError != null || usernameError != null || passwordError != null
+        val hasError =
+            emailError != null || usernameError != null || passwordError != null || confirmPasswordError != null
 
         return if (hasError) {
             Result.Error(

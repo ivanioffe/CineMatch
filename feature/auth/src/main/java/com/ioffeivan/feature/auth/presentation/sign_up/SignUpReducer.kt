@@ -104,18 +104,22 @@ internal class SignUpReducer : Reducer<SignUpState, SignUpEvent, SignUpEffect> {
                             previousState.copy(
                                 email =
                                     previousState.email.copy(
+                                        isError = validationResult.emailError != null,
                                         errorMessage = validationResult.emailError,
                                     ),
                                 username =
                                     previousState.username.copy(
+                                        isError = validationResult.usernameError != null,
                                         errorMessage = validationResult.usernameError,
                                     ),
                                 password =
                                     previousState.password.copy(
+                                        isError = validationResult.passwordError != null,
                                         errorMessage = validationResult.passwordError,
                                     ),
                                 confirmPassword =
                                     previousState.confirmPassword.copy(
+                                        isError = validationResult.confirmPasswordError != null,
                                         errorMessage = validationResult.confirmPasswordError,
                                     ),
                             )
@@ -155,17 +159,20 @@ data class SignUpState(
 ) : Reducer.UiState {
     data class EmailState(
         val value: String = "",
+        val isError: Boolean = false,
         val errorMessage: UiText? = null,
     )
 
     data class UsernameState(
         val value: String = "",
+        val isError: Boolean = false,
         val errorMessage: UiText? = null,
     )
 
     data class PasswordState(
         val value: String = "",
         val visibility: Boolean = false,
+        val isError: Boolean = false,
         val errorMessage: UiText? = null,
     )
 
