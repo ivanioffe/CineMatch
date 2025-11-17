@@ -15,6 +15,7 @@ import com.ioffeivan.core.designsystem.component.icon.PrimaryIcons
 import com.ioffeivan.core.designsystem.preview.PreviewContainer
 import com.ioffeivan.core.ui.UiText
 import com.ioffeivan.feature.auth.R
+import com.ioffeivan.feature.auth.presentation.utils.PasswordValidator
 
 @Composable
 internal fun PasswordTextField(
@@ -155,7 +156,11 @@ private fun PasswordTextFieldRevealedErrorPreview() {
             errorMessage =
                 UiText.StringResource(
                     R.string.error_password_invalid_length,
-                    args = arrayOf(8, 72),
+                    args =
+                        arrayOf(
+                            PasswordValidator.MIN_LENGTH,
+                            PasswordValidator.MAX_LENGTH,
+                        ),
                 ),
         )
     }
@@ -180,7 +185,11 @@ private fun PasswordTextFieldMaskedErrorPreview() {
             errorMessage =
                 UiText.StringResource(
                     R.string.error_password_invalid_length,
-                    args = arrayOf(8, 72),
+                    args =
+                        arrayOf(
+                            PasswordValidator.MIN_LENGTH,
+                            PasswordValidator.MAX_LENGTH,
+                        ),
                 ),
         )
     }
