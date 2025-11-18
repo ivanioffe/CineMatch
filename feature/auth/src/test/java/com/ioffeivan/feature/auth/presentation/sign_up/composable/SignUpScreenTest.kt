@@ -1,9 +1,11 @@
 package com.ioffeivan.feature.auth.presentation.sign_up.composable
 
 import androidx.compose.ui.test.assertHasClickAction
+import androidx.compose.ui.test.assertIsNotFocused
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performImeAction
 import androidx.compose.ui.test.performTextInput
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.google.common.truth.Truth.assertThat
@@ -90,6 +92,20 @@ class SignUpScreenTest {
             onNodeWithTag("confirmPasswordTextField")
                 .performTextInput(confirmPassword)
 
+            assertThat(recordEvent).isEqualTo(event)
+        }
+
+    @Test
+    fun confirmPasswordTextField_whenOnDoneIsClicked_shouldCallConfirmPasswordChangeEventAndClearFocus(): Unit =
+        with(composeTestRule) {
+            val event = SignUpEvent.SignUpClick
+
+            signUpScreen()
+
+            val confirmPasswordTextField = onNodeWithTag("confirmPasswordTextField")
+
+            confirmPasswordTextField.performImeAction()
+            confirmPasswordTextField.assertIsNotFocused()
             assertThat(recordEvent).isEqualTo(event)
         }
 

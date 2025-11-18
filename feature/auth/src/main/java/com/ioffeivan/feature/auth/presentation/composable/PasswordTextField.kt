@@ -1,5 +1,6 @@
 package com.ioffeivan.feature.auth.presentation.composable
 
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -29,6 +30,7 @@ internal fun PasswordTextField(
     isError: Boolean = false,
     errorMessage: UiText? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
 ) {
     PrimaryTextField(
         value = password,
@@ -54,6 +56,7 @@ internal fun PasswordTextField(
         isError = isError,
         visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
         keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
         singleLine = true,
         modifier = modifier,
     )

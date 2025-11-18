@@ -1,5 +1,6 @@
 package com.ioffeivan.feature.auth.presentation.composable
 
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +24,7 @@ internal fun EmailTextField(
     isError: Boolean = false,
     errorMessage: UiText? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
 ) {
     PrimaryTextField(
         value = email,
@@ -41,6 +43,7 @@ internal fun EmailTextField(
         },
         isError = isError,
         keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
         singleLine = true,
         modifier = modifier,
     )
