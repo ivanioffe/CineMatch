@@ -15,8 +15,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -25,21 +27,57 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ioffeivan.core.designsystem.component.PrimaryButton
 import com.ioffeivan.core.designsystem.preview.PreviewContainer
 import com.ioffeivan.core.ui.LoadingScreen
+import com.ioffeivan.core.ui.ObserveEffectsWithLifecycle
+import com.ioffeivan.core.ui.ShowSnackbar
 import com.ioffeivan.core.ui.onDebounceClick
 import com.ioffeivan.feature.auth.presentation.composable.EmailTextField
 import com.ioffeivan.feature.auth.presentation.composable.PasswordTextField
 import com.ioffeivan.feature.auth.presentation.composable.UsernameTextField
+import com.ioffeivan.feature.auth.presentation.sign_up.SignUpEffect
 import com.ioffeivan.feature.auth.presentation.sign_up.SignUpEvent
 import com.ioffeivan.feature.auth.presentation.sign_up.SignUpState
+import com.ioffeivan.feature.auth.presentation.sign_up.SignUpViewModel
 import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpStateFilled
 import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpStateLoading
 import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpStateValidationError
 import com.ioffeivan.feature.auth.presentation.utils.Colors
+import kotlinx.coroutines.flow.filterIsInstance
 import com.ioffeivan.core.ui.R as coreR
 import com.ioffeivan.feature.auth.R as authR
+
+@Composable
+internal fun SignUpRoute(
+    onNavigateToLogin: () -> Unit,
+    onNavigateToVerifyEmail: () -> Unit,
+    onShowSnackbar: ShowSnackbar,
+    modifier: Modifier = Modifier,
+    viewModel: SignUpViewModel = hiltViewModel(),
+) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+
+    ObserveEffectsWithLifecycle(
+        effects = viewModel.effect.filterIsInstance<SignUpEffect.Ui>(),
+        onEffect = {
+            when (it) {
+                SignUpEffect.Ui.NavigateToLogin -> onNavigateToLogin()
+                SignUpEffect.Ui.NavigateToVerifyEmail -> onNavigateToVerifyEmail()
+                is SignUpEffect.Ui.ShowError -> onShowSnackbar(it.message.asString(context), null)
+            }
+        },
+    )
+
+    SignUpScreen(
+        state = state,
+        onEvent = viewModel::onEvent,
+        modifier = modifier,
+    )
+}
 
 @Composable
 internal fun SignUpScreen(
