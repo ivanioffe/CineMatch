@@ -60,7 +60,7 @@ internal fun PasswordTextField(
 }
 
 @Composable
-fun PasswordVisibilityToggleIcon(
+private fun PasswordVisibilityToggleIcon(
     showPassword: Boolean,
     onTogglePasswordVisibility: () -> Unit,
     modifier: Modifier = Modifier,
