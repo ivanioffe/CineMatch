@@ -176,6 +176,12 @@ data class SignUpState(
         val errorMessage: UiText? = null,
     )
 
+    fun isFilledState() =
+        email.value.isNotBlank() &&
+            username.value.isNotBlank() &&
+            password.value.isNotBlank() &&
+            confirmPassword.value.isNotBlank()
+
     companion object {
         fun initial(): SignUpState {
             return SignUpState(

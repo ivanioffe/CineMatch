@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActionScope
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -89,6 +90,12 @@ internal fun SignUpScreen(
 ) {
     val focusManager = LocalFocusManager.current
 
+    val imeAction = if (state.isFilledState()) ImeAction.Done else ImeAction.Next
+    val onDone: KeyboardActionScope.() -> Unit = {
+        onEvent(SignUpEvent.SignUpClick)
+        focusManager.clearFocus()
+    }
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -132,7 +139,11 @@ internal fun SignUpScreen(
                 keyboardOptions =
                     KeyboardOptions(
                         keyboardType = KeyboardType.Email,
-                        imeAction = ImeAction.Next,
+                        imeAction = imeAction,
+                    ),
+                keyboardActions =
+                    KeyboardActions(
+                        onDone = onDone,
                     ),
                 modifier =
                     Modifier
@@ -160,7 +171,11 @@ internal fun SignUpScreen(
                 keyboardOptions =
                     KeyboardOptions(
                         keyboardType = KeyboardType.Text,
-                        imeAction = ImeAction.Next,
+                        imeAction = imeAction,
+                    ),
+                keyboardActions =
+                    KeyboardActions(
+                        onDone = onDone,
                     ),
                 modifier =
                     Modifier
@@ -192,7 +207,11 @@ internal fun SignUpScreen(
                 keyboardOptions =
                     KeyboardOptions(
                         keyboardType = KeyboardType.Password,
-                        imeAction = ImeAction.Next,
+                        imeAction = imeAction,
+                    ),
+                keyboardActions =
+                    KeyboardActions(
+                        onDone = onDone,
                     ),
                 modifier =
                     Modifier
@@ -226,12 +245,10 @@ internal fun SignUpScreen(
                         keyboardType = KeyboardType.Password,
                         imeAction = ImeAction.Done,
                     ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.clearFocus()
-                        onEvent(SignUpEvent.SignUpClick)
-                    },
-                ),
+                keyboardActions =
+                    KeyboardActions(
+                        onDone = onDone,
+                    ),
                 modifier =
                     Modifier
                         .fillMaxWidth()

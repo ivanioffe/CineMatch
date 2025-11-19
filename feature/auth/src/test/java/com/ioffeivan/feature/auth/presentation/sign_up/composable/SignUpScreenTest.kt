@@ -1,7 +1,6 @@
 package com.ioffeivan.feature.auth.presentation.sign_up.composable
 
 import androidx.compose.ui.test.assertHasClickAction
-import androidx.compose.ui.test.assertIsNotFocused
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
@@ -12,6 +11,7 @@ import com.google.common.truth.Truth.assertThat
 import com.ioffeivan.core.designsystem.preview.PreviewContainer
 import com.ioffeivan.feature.auth.presentation.sign_up.SignUpEvent
 import com.ioffeivan.feature.auth.presentation.sign_up.SignUpState
+import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpStateFilled
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -96,16 +96,54 @@ class SignUpScreenTest {
         }
 
     @Test
-    fun confirmPasswordTextField_whenOnDoneIsClicked_shouldCallConfirmPasswordChangeEventAndClearFocus(): Unit =
+    fun emailTextField_whenStateIsFilledAndImeActionIsClicked_shouldCallSignUpClickEvent(): Unit =
         with(composeTestRule) {
             val event = SignUpEvent.SignUpClick
 
-            signUpScreen()
+            signUpScreen(state = signUpStateFilled)
 
-            val confirmPasswordTextField = onNodeWithTag("confirmPasswordTextField")
+            val textField = onNodeWithTag("emailTextField")
 
-            confirmPasswordTextField.performImeAction()
-            confirmPasswordTextField.assertIsNotFocused()
+            textField.performImeAction()
+            assertThat(recordEvent).isEqualTo(event)
+        }
+
+    @Test
+    fun usernameTextField_whenStateIsFilledAndImeActionIsClicked_shouldCallSignUpClickEvent(): Unit =
+        with(composeTestRule) {
+            val event = SignUpEvent.SignUpClick
+
+            signUpScreen(state = signUpStateFilled)
+
+            val textField = onNodeWithTag("usernameTextField")
+
+            textField.performImeAction()
+            assertThat(recordEvent).isEqualTo(event)
+        }
+
+    @Test
+    fun passwordTextField_whenStateIsFilledAndImeActionIsClicked_shouldCallSignUpClickEvent(): Unit =
+        with(composeTestRule) {
+            val event = SignUpEvent.SignUpClick
+
+            signUpScreen(state = signUpStateFilled)
+
+            val textField = onNodeWithTag("passwordTextField")
+
+            textField.performImeAction()
+            assertThat(recordEvent).isEqualTo(event)
+        }
+
+    @Test
+    fun confirmPasswordTextField_whenStateIsFilledAndImeActionIsClicked_shouldCallSignUpClickEvent(): Unit =
+        with(composeTestRule) {
+            val event = SignUpEvent.SignUpClick
+
+            signUpScreen(state = signUpStateFilled)
+
+            val textField = onNodeWithTag("confirmPasswordTextField")
+
+            textField.performImeAction()
             assertThat(recordEvent).isEqualTo(event)
         }
 
