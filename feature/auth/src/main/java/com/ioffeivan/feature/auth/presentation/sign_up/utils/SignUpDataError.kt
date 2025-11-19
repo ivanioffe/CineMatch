@@ -10,6 +10,7 @@ internal object SignUpDataError {
     private val errors: Map<String, UiText> =
         mapOf(
             "duplicate email" to UiText.StringResource(R.string.error_email_duplicate),
+            "email: must be a valid email address." to UiText.StringResource(R.string.error_email_invalid),
         )
 
     fun getError(message: String?): UiText {
