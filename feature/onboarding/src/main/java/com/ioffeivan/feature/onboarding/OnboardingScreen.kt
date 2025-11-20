@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -62,7 +63,8 @@ internal fun OnboardingScreen(
             contentScale = ContentScale.Crop,
             modifier =
                 Modifier
-                    .fillMaxSize(),
+                    .fillMaxSize()
+                    .testTag("background"),
         )
 
         Column(
@@ -70,6 +72,14 @@ internal fun OnboardingScreen(
             modifier =
                 Modifier
                     .align(Alignment.BottomCenter)
+                    .background(
+                        color = Color.Black.copy(alpha = 0.5f),
+                        shape =
+                            RoundedCornerShape(
+                                topStart = 16.dp,
+                                topEnd = 16.dp,
+                            ),
+                    )
                     .padding(
                         horizontal = 16.dp,
                         vertical = 24.dp,
