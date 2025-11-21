@@ -25,6 +25,8 @@
     <string name="error_password_invalid_length">Пароль должен содержать от %1$d до %2$d символов</string>
     <string name="error_password_mismatch">Пароли не совпадают</string>
 
+    <string name="error_invalid_authentication_credentials">Неверная электронная почта или пароль</string>
+
     <string name="error_invalid_characters">Недопустимые символы</string>
     <string name="error_something_went_wrong">Что-то пошло не так. Повторите попытку позже.</string>
 </resources>

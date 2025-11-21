@@ -13,6 +13,7 @@ import com.ioffeivan.core.designsystem.component.icon.PrimaryIcons
 import com.ioffeivan.core.designsystem.preview.PreviewContainer
 import com.ioffeivan.core.ui.UiText
 import com.ioffeivan.feature.auth.R
+import com.ioffeivan.feature.auth.presentation.utils.ValidationErrors
 
 @Composable
 internal fun UsernameTextField(
@@ -88,7 +89,7 @@ private fun UsernameTextFieldFilledPreview() {
 private fun UsernameTextFieldErrorPreview() {
     PreviewContainer {
         UsernameTextField(
-            username = "short",
+            username = "user name",
             onUsernameChange = {},
             label = {
                 Text(stringResource(R.string.username_label))
@@ -97,7 +98,7 @@ private fun UsernameTextFieldErrorPreview() {
                 Text(stringResource(R.string.username_placeholder))
             },
             isError = true,
-            errorMessage = UiText.StringResource(R.string.error_username_invalid_chars),
+            errorMessage = ValidationErrors.usernameInvalidChars,
         )
     }
 }

@@ -1,7 +1,6 @@
 package com.ioffeivan.feature.auth.presentation.utils
 
 import com.ioffeivan.core.ui.UiText
-import com.ioffeivan.feature.auth.R
 import java.util.regex.Pattern
 
 internal interface Validator {
@@ -22,12 +21,8 @@ internal object EmailValidator : Validator {
 
     override fun validate(value: String): UiText? {
         return when {
-            value.isBlank() ->
-                UiText.StringResource(id = R.string.error_email_blank)
-
-            !regex.matcher(value).matches() ->
-                UiText.StringResource(id = R.string.error_email_invalid)
-
+            value.isBlank() -> ValidationErrors.emailBlank
+            !regex.matcher(value).matches() -> ValidationErrors.emailInvalid
             else -> null
         }
     }
@@ -39,17 +34,13 @@ internal object UsernameValidator : Validator {
 
     override fun validate(value: String): UiText? {
         return when {
-            value.isBlank() ->
-                UiText.StringResource(id = R.string.error_username_blank)
+            value.isBlank() -> ValidationErrors.usernameBlank
 
             value.any { it !in 'a'..'z' && it !in 'A'..'Z' && it !in '0'..'9' } ->
-                UiText.StringResource(id = R.string.error_username_invalid_chars)
+                ValidationErrors.usernameInvalidChars
 
             value.length !in MIN_LENGTH..MAX_LENGTH ->
-                UiText.StringResource(
-                    id = R.string.error_username_invalid_length,
-                    args = arrayOf(MIN_LENGTH, MAX_LENGTH),
-                )
+                ValidationErrors.usernameInvalidLength(min = MIN_LENGTH, max = MAX_LENGTH)
 
             else -> null
         }
@@ -62,17 +53,12 @@ internal object PasswordValidator : Validator {
 
     override fun validate(value: String): UiText? {
         return when {
-            value.isBlank() ->
-                UiText.StringResource(id = R.string.error_password_blank)
+            value.isBlank() -> ValidationErrors.passwordBlank
 
-            value.any { it == ' ' } ->
-                UiText.StringResource(id = R.string.error_invalid_characters)
+            value.any { it == ' ' } -> ValidationErrors.passwordInvalidChars
 
             value.length !in MIN_LENGTH..MAX_LENGTH ->
-                UiText.StringResource(
-                    id = R.string.error_password_invalid_length,
-                    args = arrayOf(MIN_LENGTH, MAX_LENGTH),
-                )
+                ValidationErrors.passwordInvalidLength(min = MIN_LENGTH, max = MAX_LENGTH)
 
             else -> null
         }
@@ -80,7 +66,7 @@ internal object PasswordValidator : Validator {
 
     fun validateMismatch(password: String, confirmPassword: String): UiText? {
         return if (password != confirmPassword) {
-            UiText.StringResource(R.string.error_password_mismatch)
+            ValidationErrors.passwordMismatch
         } else {
             null
         }

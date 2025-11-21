@@ -13,6 +13,7 @@ import com.ioffeivan.core.designsystem.component.icon.PrimaryIcons
 import com.ioffeivan.core.designsystem.preview.PreviewContainer
 import com.ioffeivan.core.ui.UiText
 import com.ioffeivan.feature.auth.R
+import com.ioffeivan.feature.auth.presentation.utils.ValidationErrors
 
 @Composable
 internal fun EmailTextField(
@@ -97,7 +98,7 @@ private fun EmailTextFieldErrorPreview() {
                 Text(stringResource(R.string.email_placeholder))
             },
             isError = true,
-            errorMessage = UiText.StringResource(R.string.error_email_invalid),
+            errorMessage = ValidationErrors.emailInvalid,
         )
     }
 }
