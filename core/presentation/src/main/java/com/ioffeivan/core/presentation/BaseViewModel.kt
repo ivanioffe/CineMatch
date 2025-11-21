@@ -62,7 +62,9 @@ abstract class BaseViewModel<State : Reducer.UiState, Event : Reducer.UiEvent, E
      *
      * @param event The [Reducer.UiEvent] triggered by the UI.
      */
-    abstract fun onEvent(event: Event)
+    open fun onEvent(event: Event) {
+        sendEvent(event)
+    }
 
     /**
      * Processes an [Event] through the [reducer], updates the [state],
@@ -70,7 +72,7 @@ abstract class BaseViewModel<State : Reducer.UiState, Event : Reducer.UiEvent, E
      *
      * @param event The [Reducer.UiEvent] to process.
      */
-    fun sendEvent(event: Event) {
+    private fun sendEvent(event: Event) {
         val (newState, effect) = reducer.reduce(_state.value, event)
 
         _state.tryEmit(newState)
@@ -90,7 +92,7 @@ abstract class BaseViewModel<State : Reducer.UiState, Event : Reducer.UiEvent, E
      *
      * @param effect The [Reducer.UiEffect] to process.
      */
-    open fun handleEffect(effect: Effect) {
+    protected open fun handleEffect(effect: Effect) {
         _effect.trySend(effect)
     }
 
@@ -99,5 +101,5 @@ abstract class BaseViewModel<State : Reducer.UiState, Event : Reducer.UiEvent, E
      *
      * Override this to perform initial data loading (e.g., fetching data from a repository).
      */
-    open suspend fun initialDataLoad() {}
+    protected open suspend fun initialDataLoad() {}
 }

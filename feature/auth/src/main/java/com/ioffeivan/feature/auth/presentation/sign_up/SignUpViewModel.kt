@@ -8,7 +8,8 @@ import com.ioffeivan.core.presentation.BaseViewModel
 import com.ioffeivan.feature.auth.domain.model.SignUpCredentials
 import com.ioffeivan.feature.auth.domain.usecase.SignUpUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,10 +19,6 @@ class SignUpViewModel @Inject constructor(
         initialState = SignUpState.initial(),
         reducer = SignUpReducer(),
     ) {
-    override fun onEvent(event: SignUpEvent) {
-        sendEvent(event)
-    }
-
     override fun handleEffect(effect: SignUpEffect) {
         when (effect) {
             is SignUpEffect.Internal.PerformSignUp ->
@@ -32,17 +29,16 @@ class SignUpViewModel @Inject constructor(
     }
 
     private fun performSignUp(signUpCredentials: SignUpCredentials) {
-        viewModelScope.launch {
-            signUpUseCase(signUpCredentials)
-                .collect { result ->
-                    result.onSuccess {
-                        sendEvent(SignUpEvent.SignUpSuccess)
-                    }.onError {
-                        sendEvent(SignUpEvent.SignUpError(it))
-                    }.onException {
-                        sendEvent(SignUpEvent.SignUpError(it.message))
-                    }
+        signUpUseCase(signUpCredentials)
+            .onEach { result ->
+                result.onSuccess {
+                    onEvent(SignUpEvent.SignUpSuccess)
+                }.onError {
+                    onEvent(SignUpEvent.SignUpError(it))
+                }.onException {
+                    onEvent(SignUpEvent.SignUpError(it.message))
                 }
-        }
+            }
+            .launchIn(viewModelScope)
     }
 }

@@ -14,11 +14,11 @@ class SignUpReducerTest {
     private lateinit var state: SignUpState
 
     companion object {
-        private const val VALID_EMAIL = "test@example.com"
+        private const val VALID_EMAIL = "example@example.com"
         private const val VALID_USERNAME = "testuser"
         private const val VALID_PASSWORD = "testpassword"
         private const val CONFIRM_PASSWORD = "p@ssw"
-        private const val INVALID_EMAIL = "usernamegmail.com"
+        private const val INVALID_EMAIL = "example@"
         private const val INVALID_USERNAME = "user 1234"
         private const val INVALID_PASSWORD = "p@ss"
         private const val DUPLICATE_EMAIL_MESSAGE = "duplicate email"
