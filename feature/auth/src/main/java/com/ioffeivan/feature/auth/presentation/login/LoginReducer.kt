@@ -6,6 +6,8 @@ import com.ioffeivan.core.ui.UiText
 import com.ioffeivan.feature.auth.domain.model.LoginCredentials
 import com.ioffeivan.feature.auth.presentation.login.utils.LoginDataError
 import com.ioffeivan.feature.auth.presentation.login.utils.LoginValidation
+import com.ioffeivan.feature.auth.presentation.utils.EmailState
+import com.ioffeivan.feature.auth.presentation.utils.PasswordState
 
 class LoginReducer : Reducer<LoginState, LoginEvent, LoginEffect> {
     override fun reduce(
@@ -18,7 +20,7 @@ class LoginReducer : Reducer<LoginState, LoginEvent, LoginEffect> {
                     state =
                         previousState.copy(
                             email =
-                                LoginState.EmailState(
+                                EmailState(
                                     event.email,
                                 ),
                         ),
@@ -82,7 +84,7 @@ class LoginReducer : Reducer<LoginState, LoginEvent, LoginEffect> {
                     state =
                         previousState.copy(
                             password =
-                                LoginState.PasswordState(
+                                PasswordState(
                                     event.password,
                                 ),
                         ),
@@ -114,20 +116,7 @@ data class LoginState(
     val password: PasswordState,
     val isLoading: Boolean,
 ) : Reducer.UiState {
-    data class EmailState(
-        val value: String = "",
-        val isError: Boolean = false,
-        val errorMessage: UiText? = null,
-    )
-
-    data class PasswordState(
-        val value: String = "",
-        val visibility: Boolean = false,
-        val isError: Boolean = false,
-        val errorMessage: UiText? = null,
-    )
-
-    fun isFilledState() = email.value.isNotBlank() && password.value.isNotBlank()
+    fun isFilled() = email.value.isNotBlank() && password.value.isNotBlank()
 
     companion object {
         fun initial(): LoginState {

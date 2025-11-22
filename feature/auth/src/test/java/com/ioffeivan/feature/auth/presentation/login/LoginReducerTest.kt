@@ -5,11 +5,13 @@ import com.ioffeivan.core.presentation.ReducerResult
 import com.ioffeivan.feature.auth.domain.model.LoginCredentials
 import com.ioffeivan.feature.auth.presentation.login.utils.ERROR_INVALID_AUTHENTICATION_CREDENTIALS
 import com.ioffeivan.feature.auth.presentation.login.utils.INVALID_AUTHENTICATION_CREDENTIALS_MESSAGE
-import com.ioffeivan.feature.auth.presentation.login.utils.INVALID_EMAIL
-import com.ioffeivan.feature.auth.presentation.login.utils.INVALID_PASSWORD_LENGTH
-import com.ioffeivan.feature.auth.presentation.login.utils.VALID_EMAIL
-import com.ioffeivan.feature.auth.presentation.login.utils.VALID_PASSWORD
+import com.ioffeivan.feature.auth.presentation.login.utils.loginInvalidState
+import com.ioffeivan.feature.auth.presentation.login.utils.loginValidState
+import com.ioffeivan.feature.auth.presentation.utils.EmailState
+import com.ioffeivan.feature.auth.presentation.utils.PasswordState
 import com.ioffeivan.feature.auth.presentation.utils.PasswordValidator
+import com.ioffeivan.feature.auth.presentation.utils.VALID_EMAIL
+import com.ioffeivan.feature.auth.presentation.utils.VALID_PASSWORD
 import com.ioffeivan.feature.auth.presentation.utils.ValidationErrors
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -31,7 +33,7 @@ class LoginReducerTest {
             createReducerResult(
                 state =
                     state.copy(
-                        email = LoginState.EmailState(value = VALID_EMAIL),
+                        email = EmailState(value = VALID_EMAIL),
                     ),
             )
 
@@ -42,35 +44,27 @@ class LoginReducerTest {
 
     @Test
     fun loginClick_whenStateIsValid_shouldSetIsLoadingTrueInStateAndEmitPerformLoginEffect() {
-        val state =
-            state.copy(
-                email = LoginState.EmailState(VALID_EMAIL),
-                password = LoginState.PasswordState(VALID_PASSWORD),
-            )
+        val validState = loginValidState
         val loginCredentials =
             LoginCredentials(
-                email = VALID_EMAIL,
-                password = VALID_PASSWORD,
+                email = validState.email.value,
+                password = validState.password.value,
             )
         val event = LoginEvent.LoginClick
         val expected =
             createReducerResult(
-                state = state.copy(isLoading = true),
+                state = validState.copy(isLoading = true),
                 effect = LoginEffect.Internal.PerformLogin(loginCredentials),
             )
 
-        val actual = reducer.reduce(state, event)
+        val actual = reducer.reduce(validState, event)
 
         assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun loginClick_whenStateIsInvalid_shouldSetErrorsInState() {
-        val invalidState =
-            state.copy(
-                email = LoginState.EmailState(INVALID_EMAIL),
-                password = LoginState.PasswordState(INVALID_PASSWORD_LENGTH),
-            )
+        val invalidState = loginInvalidState
         val event = LoginEvent.LoginClick
         val expected =
             createReducerResult(
@@ -135,7 +129,7 @@ class LoginReducerTest {
             createReducerResult(
                 state =
                     state.copy(
-                        password = LoginState.PasswordState(VALID_PASSWORD),
+                        password = PasswordState(VALID_PASSWORD),
                     ),
             )
 

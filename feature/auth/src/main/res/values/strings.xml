@@ -7,6 +7,8 @@
     <string name="confirm_password_label">Подтвердите пароль</string>
     <string name="create_account">Создать аккаунт</string>
     <string name="already_have_account">Уже есть аккаунт?</string>
+    <string name="log_in">Войти</string>
+    <string name="not_have_account">Нет аккаунта?</string>
 
     <string name="email_placeholder">example@example.com</string>
     <string name="username_placeholder">username1234</string>

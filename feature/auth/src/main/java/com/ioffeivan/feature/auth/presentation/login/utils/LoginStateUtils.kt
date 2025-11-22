@@ -1,20 +1,19 @@
 package com.ioffeivan.feature.auth.presentation.login.utils
 
 import com.ioffeivan.feature.auth.presentation.login.LoginState
+import com.ioffeivan.feature.auth.presentation.utils.EmailState
+import com.ioffeivan.feature.auth.presentation.utils.INVALID_EMAIL
+import com.ioffeivan.feature.auth.presentation.utils.INVALID_PASSWORD_LENGTH
+import com.ioffeivan.feature.auth.presentation.utils.PasswordState
 import com.ioffeivan.feature.auth.presentation.utils.PasswordValidator
+import com.ioffeivan.feature.auth.presentation.utils.VALID_EMAIL
+import com.ioffeivan.feature.auth.presentation.utils.VALID_PASSWORD
 import com.ioffeivan.feature.auth.presentation.utils.ValidationErrors
-
-internal const val VALID_EMAIL = "example@example.com"
-internal const val VALID_PASSWORD = "testpassword"
-internal const val INVALID_EMAIL = "example@"
-internal const val INVALID_PASSWORD_CHARS = "p@ss word"
-
-internal const val INVALID_PASSWORD_LENGTH = "p@ss"
 
 internal val loginValidState =
     LoginState.initial().copy(
-        email = LoginState.EmailState(VALID_EMAIL),
-        password = LoginState.PasswordState(VALID_PASSWORD),
+        email = EmailState(VALID_EMAIL),
+        password = PasswordState(VALID_PASSWORD),
     )
 
 internal val loginLoadingState =
@@ -25,13 +24,13 @@ internal val loginLoadingState =
 internal val loginInvalidState =
     LoginState.initial().copy(
         email =
-            LoginState.EmailState(
+            EmailState(
                 value = INVALID_EMAIL,
                 isError = true,
                 errorMessage = ValidationErrors.emailInvalid,
             ),
         password =
-            LoginState.PasswordState(
+            PasswordState(
                 value = INVALID_PASSWORD_LENGTH,
                 visibility = true,
                 isError = true,
