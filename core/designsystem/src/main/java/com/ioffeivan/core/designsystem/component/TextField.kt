@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.ioffeivan.core.designsystem.theme.CineMatchTheme
+import com.ioffeivan.core.designsystem.preview.PreviewContainer
 
 /**
  * Primary text field component for Design System.
@@ -85,7 +85,7 @@ fun PrimaryTextField(
 @Preview
 @Composable
 private fun PrimaryTextFieldPreview() {
-    CineMatchTheme {
+    PreviewContainer {
         PrimaryTextField(
             value = "",
             onValueChange = {

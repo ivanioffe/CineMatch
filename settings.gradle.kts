@@ -25,8 +25,11 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
 
 include(":core:common")
+include(":core:datastore-auth")
 include(":core:designsystem")
 include(":core:network")
+include(":core:presentation")
 include(":core:ui")
 
+include(":feature:auth")
 include(":feature:onboarding")

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,8 +27,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ioffeivan.core.designsystem.component.PrimaryButton
 import com.ioffeivan.core.designsystem.component.PrimaryOutlinedButton
-import com.ioffeivan.core.designsystem.theme.CineMatchTheme
+import com.ioffeivan.core.designsystem.preview.PreviewContainer
 import com.ioffeivan.core.ui.R
+import com.ioffeivan.core.ui.onDebounceClick
 import com.ioffeivan.feature.onboarding.R as onboardingR
 
 @Composable
@@ -61,7 +63,8 @@ internal fun OnboardingScreen(
             contentScale = ContentScale.Crop,
             modifier =
                 Modifier
-                    .fillMaxSize(),
+                    .fillMaxSize()
+                    .testTag("background"),
         )
 
         Column(
@@ -69,6 +72,14 @@ internal fun OnboardingScreen(
             modifier =
                 Modifier
                     .align(Alignment.BottomCenter)
+                    .background(
+                        color = Color.Black.copy(alpha = 0.5f),
+                        shape =
+                            RoundedCornerShape(
+                                topStart = 16.dp,
+                                topEnd = 16.dp,
+                            ),
+                    )
                     .padding(
                         horizontal = 16.dp,
                         vertical = 24.dp,
@@ -104,7 +115,7 @@ internal fun OnboardingScreen(
 
             PrimaryButton(
                 text = stringResource(R.string.login),
-                onClick = onLoginButtonClick,
+                onClick = onDebounceClick(onClick = onLoginButtonClick),
                 modifier =
                     Modifier
                         .fillMaxWidth()
@@ -115,7 +126,7 @@ internal fun OnboardingScreen(
 
             PrimaryOutlinedButton(
                 text = stringResource(R.string.signup),
-                onClick = onSignupButtonClick,
+                onClick = onDebounceClick(onClick = onSignupButtonClick),
                 modifier =
                     Modifier
                         .fillMaxWidth()
@@ -128,7 +139,7 @@ internal fun OnboardingScreen(
 @Preview
 @Composable
 private fun OnboardingScreenPreview() {
-    CineMatchTheme {
+    PreviewContainer {
         OnboardingScreen(
             onLoginButtonClick = {},
             onSignupButtonClick = {},

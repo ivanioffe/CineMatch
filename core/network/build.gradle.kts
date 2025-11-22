@@ -58,9 +58,9 @@ dependencies {
 
     implementation(libs.hilt.android)
     implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.serialization.json)
+    api(libs.kotlinx.serialization.json)
     implementation(libs.okhttp.logging)
-    implementation(libs.retrofit.core)
+    api(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
 
     ksp(libs.hilt.compiler)

@@ -1,29 +1,51 @@
 package com.ioffeivan.feature.onboarding
 
+import androidx.activity.ComponentActivity
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import com.github.takahirom.roborazzi.RoborazziActivity
+import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import java.util.concurrent.atomic.AtomicBoolean
+import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
+@Config(sdk = [33], qualifiers = RobolectricDeviceQualifiers.Pixel5)
 class OnboardingScreenTest {
     @get:Rule
-    val composeTestRule = createAndroidComposeRule<RoborazziActivity>()
+    val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun whenLoginButtonClick_callOnLoginButtonClick(): Unit =
+    fun rendersOnboardingScreenCorrectly(): Unit =
         with(composeTestRule) {
-            val onLoginButtonClicked = AtomicBoolean(false)
+            setContent {
+                OnboardingScreen(
+                    onLoginButtonClick = {},
+                    onSignupButtonClick = {},
+                )
+            }
+
+            onNodeWithText(activity.getString(R.string.onboarding_title))
+                .assertIsDisplayed()
+            onNodeWithText(activity.getString(R.string.onboarding_description))
+                .assertIsDisplayed()
+            onNodeWithTag("background")
+                .assertIsDisplayed()
+        }
+
+    @Test
+    fun whenLoginButtonClick_shouldCallOnLoginCallback(): Unit =
+        with(composeTestRule) {
+            var isClicked = false
 
             setContent {
                 OnboardingScreen(
-                    onLoginButtonClick = { onLoginButtonClicked.set(true) },
+                    onLoginButtonClick = { isClicked = true },
                     onSignupButtonClick = {},
                 )
             }
@@ -31,24 +53,24 @@ class OnboardingScreenTest {
             onNodeWithTag("loginButton")
                 .performClick()
 
-            assertThat(onLoginButtonClicked.get()).isTrue()
+            assertThat(isClicked).isTrue()
         }
 
     @Test
-    fun whenSignupButtonClick_callOnSignupButtonClick(): Unit =
+    fun whenSignUpButtonClick_shouldCallOnSignUpCallback(): Unit =
         with(composeTestRule) {
-            val onSignupButtonClicked = AtomicBoolean(false)
+            var isClicked = false
 
             setContent {
                 OnboardingScreen(
                     onLoginButtonClick = {},
-                    onSignupButtonClick = { onSignupButtonClicked.set(true) },
+                    onSignupButtonClick = { isClicked = true },
                 )
             }
 
             onNodeWithTag("signupButton")
                 .performClick()
 
-            assertThat(onSignupButtonClicked.get()).isTrue()
+            assertThat(isClicked).isTrue()
         }
 }

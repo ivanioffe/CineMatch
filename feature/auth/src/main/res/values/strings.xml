@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="email_label">Электронная почта</string>
+    <string name="username_label">Имя пользователя</string>
+    <string name="password_label">Пароль</string>
+    <string name="confirm_password_label">Подтвердите пароль</string>
+    <string name="create_account">Создать аккаунт</string>
+    <string name="already_have_account">Уже есть аккаунт?</string>
+    <string name="log_in">Войти</string>
+    <string name="not_have_account">Нет аккаунта?</string>
+
+    <string name="email_placeholder">example@example.com</string>
+    <string name="username_placeholder">username1234</string>
+    <string name="password_placeholder">Введите пароль</string>
+    <string name="confirm_password_placeholder">Повторите пароль</string>
+
+    <string name="error_email_blank">Электронная почта не может быть пустой</string>
+    <string name="error_email_invalid">Некорректный формат электронной почты</string>
+    <string name="error_email_duplicate">Аккаунт с такой электронной почтой уже существует</string>
+
+    <string name="error_username_blank">Имя пользователя не может быть пустым</string>
+    <string name="error_username_invalid_chars">Имя пользователя может содержать только латинские буквы и цифры</string>
+    <string name="error_username_invalid_length">Имя пользователя должно содержать от %1$d до %2$d символов</string>
+
+    <string name="error_password_blank">Пароль не может быть пустым</string>
+    <string name="error_password_invalid_length">Пароль должен содержать от %1$d до %2$d символов</string>
+    <string name="error_password_mismatch">Пароли не совпадают</string>
+
+    <string name="error_invalid_authentication_credentials">Неверная электронная почта или пароль</string>
+
+    <string name="error_invalid_characters">Недопустимые символы</string>
+    <string name="error_something_went_wrong">Что-то пошло не так. Повторите попытку позже.</string>
+</resources>

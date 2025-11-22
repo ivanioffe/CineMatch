@@ -2,20 +2,19 @@ package com.ioffeivan.core.network.di
 
 import com.ioffeivan.core.network.BuildConfig
 import com.ioffeivan.core.network.call.adapter.factory.FlowCallAdapterFactory
+import com.ioffeivan.core.network.utils.NetworkJson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.IntoSet
-import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.CallAdapter
 import retrofit2.Converter
 import retrofit2.Retrofit
-import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -25,7 +24,11 @@ internal object BaseNetworkModule {
     fun provideBaseOkHttpClientBuilder(
         interceptors: Set<@JvmSuppressWildcards Interceptor>,
     ): OkHttpClient.Builder {
-        val builder = OkHttpClient.Builder()
+        val builder =
+            OkHttpClient.Builder()
+                .connectTimeout(1, TimeUnit.MINUTES)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
 
         interceptors.forEach { interceptor ->
             builder.addInterceptor(interceptor)
@@ -70,14 +73,7 @@ internal object BaseNetworkModule {
     @Singleton
     @IntoSet
     fun provideJsonConverterFactory(): Converter.Factory {
-        val json =
-            Json {
-                ignoreUnknownKeys = true
-                isLenient = true
-            }
-        val contentType = "application/json".toMediaType()
-
-        return json.asConverterFactory(contentType)
+        return NetworkJson.converterFactory
     }
 
     @Provides

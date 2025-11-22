@@ -12,6 +12,6 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class ErrorDto(
-    @SerialName("message")
+    @SerialName("error")
     val message: String,
 )

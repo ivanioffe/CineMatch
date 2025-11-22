@@ -20,7 +20,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ioffeivan.core.designsystem.theme.CineMatchTheme
+import com.ioffeivan.core.designsystem.preview.PreviewContainer
 
 /**
  * Primary button component for Design System.
@@ -184,7 +184,7 @@ fun PrimaryOutlinedButton(
 @Preview
 @Composable
 private fun PrimaryButtonPreview() {
-    CineMatchTheme {
+    PreviewContainer {
         PrimaryButton(
             text = "Button",
             onClick = {},
@@ -198,7 +198,7 @@ private fun PrimaryButtonPreview() {
 @Preview
 @Composable
 private fun PrimaryOutlinedButtonPreview() {
-    CineMatchTheme {
+    PreviewContainer {
         PrimaryOutlinedButton(
             text = "Button",
             onClick = {},
