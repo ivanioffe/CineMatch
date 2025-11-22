@@ -7,9 +7,11 @@ import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.RoborazziRule
 import com.ioffeivan.core.designsystem.preview.PreviewContainer
 import com.ioffeivan.feature.auth.presentation.sign_up.SignUpState
-import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpStateFilled
-import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpStateLoading
-import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpStateValidationError
+import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpInvalidState
+import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpLoadingState
+import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpValidState
+import com.ioffeivan.feature.auth.presentation.utils.PasswordState
+import com.ioffeivan.feature.auth.presentation.utils.VALID_PASSWORD
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -33,7 +35,7 @@ class SignUpScreenScreenshotTest {
             options =
                 RoborazziRule.Options(
                     captureType = RoborazziRule.CaptureType.LastImage(),
-                    outputDirectoryPath = "src/test/screenshots/",
+                    outputDirectoryPath = "src/test/screenshots/signUp/",
                     outputFileProvider = { description, outputDirectory, fileExtension ->
                         File(
                             outputDirectory,
@@ -43,12 +45,13 @@ class SignUpScreenScreenshotTest {
                 ),
         )
 
-    @Test
-    fun defaultState() {
+    private fun signUpScreen(
+        state: SignUpState = SignUpState.initial(),
+    ) {
         composeTestRule.setContent {
             PreviewContainer {
                 SignUpScreen(
-                    state = SignUpState.initial(),
+                    state = state,
                     onEvent = {},
                 )
             }
@@ -56,81 +59,42 @@ class SignUpScreenScreenshotTest {
     }
 
     @Test
-    fun filledState() {
-        composeTestRule.setContent {
-            PreviewContainer {
-                SignUpScreen(
-                    state = signUpStateFilled,
-                    onEvent = {},
-                )
-            }
-        }
+    fun signUpScreen_defaultState() {
+        signUpScreen()
     }
 
     @Test
-    fun passwordsVisible() {
-        val visiblePasswordsState = createPasswordsState(passwordVisibility = false)
+    fun signUpScreen_filledState() {
+        signUpScreen(state = signUpValidState)
+    }
 
-        composeTestRule.setContent {
-            PreviewContainer {
-                SignUpScreen(
-                    state = visiblePasswordsState,
-                    onEvent = {},
-                )
-            }
-        }
+    // password invisible by default
+    @Test
+    fun signUpScreen_passwordVisible() {
+        val visiblePasswordsState =
+            SignUpState.initial().copy(
+                password =
+                    PasswordState(
+                        value = VALID_PASSWORD,
+                        visibility = true,
+                    ),
+                confirmPassword =
+                    PasswordState(
+                        value = VALID_PASSWORD,
+                        visibility = true,
+                    ),
+            )
+
+        signUpScreen(state = visiblePasswordsState)
     }
 
     @Test
-    fun passwordsInvisible() {
-        val invisiblePasswordsState = createPasswordsState(passwordVisibility = true)
-
-        composeTestRule.setContent {
-            PreviewContainer {
-                SignUpScreen(
-                    state = invisiblePasswordsState,
-                    onEvent = {},
-                )
-            }
-        }
+    fun signUpScreen_loadingState() {
+        signUpScreen(state = signUpLoadingState)
     }
 
     @Test
-    fun validationErrorState() {
-        composeTestRule.setContent {
-            PreviewContainer {
-                SignUpScreen(
-                    state = signUpStateValidationError,
-                    onEvent = {},
-                )
-            }
-        }
-    }
-
-    @Test
-    fun loadingState() {
-        composeTestRule.setContent {
-            PreviewContainer {
-                SignUpScreen(
-                    state = signUpStateLoading,
-                    onEvent = {},
-                )
-            }
-        }
-    }
-
-    private fun createPasswordsState(passwordVisibility: Boolean): SignUpState {
-        return SignUpState.initial().copy(
-            password =
-                SignUpState.PasswordState(
-                    value = "password",
-                    visibility = passwordVisibility,
-                ),
-            confirmPassword =
-                SignUpState.PasswordState(
-                    value = "password",
-                    visibility = passwordVisibility,
-                ),
-        )
+    fun signUpScreen_invalidState() {
+        signUpScreen(state = signUpInvalidState)
     }
 }

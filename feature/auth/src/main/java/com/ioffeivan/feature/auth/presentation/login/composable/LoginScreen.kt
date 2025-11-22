@@ -112,7 +112,7 @@ internal fun LoginScreen(
                 ),
         )
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(48.dp))
 
         Column(
             verticalArrangement = Arrangement.spacedBy(10.dp),

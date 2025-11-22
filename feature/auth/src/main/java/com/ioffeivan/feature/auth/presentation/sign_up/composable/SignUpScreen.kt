@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardActionScope
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -45,9 +44,9 @@ import com.ioffeivan.feature.auth.presentation.sign_up.SignUpEffect
 import com.ioffeivan.feature.auth.presentation.sign_up.SignUpEvent
 import com.ioffeivan.feature.auth.presentation.sign_up.SignUpState
 import com.ioffeivan.feature.auth.presentation.sign_up.SignUpViewModel
-import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpStateFilled
-import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpStateLoading
-import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpStateValidationError
+import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpInvalidState
+import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpLoadingState
+import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpValidState
 import com.ioffeivan.feature.auth.presentation.utils.Colors
 import kotlinx.coroutines.flow.filterIsInstance
 import com.ioffeivan.core.ui.R as coreR
@@ -90,8 +89,8 @@ internal fun SignUpScreen(
 ) {
     val focusManager = LocalFocusManager.current
 
-    val imeAction = if (state.isFilledState()) ImeAction.Done else ImeAction.Next
-    val onDone: KeyboardActionScope.() -> Unit = {
+    val imeAction = if (state.isFilled()) ImeAction.Done else ImeAction.Next
+    val onSignUp: () -> Unit = {
         onEvent(SignUpEvent.SignUpClick)
         focusManager.clearFocus()
     }
@@ -114,7 +113,7 @@ internal fun SignUpScreen(
                 ),
         )
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(48.dp))
 
         Column(
             verticalArrangement = Arrangement.spacedBy(10.dp),
@@ -143,7 +142,7 @@ internal fun SignUpScreen(
                     ),
                 keyboardActions =
                     KeyboardActions(
-                        onDone = onDone,
+                        onDone = { onSignUp() },
                     ),
                 modifier =
                     Modifier
@@ -175,7 +174,7 @@ internal fun SignUpScreen(
                     ),
                 keyboardActions =
                     KeyboardActions(
-                        onDone = onDone,
+                        onDone = { onSignUp() },
                     ),
                 modifier =
                     Modifier
@@ -211,7 +210,7 @@ internal fun SignUpScreen(
                     ),
                 keyboardActions =
                     KeyboardActions(
-                        onDone = onDone,
+                        onDone = { onSignUp() },
                     ),
                 modifier =
                     Modifier
@@ -247,7 +246,7 @@ internal fun SignUpScreen(
                     ),
                 keyboardActions =
                     KeyboardActions(
-                        onDone = onDone,
+                        onDone = { onSignUp() },
                     ),
                 modifier =
                     Modifier
@@ -261,9 +260,7 @@ internal fun SignUpScreen(
         PrimaryButton(
             text = stringResource(authR.string.create_account),
             onClick =
-                onDebounceClick {
-                    onEvent(SignUpEvent.SignUpClick)
-                },
+                onDebounceClick(onClick = onSignUp),
             modifier =
                 Modifier
                     .fillMaxWidth()
@@ -325,7 +322,7 @@ private fun SignUpScreenDefaultPreview() {
 private fun SignUpScreenFilledPreview() {
     PreviewContainer {
         SignUpScreen(
-            state = signUpStateFilled,
+            state = signUpValidState,
             onEvent = {},
         )
     }
@@ -336,7 +333,7 @@ private fun SignUpScreenFilledPreview() {
 private fun SignUpScreenLoadingPreview() {
     PreviewContainer {
         SignUpScreen(
-            state = signUpStateLoading,
+            state = signUpLoadingState,
             onEvent = {},
         )
     }
@@ -347,7 +344,7 @@ private fun SignUpScreenLoadingPreview() {
 private fun SignUpScreenValidationErrorPreview() {
     PreviewContainer {
         SignUpScreen(
-            state = signUpStateValidationError,
+            state = signUpInvalidState,
             onEvent = {},
         )
     }

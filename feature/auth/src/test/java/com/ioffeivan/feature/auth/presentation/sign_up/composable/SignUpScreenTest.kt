@@ -1,6 +1,5 @@
 package com.ioffeivan.feature.auth.presentation.sign_up.composable
 
-import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
@@ -11,7 +10,10 @@ import com.google.common.truth.Truth.assertThat
 import com.ioffeivan.core.designsystem.preview.PreviewContainer
 import com.ioffeivan.feature.auth.presentation.sign_up.SignUpEvent
 import com.ioffeivan.feature.auth.presentation.sign_up.SignUpState
-import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpStateFilled
+import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpValidState
+import com.ioffeivan.feature.auth.presentation.utils.VALID_EMAIL
+import com.ioffeivan.feature.auth.presentation.utils.VALID_PASSWORD
+import com.ioffeivan.feature.auth.presentation.utils.VALID_USERNAME
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -42,7 +44,7 @@ class SignUpScreenTest {
     @Test
     fun emailTextField_whenEmailIsTyped_shouldCallEmailChangeEvent(): Unit =
         with(composeTestRule) {
-            val email = "test@example.com"
+            val email = VALID_EMAIL
             val event = SignUpEvent.EmailChange(email)
 
             signUpScreen()
@@ -56,7 +58,7 @@ class SignUpScreenTest {
     @Test
     fun usernameTextField_whenUsernameIsTyped_shouldCallUsernameChangeEvent(): Unit =
         with(composeTestRule) {
-            val username = "username"
+            val username = VALID_USERNAME
             val event = SignUpEvent.UsernameChange(username)
 
             signUpScreen()
@@ -70,7 +72,7 @@ class SignUpScreenTest {
     @Test
     fun passwordTextField_whenPasswordIsTyped_shouldCallPasswordChangeEvent(): Unit =
         with(composeTestRule) {
-            val password = "password"
+            val password = VALID_PASSWORD
             val event = SignUpEvent.PasswordChange(password)
 
             signUpScreen()
@@ -84,7 +86,7 @@ class SignUpScreenTest {
     @Test
     fun confirmPasswordTextField_whenConfirmPasswordIsTyped_shouldCallConfirmPasswordChangeEvent(): Unit =
         with(composeTestRule) {
-            val confirmPassword = "password"
+            val confirmPassword = VALID_PASSWORD
             val event = SignUpEvent.ConfirmPasswordChange(confirmPassword)
 
             signUpScreen()
@@ -100,11 +102,11 @@ class SignUpScreenTest {
         with(composeTestRule) {
             val event = SignUpEvent.SignUpClick
 
-            signUpScreen(state = signUpStateFilled)
+            signUpScreen(state = signUpValidState)
 
-            val textField = onNodeWithTag("emailTextField")
+            onNodeWithTag("emailTextField")
+                .performImeAction()
 
-            textField.performImeAction()
             assertThat(recordEvent).isEqualTo(event)
         }
 
@@ -113,11 +115,11 @@ class SignUpScreenTest {
         with(composeTestRule) {
             val event = SignUpEvent.SignUpClick
 
-            signUpScreen(state = signUpStateFilled)
+            signUpScreen(state = signUpValidState)
 
-            val textField = onNodeWithTag("usernameTextField")
+            onNodeWithTag("usernameTextField")
+                .performImeAction()
 
-            textField.performImeAction()
             assertThat(recordEvent).isEqualTo(event)
         }
 
@@ -126,11 +128,11 @@ class SignUpScreenTest {
         with(composeTestRule) {
             val event = SignUpEvent.SignUpClick
 
-            signUpScreen(state = signUpStateFilled)
+            signUpScreen(state = signUpValidState)
 
-            val textField = onNodeWithTag("passwordTextField")
+            onNodeWithTag("passwordTextField")
+                .performImeAction()
 
-            textField.performImeAction()
             assertThat(recordEvent).isEqualTo(event)
         }
 
@@ -139,11 +141,11 @@ class SignUpScreenTest {
         with(composeTestRule) {
             val event = SignUpEvent.SignUpClick
 
-            signUpScreen(state = signUpStateFilled)
+            signUpScreen(state = signUpValidState)
 
-            val textField = onNodeWithTag("confirmPasswordTextField")
+            onNodeWithTag("confirmPasswordTextField")
+                .performImeAction()
 
-            textField.performImeAction()
             assertThat(recordEvent).isEqualTo(event)
         }
 
@@ -156,7 +158,6 @@ class SignUpScreenTest {
 
             onNodeWithTag("signUpButton")
                 .performClick()
-                .assertHasClickAction()
 
             assertThat(recordEvent).isEqualTo(event)
         }
@@ -170,7 +171,6 @@ class SignUpScreenTest {
 
             onNodeWithTag("loginText")
                 .performClick()
-                .assertHasClickAction()
 
             assertThat(recordEvent).isEqualTo(event)
         }

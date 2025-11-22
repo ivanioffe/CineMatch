@@ -6,6 +6,9 @@ import com.ioffeivan.core.ui.UiText
 import com.ioffeivan.feature.auth.domain.model.SignUpCredentials
 import com.ioffeivan.feature.auth.presentation.sign_up.utils.SignUpDataError
 import com.ioffeivan.feature.auth.presentation.sign_up.utils.SignUpValidation
+import com.ioffeivan.feature.auth.presentation.utils.EmailState
+import com.ioffeivan.feature.auth.presentation.utils.PasswordState
+import com.ioffeivan.feature.auth.presentation.utils.UsernameState
 
 internal class SignUpReducer : Reducer<SignUpState, SignUpEvent, SignUpEffect> {
     override fun reduce(
@@ -18,7 +21,7 @@ internal class SignUpReducer : Reducer<SignUpState, SignUpEvent, SignUpEffect> {
                     state =
                         previousState.copy(
                             confirmPassword =
-                                SignUpState.PasswordState(
+                                PasswordState(
                                     event.confirmPassword,
                                 ),
                         ),
@@ -30,7 +33,7 @@ internal class SignUpReducer : Reducer<SignUpState, SignUpEvent, SignUpEffect> {
                     state =
                         previousState.copy(
                             email =
-                                SignUpState.EmailState(
+                                EmailState(
                                     value = event.email,
                                 ),
                         ),
@@ -42,7 +45,7 @@ internal class SignUpReducer : Reducer<SignUpState, SignUpEvent, SignUpEffect> {
                     state =
                         previousState.copy(
                             password =
-                                SignUpState.PasswordState(
+                                PasswordState(
                                     event.password,
                                 ),
                         ),
@@ -54,7 +57,7 @@ internal class SignUpReducer : Reducer<SignUpState, SignUpEvent, SignUpEffect> {
                     state =
                         previousState.copy(
                             username =
-                                SignUpState.UsernameState(
+                                UsernameState(
                                     event.username,
                                 ),
                         ),
@@ -157,26 +160,7 @@ data class SignUpState(
     val confirmPassword: PasswordState,
     val isLoading: Boolean,
 ) : Reducer.UiState {
-    data class EmailState(
-        val value: String = "",
-        val isError: Boolean = false,
-        val errorMessage: UiText? = null,
-    )
-
-    data class UsernameState(
-        val value: String = "",
-        val isError: Boolean = false,
-        val errorMessage: UiText? = null,
-    )
-
-    data class PasswordState(
-        val value: String = "",
-        val visibility: Boolean = false,
-        val isError: Boolean = false,
-        val errorMessage: UiText? = null,
-    )
-
-    fun isFilledState() =
+    fun isFilled() =
         email.value.isNotBlank() &&
             username.value.isNotBlank() &&
             password.value.isNotBlank() &&

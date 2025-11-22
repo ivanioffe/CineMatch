@@ -3,13 +3,10 @@ package com.ioffeivan.feature.auth.presentation.sign_up.utils
 import com.google.common.truth.Truth.assertThat
 import com.ioffeivan.core.ui.UiText
 import com.ioffeivan.feature.auth.R
+import com.ioffeivan.feature.auth.presentation.utils.DataError
 import org.junit.jupiter.api.Test
 
 class SignUpDataErrorTest {
-    companion object {
-        private const val DUPLICATE_EMAIL_MESSAGE = "duplicate email"
-    }
-
     @Test
     fun getError_whenKnownMessageIsProvided_shouldReturnSpecificUiText() {
         val expected = UiText.StringResource(R.string.error_email_duplicate)
@@ -22,7 +19,7 @@ class SignUpDataErrorTest {
     @Test
     fun getError_whenUnknownMessageIsProvided_shouldReturnDefaultError() {
         val unknownMessage = "message"
-        val expected = UiText.StringResource(R.string.error_something_went_wrong)
+        val expected = DataError.somethingWentWrong
 
         val actual = SignUpDataError.getError(unknownMessage)
 
@@ -31,7 +28,7 @@ class SignUpDataErrorTest {
 
     @Test
     fun getError_whenMessageIsNull_shouldReturnDefaultError() {
-        val expected = UiText.StringResource(R.string.error_something_went_wrong)
+        val expected = DataError.somethingWentWrong
 
         val actual = SignUpDataError.getError(null)
 
