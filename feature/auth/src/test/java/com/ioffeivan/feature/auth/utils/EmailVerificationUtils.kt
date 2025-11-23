@@ -1,6 +1,8 @@
 package com.ioffeivan.feature.auth.utils
 
 import com.ioffeivan.core.common.result.Result
+import com.ioffeivan.feature.auth.data.source.remote.model.EmailVerificationRequestDto
+import com.ioffeivan.feature.auth.data.source.remote.model.ResendOtpRequestDto
 import com.ioffeivan.feature.auth.domain.model.EmailVerificationRequest
 import com.ioffeivan.feature.auth.domain.model.ResendOtpRequest
 import org.junit.jupiter.api.extension.ExtensionContext
@@ -10,14 +12,24 @@ import org.junit.jupiter.params.support.ParameterDeclarations
 import java.io.IOException
 import java.util.stream.Stream
 
+val testEmailVerificationRequest =
+    EmailVerificationRequest(
+        otp = "12345",
+    )
+
+val testEmailVerificationRequestDto =
+    EmailVerificationRequestDto(
+        otp = "12345",
+    )
+
 val testResendOtpRequest =
     ResendOtpRequest(
         email = "example@example.com",
     )
 
-val testEmailVerificationRequest =
-    EmailVerificationRequest(
-        otp = "12345",
+val testResendOtpRequestDto =
+    ResendOtpRequestDto(
+        email = "example@example.com",
     )
 
 class VerifyWithOtpResultArgumentsProvider : ArgumentsProvider {
