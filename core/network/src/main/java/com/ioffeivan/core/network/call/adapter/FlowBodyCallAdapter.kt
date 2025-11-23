@@ -18,7 +18,7 @@ import java.lang.reflect.Type
  *
  * @param responseType The type of the final data ([T]) expected in the response body.
  */
-internal class BodyCallAdapter<T>(
+internal class FlowBodyCallAdapter<T>(
     private val responseType: Type,
 ) : CallAdapter<T, Flow<T>> {
     override fun responseType(): Type = responseType

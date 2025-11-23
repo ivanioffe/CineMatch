@@ -2,6 +2,7 @@ package com.ioffeivan.core.network.di
 
 import com.ioffeivan.core.network.BuildConfig
 import com.ioffeivan.core.network.call.adapter.factory.FlowCallAdapterFactory
+import com.ioffeivan.core.network.call.adapter.factory.ResultCallAdapterFactory
 import com.ioffeivan.core.network.utils.NetworkJson
 import dagger.Module
 import dagger.Provides
@@ -81,5 +82,12 @@ internal object BaseNetworkModule {
     @IntoSet
     fun provideFlowCallAdapterFactory(): CallAdapter.Factory {
         return FlowCallAdapterFactory.create()
+    }
+
+    @Provides
+    @Singleton
+    @IntoSet
+    fun provideResultCallAdapterFactory(): CallAdapter.Factory {
+        return ResultCallAdapterFactory.create()
     }
 }
