@@ -76,6 +76,7 @@ dependencies {
     testImplementation(libs.roborazzi.rule)
     testImplementation(platform(libs.test.junit5.bom))
     testImplementation(libs.test.junit5.api)
+    testImplementation(libs.test.junit5.params)
     testImplementation(libs.truth)
     testImplementation(testFixtures(projects.core.presentation))
 
