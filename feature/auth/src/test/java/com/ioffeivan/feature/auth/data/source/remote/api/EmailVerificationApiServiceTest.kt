@@ -1,4 +1,4 @@
-package com.ioffeivan.feature.auth.data.source.remote
+package com.ioffeivan.feature.auth.data.source.remote.api
 
 import com.google.common.truth.Truth.assertThat
 import com.ioffeivan.core.common.result.Result

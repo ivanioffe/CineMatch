@@ -4,7 +4,7 @@ import com.ioffeivan.core.common.result.Result
 import com.ioffeivan.core.common.result.onSuccess
 import com.ioffeivan.feature.auth.data.mapper.toDto
 import com.ioffeivan.feature.auth.data.source.local.AuthLocalDataSource
-import com.ioffeivan.feature.auth.data.source.remote.AuthRemoteDataSource
+import com.ioffeivan.feature.auth.data.source.remote.data_source.AuthRemoteDataSource
 import com.ioffeivan.feature.auth.domain.model.LoginCredentials
 import com.ioffeivan.feature.auth.domain.model.SignUpCredentials
 import com.ioffeivan.feature.auth.domain.repository.AuthRepository

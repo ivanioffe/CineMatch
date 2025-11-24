@@ -1,7 +1,7 @@
 package com.ioffeivan.feature.auth.data.source.remote.di
 
 import com.ioffeivan.core.network.di.Unauthorized
-import com.ioffeivan.feature.auth.data.source.remote.AuthApiService
+import com.ioffeivan.feature.auth.data.source.remote.api.AuthApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
