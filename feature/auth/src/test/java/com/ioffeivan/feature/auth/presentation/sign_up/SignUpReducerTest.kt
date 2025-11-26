@@ -2,13 +2,17 @@ package com.ioffeivan.feature.auth.presentation.sign_up
 
 import com.google.common.truth.Truth.assertThat
 import com.ioffeivan.core.presentation.ReducerResult
-import com.ioffeivan.feature.auth.domain.model.SignUpCredentials
 import com.ioffeivan.feature.auth.presentation.sign_up.utils.DUPLICATE_EMAIL_MESSAGE
 import com.ioffeivan.feature.auth.presentation.sign_up.utils.ERROR_DUPLICATE_EMAIL
+import com.ioffeivan.feature.auth.presentation.sign_up.utils.SignUpValidation
 import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpInvalidState
+import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpLoadingState
 import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpValidState
 import com.ioffeivan.feature.auth.presentation.utils.CONFIRM_PASSWORD
 import com.ioffeivan.feature.auth.presentation.utils.EmailState
+import com.ioffeivan.feature.auth.presentation.utils.INVALID_EMAIL
+import com.ioffeivan.feature.auth.presentation.utils.INVALID_PASSWORD_LENGTH
+import com.ioffeivan.feature.auth.presentation.utils.INVALID_USERNAME_CHARS
 import com.ioffeivan.feature.auth.presentation.utils.PasswordState
 import com.ioffeivan.feature.auth.presentation.utils.PasswordValidator
 import com.ioffeivan.feature.auth.presentation.utils.UsernameState
@@ -80,7 +84,6 @@ class SignUpReducerTest {
     @Test
     fun usernameChange_shouldUpdateUsernameValueInState() {
         val event = SignUpEvent.UsernameChange(VALID_USERNAME)
-
         val expected =
             createReducerResult(
                 state =
@@ -100,7 +103,7 @@ class SignUpReducerTest {
         val expected =
             createReducerResult(
                 state = state,
-                effect = SignUpEffect.Ui.NavigateToLogin,
+                effect = SignUpEffect.NavigateToLogin,
             )
 
         val actual = reducer.reduce(state, event)
@@ -142,19 +145,12 @@ class SignUpReducerTest {
     }
 
     @Test
-    fun signUpClick_whenStateIsValid_shouldSetIsLoadingTrueAndEmitPerformSignUpEffect() {
+    fun signUpClick_shouldSetIsLoadingTrueInState() {
         val validState = signUpValidState
-        val signUpCredentials =
-            SignUpCredentials(
-                email = validState.email.value,
-                username = validState.username.value,
-                password = validState.password.value,
-            )
         val event = SignUpEvent.SignUpClick
         val expected =
             createReducerResult(
                 state = validState.copy(isLoading = true),
-                effect = SignUpEffect.Internal.PerformSignUp(signUpCredentials = signUpCredentials),
             )
 
         val actual = reducer.reduce(validState, event)
@@ -163,34 +159,28 @@ class SignUpReducerTest {
     }
 
     @Test
-    fun signUpClick_whenStateIsInvalid_shouldSetErrorsInState() {
-        val invalidState = signUpInvalidState
-        val event = SignUpEvent.SignUpClick
+    fun validationError_shouldSetErrorsInState() {
+        val invalidState =
+            state.copy(
+                email = EmailState(value = INVALID_EMAIL),
+                username = UsernameState(value = INVALID_USERNAME_CHARS),
+                password = PasswordState(value = INVALID_PASSWORD_LENGTH),
+            )
+        val event =
+            SignUpEvent.ValidationError(
+                SignUpValidation.Result.Error(
+                    emailError = ValidationErrors.emailInvalid,
+                    usernameError = ValidationErrors.usernameInvalidChars,
+                    passwordError =
+                        ValidationErrors.passwordInvalidLength(
+                            PasswordValidator.MIN_LENGTH,
+                            PasswordValidator.MAX_LENGTH,
+                        ),
+                ),
+            )
         val expected =
             createReducerResult(
-                state =
-                    invalidState.copy(
-                        email =
-                            invalidState.email.copy(
-                                isError = true,
-                                errorMessage = ValidationErrors.emailInvalid,
-                            ),
-                        username =
-                            invalidState.username.copy(
-                                isError = true,
-                                errorMessage = ValidationErrors.usernameInvalidChars,
-                            ),
-                        password =
-                            invalidState.password.copy(
-                                isError = true,
-                                errorMessage =
-                                    ValidationErrors.passwordInvalidLength(
-                                        min = PasswordValidator.MIN_LENGTH,
-                                        max = PasswordValidator.MAX_LENGTH,
-                                    ),
-                            ),
-                        confirmPassword = invalidState.confirmPassword.copy(errorMessage = null),
-                    ),
+                state = signUpInvalidState,
             )
 
         val actual = reducer.reduce(invalidState, event)
@@ -200,12 +190,12 @@ class SignUpReducerTest {
 
     @Test
     fun signUpError_shouldSetIsLoadingFalseInStateAndEmitShowErrorEffect() {
-        val loadingState = state.copy(isLoading = true)
+        val loadingState = signUpLoadingState
         val event = SignUpEvent.SignUpError(DUPLICATE_EMAIL_MESSAGE)
         val expected =
             createReducerResult(
                 state = loadingState.copy(isLoading = false),
-                effect = SignUpEffect.Ui.ShowError(ERROR_DUPLICATE_EMAIL),
+                effect = SignUpEffect.ShowError(ERROR_DUPLICATE_EMAIL),
             )
 
         val actual = reducer.reduce(loadingState, event)
@@ -215,12 +205,15 @@ class SignUpReducerTest {
 
     @Test
     fun signUpSuccess_shouldSetIsLoadingFalseInStateAndEmitNavigateToVerifyEmailEffect() {
-        val loadingState = state.copy(isLoading = true)
+        val loadingState =
+            signUpLoadingState.copy(
+                email = EmailState(value = VALID_EMAIL),
+            )
         val event = SignUpEvent.SignUpSuccess
         val expected =
             createReducerResult(
                 state = loadingState.copy(isLoading = false),
-                effect = SignUpEffect.Ui.NavigateToVerifyEmail,
+                effect = SignUpEffect.NavigateToVerifyEmail(VALID_EMAIL),
             )
 
         val actual = reducer.reduce(loadingState, event)

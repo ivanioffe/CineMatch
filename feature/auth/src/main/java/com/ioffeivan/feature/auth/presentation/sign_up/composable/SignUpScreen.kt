@@ -48,14 +48,13 @@ import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpInvalidState
 import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpLoadingState
 import com.ioffeivan.feature.auth.presentation.sign_up.utils.signUpValidState
 import com.ioffeivan.feature.auth.presentation.utils.Colors
-import kotlinx.coroutines.flow.filterIsInstance
 import com.ioffeivan.core.ui.R as coreR
 import com.ioffeivan.feature.auth.R as authR
 
 @Composable
 internal fun SignUpRoute(
     onNavigateToLogin: () -> Unit,
-    onNavigateToVerifyEmail: () -> Unit,
+    onNavigateToVerifyEmail: (String) -> Unit,
     onShowSnackbar: ShowSnackbar,
     modifier: Modifier = Modifier,
     viewModel: SignUpViewModel = hiltViewModel(),
@@ -64,12 +63,12 @@ internal fun SignUpRoute(
     val context = LocalContext.current
 
     ObserveEffectsWithLifecycle(
-        effects = viewModel.effect.filterIsInstance<SignUpEffect.Ui>(),
+        effects = viewModel.effect,
         onEffect = {
             when (it) {
-                SignUpEffect.Ui.NavigateToLogin -> onNavigateToLogin()
-                SignUpEffect.Ui.NavigateToVerifyEmail -> onNavigateToVerifyEmail()
-                is SignUpEffect.Ui.ShowError -> onShowSnackbar(it.message.asString(context), null)
+                SignUpEffect.NavigateToLogin -> onNavigateToLogin()
+                is SignUpEffect.NavigateToVerifyEmail -> onNavigateToVerifyEmail(it.email)
+                is SignUpEffect.ShowError -> onShowSnackbar(it.message.asString(context), null)
             }
         },
     )

@@ -3,13 +3,12 @@ package com.ioffeivan.feature.auth.presentation.login
 import com.ioffeivan.core.presentation.Reducer
 import com.ioffeivan.core.presentation.ReducerResult
 import com.ioffeivan.core.ui.UiText
-import com.ioffeivan.feature.auth.domain.model.LoginCredentials
 import com.ioffeivan.feature.auth.presentation.login.utils.LoginDataError
 import com.ioffeivan.feature.auth.presentation.login.utils.LoginValidation
 import com.ioffeivan.feature.auth.presentation.utils.EmailState
 import com.ioffeivan.feature.auth.presentation.utils.PasswordState
 
-class LoginReducer : Reducer<LoginState, LoginEvent, LoginEffect> {
+internal class LoginReducer : Reducer<LoginState, LoginEvent, LoginEffect> {
     override fun reduce(
         previousState: LoginState,
         event: LoginEvent,
@@ -28,39 +27,12 @@ class LoginReducer : Reducer<LoginState, LoginEvent, LoginEffect> {
             }
 
             LoginEvent.LoginClick -> {
-                val validationResult = LoginValidation.validate(previousState)
-
-                when (validationResult) {
-                    LoginValidation.Result.Success -> {
-                        ReducerResult(
-                            state = previousState.copy(isLoading = true),
-                            effect =
-                                LoginEffect.Internal.PerformLogin(
-                                    loginCredentials = previousState.toLoginCredentials(),
-                                ),
-                        )
-                    }
-
-                    is LoginValidation.Result.Error -> {
-                        val newState =
-                            previousState.copy(
-                                email =
-                                    previousState.email.copy(
-                                        isError = validationResult.emailError != null,
-                                        errorMessage = validationResult.emailError,
-                                    ),
-                                password =
-                                    previousState.password.copy(
-                                        isError = validationResult.passwordError != null,
-                                        errorMessage = validationResult.passwordError,
-                                    ),
-                            )
-
-                        ReducerResult(
-                            state = newState,
-                        )
-                    }
-                }
+                ReducerResult(
+                    state =
+                        previousState.copy(
+                            isLoading = true,
+                        ),
+                )
             }
 
             is LoginEvent.LoginError -> {
@@ -68,14 +40,14 @@ class LoginReducer : Reducer<LoginState, LoginEvent, LoginEffect> {
 
                 ReducerResult(
                     state = previousState.copy(isLoading = false),
-                    effect = LoginEffect.Ui.ShowError(error),
+                    effect = LoginEffect.ShowError(error),
                 )
             }
 
             LoginEvent.LoginSuccess -> {
                 ReducerResult(
                     state = previousState.copy(isLoading = false),
-                    effect = LoginEffect.Ui.NavigateToMain,
+                    effect = LoginEffect.NavigateToMain,
                 )
             }
 
@@ -85,7 +57,8 @@ class LoginReducer : Reducer<LoginState, LoginEvent, LoginEffect> {
                         previousState.copy(
                             password =
                                 PasswordState(
-                                    event.password,
+                                    value = event.password,
+                                    visibility = previousState.password.visibility,
                                 ),
                         ),
                 )
@@ -104,14 +77,35 @@ class LoginReducer : Reducer<LoginState, LoginEvent, LoginEffect> {
             LoginEvent.SignUpClick -> {
                 ReducerResult(
                     state = previousState,
-                    effect = LoginEffect.Ui.NavigateToSignUp,
+                    effect = LoginEffect.NavigateToSignUp,
+                )
+            }
+
+            is LoginEvent.ValidationError -> {
+                val error = event.error
+                val newState =
+                    previousState.copy(
+                        email =
+                            previousState.email.copy(
+                                isError = error.emailError != null,
+                                errorMessage = error.emailError,
+                            ),
+                        password =
+                            previousState.password.copy(
+                                isError = error.passwordError != null,
+                                errorMessage = error.passwordError,
+                            ),
+                    )
+
+                ReducerResult(
+                    state = newState,
                 )
             }
         }
     }
 }
 
-data class LoginState(
+internal data class LoginState(
     val email: EmailState,
     val password: PasswordState,
     val isLoading: Boolean,
@@ -129,7 +123,7 @@ data class LoginState(
     }
 }
 
-sealed interface LoginEvent : Reducer.UiEvent {
+internal sealed interface LoginEvent : Reducer.UiEvent {
     data class EmailChange(val email: String) : LoginEvent
 
     data class PasswordChange(val password: String) : LoginEvent
@@ -143,18 +137,14 @@ sealed interface LoginEvent : Reducer.UiEvent {
     data object LoginSuccess : LoginEvent
 
     data class LoginError(val message: String?) : LoginEvent
+
+    data class ValidationError(val error: LoginValidation.Result.Error) : LoginEvent
 }
 
-sealed interface LoginEffect : Reducer.UiEffect {
-    sealed interface Ui : LoginEffect {
-        data object NavigateToSignUp : Ui
+internal sealed interface LoginEffect : Reducer.UiEffect {
+    data object NavigateToSignUp : LoginEffect
 
-        data object NavigateToMain : Ui
+    data object NavigateToMain : LoginEffect
 
-        data class ShowError(val message: UiText) : Ui
-    }
-
-    sealed interface Internal : LoginEffect {
-        data class PerformLogin(val loginCredentials: LoginCredentials) : Internal
-    }
+    data class ShowError(val message: UiText) : LoginEffect
 }

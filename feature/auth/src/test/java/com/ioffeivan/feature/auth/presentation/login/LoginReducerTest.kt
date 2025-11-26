@@ -2,12 +2,15 @@ package com.ioffeivan.feature.auth.presentation.login
 
 import com.google.common.truth.Truth.assertThat
 import com.ioffeivan.core.presentation.ReducerResult
-import com.ioffeivan.feature.auth.domain.model.LoginCredentials
 import com.ioffeivan.feature.auth.presentation.login.utils.ERROR_INVALID_AUTHENTICATION_CREDENTIALS
 import com.ioffeivan.feature.auth.presentation.login.utils.INVALID_AUTHENTICATION_CREDENTIALS_MESSAGE
+import com.ioffeivan.feature.auth.presentation.login.utils.LoginValidation
 import com.ioffeivan.feature.auth.presentation.login.utils.loginInvalidState
+import com.ioffeivan.feature.auth.presentation.login.utils.loginLoadingState
 import com.ioffeivan.feature.auth.presentation.login.utils.loginValidState
 import com.ioffeivan.feature.auth.presentation.utils.EmailState
+import com.ioffeivan.feature.auth.presentation.utils.INVALID_EMAIL
+import com.ioffeivan.feature.auth.presentation.utils.INVALID_PASSWORD_LENGTH
 import com.ioffeivan.feature.auth.presentation.utils.PasswordState
 import com.ioffeivan.feature.auth.presentation.utils.PasswordValidator
 import com.ioffeivan.feature.auth.presentation.utils.VALID_EMAIL
@@ -45,16 +48,10 @@ class LoginReducerTest {
     @Test
     fun loginClick_whenStateIsValid_shouldSetIsLoadingTrueInStateAndEmitPerformLoginEffect() {
         val validState = loginValidState
-        val loginCredentials =
-            LoginCredentials(
-                email = validState.email.value,
-                password = validState.password.value,
-            )
         val event = LoginEvent.LoginClick
         val expected =
             createReducerResult(
                 state = validState.copy(isLoading = true),
-                effect = LoginEffect.Internal.PerformLogin(loginCredentials),
             )
 
         val actual = reducer.reduce(validState, event)
@@ -63,28 +60,26 @@ class LoginReducerTest {
     }
 
     @Test
-    fun loginClick_whenStateIsInvalid_shouldSetErrorsInState() {
-        val invalidState = loginInvalidState
-        val event = LoginEvent.LoginClick
+    fun validationError_shouldSetErrorsInState() {
+        val invalidState =
+            state.copy(
+                email = EmailState(value = INVALID_EMAIL),
+                password = PasswordState(value = INVALID_PASSWORD_LENGTH),
+            )
+        val event =
+            LoginEvent.ValidationError(
+                LoginValidation.Result.Error(
+                    emailError = ValidationErrors.emailInvalid,
+                    passwordError =
+                        ValidationErrors.passwordInvalidLength(
+                            PasswordValidator.MIN_LENGTH,
+                            PasswordValidator.MAX_LENGTH,
+                        ),
+                ),
+            )
         val expected =
             createReducerResult(
-                state =
-                    invalidState.copy(
-                        email =
-                            invalidState.email.copy(
-                                isError = true,
-                                errorMessage = ValidationErrors.emailInvalid,
-                            ),
-                        password =
-                            invalidState.password.copy(
-                                isError = true,
-                                errorMessage =
-                                    ValidationErrors.passwordInvalidLength(
-                                        min = PasswordValidator.MIN_LENGTH,
-                                        max = PasswordValidator.MAX_LENGTH,
-                                    ),
-                            ),
-                    ),
+                state = loginInvalidState,
             )
 
         val actual = reducer.reduce(invalidState, event)
@@ -94,12 +89,12 @@ class LoginReducerTest {
 
     @Test
     fun loginError_shouldSetIsLoadingFalseInStateAndEmitShowErrorEffect() {
-        val loadingState = state.copy(isLoading = true)
+        val loadingState = loginLoadingState
         val event = LoginEvent.LoginError(INVALID_AUTHENTICATION_CREDENTIALS_MESSAGE)
         val expected =
             createReducerResult(
                 state = loadingState.copy(isLoading = false),
-                effect = LoginEffect.Ui.ShowError(ERROR_INVALID_AUTHENTICATION_CREDENTIALS),
+                effect = LoginEffect.ShowError(ERROR_INVALID_AUTHENTICATION_CREDENTIALS),
             )
 
         val actual = reducer.reduce(loadingState, event)
@@ -109,12 +104,12 @@ class LoginReducerTest {
 
     @Test
     fun loginSuccess_shouldSetIsLoadingFalseInStateAndEmitNavigateToVerifyEmailEffect() {
-        val loadingState = state.copy(isLoading = true)
+        val loadingState = loginLoadingState
         val event = LoginEvent.LoginSuccess
         val expected =
             createReducerResult(
                 state = loadingState.copy(isLoading = false),
-                effect = LoginEffect.Ui.NavigateToMain,
+                effect = LoginEffect.NavigateToMain,
             )
 
         val actual = reducer.reduce(loadingState, event)
@@ -160,7 +155,7 @@ class LoginReducerTest {
         val expected =
             createReducerResult(
                 state = state,
-                effect = LoginEffect.Ui.NavigateToSignUp,
+                effect = LoginEffect.NavigateToSignUp,
             )
 
         val actual = reducer.reduce(state, event)

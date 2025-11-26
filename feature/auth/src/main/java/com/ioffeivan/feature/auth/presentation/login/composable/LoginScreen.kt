@@ -47,7 +47,6 @@ import com.ioffeivan.feature.auth.presentation.login.utils.loginInvalidState
 import com.ioffeivan.feature.auth.presentation.login.utils.loginLoadingState
 import com.ioffeivan.feature.auth.presentation.login.utils.loginValidState
 import com.ioffeivan.feature.auth.presentation.utils.Colors
-import kotlinx.coroutines.flow.filterIsInstance
 import com.ioffeivan.core.ui.R as coreR
 import com.ioffeivan.feature.auth.R as authR
 
@@ -63,12 +62,12 @@ internal fun LoginRoute(
     val context = LocalContext.current
 
     ObserveEffectsWithLifecycle(
-        effects = viewModel.effect.filterIsInstance<LoginEffect.Ui>(),
+        effects = viewModel.effect,
         onEffect = {
             when (it) {
-                LoginEffect.Ui.NavigateToSignUp -> onNavigateToSignUp()
-                LoginEffect.Ui.NavigateToMain -> onNavigateToMain()
-                is LoginEffect.Ui.ShowError -> onShowSnackbar(it.message.asString(context), null)
+                LoginEffect.NavigateToSignUp -> onNavigateToSignUp()
+                LoginEffect.NavigateToMain -> onNavigateToMain()
+                is LoginEffect.ShowError -> onShowSnackbar(it.message.asString(context), null)
             }
         },
     )
