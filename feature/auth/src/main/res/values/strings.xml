@@ -31,4 +31,6 @@
 
     <string name="error_invalid_characters">Недопустимые символы</string>
     <string name="error_something_went_wrong">Что-то пошло не так. Повторите попытку позже.</string>
+    
+    <string name="invalid_otp">Неверный код</string>
 </resources>
