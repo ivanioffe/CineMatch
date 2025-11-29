@@ -62,6 +62,8 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.kotlinx.coroutines.core)
 
+    implementation(libs.otp.compose)
+
     ksp(libs.hilt.compiler)
 
     testImplementation(libs.androidx.ui.test.junit4)

@@ -31,6 +31,11 @@
 
     <string name="error_invalid_characters">Недопустимые символы</string>
     <string name="error_something_went_wrong">Что-то пошло не так. Повторите попытку позже.</string>
+
+    <string name="verify_your_email">Подтвердите свою электронную почту</string>
+    <string name="otp_sent_message">Мы только что отправили 5-значный код на адрес %1$s, введите его ниже:</string>
+    <string name="resend_code">Получить новый код</string>
+    <string name="resend_code_with_timer">Получить новый код %1$s</string>
     
     <string name="invalid_otp">Неверный код</string>
 </resources>
