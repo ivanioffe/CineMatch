@@ -1,6 +1,7 @@
 package com.ioffeivan.feature.auth.presentation.email_verification.composable
 
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -15,6 +16,7 @@ import com.ioffeivan.feature.auth.R
 import com.ioffeivan.feature.auth.presentation.email_verification.EmailVerificationEvent
 import com.ioffeivan.feature.auth.presentation.email_verification.EmailVerificationState
 import com.ioffeivan.feature.auth.presentation.email_verification.utils.emailVerificationFilledState
+import com.ioffeivan.feature.auth.presentation.email_verification.utils.emailVerificationLoadingState
 import com.ioffeivan.feature.auth.presentation.utils.VALID_EMAIL
 import org.junit.Rule
 import org.junit.Test
@@ -105,5 +107,15 @@ class EmailVerificationScreenTest {
                 .performClick()
 
             assertThat(recordEvent).isEqualTo(event)
+        }
+
+    @Test
+    fun loadingScreen_whenIsLoadingIsTrue_shouldDisplay(): Unit =
+        with(composeTestRule) {
+            val loadingState = emailVerificationLoadingState
+            emailVerificationScreen(state = loadingState)
+
+            onNodeWithTag("loadingScreen")
+                .assertIsDisplayed()
         }
 }

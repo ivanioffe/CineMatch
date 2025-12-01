@@ -163,7 +163,8 @@ internal fun EmailVerificationScreen(
         LoadingScreen(
             modifier =
                 Modifier
-                    .fillMaxSize(),
+                    .fillMaxSize()
+                    .testTag("loadingScreen"),
         )
     }
 }

@@ -58,6 +58,22 @@ class EmailVerificationScreenScreenshotTest {
         }
     }
 
+    // default by running
+    @Test
+    fun emailVerification_finishedTimer() {
+        emailVerificationScreen(
+            state =
+                initialState.copy(
+                    timerState = EmailVerificationState.TimerState.Finished,
+                ),
+        )
+    }
+
+    // NOTE: The following screenshot tests are temporarily commented out due to an unknown
+    // Robolectric/Roborazzi rendering issue specific to States involving the running timer.
+    // Tests fail on CI with generic rendering artifacts or unexpected differences,
+    // despite the UI logic being nearly identical to the successful `finishedTimer` test.
+
     /*@Test
     fun emailVerification_defaultState() {
         emailVerificationScreen(initialState.copy(timerState = testTimerState))
@@ -76,15 +92,4 @@ class EmailVerificationScreenScreenshotTest {
             state = emailVerificationLoadingState.copy(timerState = testTimerState),
         )
     }*/
-
-    // default by running
-    @Test
-    fun emailVerification_finishedTimer() {
-        emailVerificationScreen(
-            state =
-                initialState.copy(
-                    timerState = EmailVerificationState.TimerState.Finished,
-                ),
-        )
-    }
 }
