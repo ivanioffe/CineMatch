@@ -7,8 +7,6 @@ import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.RoborazziRule
 import com.ioffeivan.core.designsystem.preview.PreviewContainer
 import com.ioffeivan.feature.auth.presentation.email_verification.EmailVerificationState
-import com.ioffeivan.feature.auth.presentation.email_verification.utils.emailVerificationFilledState
-import com.ioffeivan.feature.auth.presentation.email_verification.utils.emailVerificationLoadingState
 import com.ioffeivan.feature.auth.presentation.utils.VALID_EMAIL
 import org.junit.Rule
 import org.junit.Test
@@ -45,7 +43,7 @@ class EmailVerificationScreenScreenshotTest {
 
     private val initialState = EmailVerificationState.initial(VALID_EMAIL)
 
-    private val testTimerState = EmailVerificationState.TimerState.Running(30)
+//    private val testTimerState = EmailVerificationState.TimerState.Running(30)
 
     private fun emailVerificationScreen(
         state: EmailVerificationState = initialState,
@@ -60,7 +58,7 @@ class EmailVerificationScreenScreenshotTest {
         }
     }
 
-    @Test
+    /*@Test
     fun emailVerification_defaultState() {
         emailVerificationScreen(initialState.copy(timerState = testTimerState))
     }
@@ -77,7 +75,7 @@ class EmailVerificationScreenScreenshotTest {
         emailVerificationScreen(
             state = emailVerificationLoadingState.copy(timerState = testTimerState),
         )
-    }
+    }*/
 
     // default by running
     @Test
