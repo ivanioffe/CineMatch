@@ -3,7 +3,6 @@ package com.ioffeivan.feature.auth.presentation.sign_up
 import com.ioffeivan.core.presentation.Reducer
 import com.ioffeivan.core.presentation.ReducerResult
 import com.ioffeivan.core.ui.UiText
-import com.ioffeivan.feature.auth.domain.model.SignUpCredentials
 import com.ioffeivan.feature.auth.presentation.sign_up.utils.SignUpDataError
 import com.ioffeivan.feature.auth.presentation.sign_up.utils.SignUpValidation
 import com.ioffeivan.feature.auth.presentation.utils.EmailState
@@ -22,7 +21,8 @@ internal class SignUpReducer : Reducer<SignUpState, SignUpEvent, SignUpEffect> {
                         previousState.copy(
                             confirmPassword =
                                 PasswordState(
-                                    event.confirmPassword,
+                                    value = event.confirmPassword,
+                                    visibility = previousState.confirmPassword.visibility,
                                 ),
                         ),
                 )
@@ -46,7 +46,13 @@ internal class SignUpReducer : Reducer<SignUpState, SignUpEvent, SignUpEffect> {
                         previousState.copy(
                             password =
                                 PasswordState(
-                                    event.password,
+                                    value = event.password,
+                                    visibility = previousState.password.visibility,
+                                ),
+                            confirmPassword =
+                                PasswordState(
+                                    value = previousState.confirmPassword.value,
+                                    visibility = previousState.confirmPassword.visibility,
                                 ),
                         ),
                 )
@@ -58,7 +64,7 @@ internal class SignUpReducer : Reducer<SignUpState, SignUpEvent, SignUpEffect> {
                         previousState.copy(
                             username =
                                 UsernameState(
-                                    event.username,
+                                    value = event.username,
                                 ),
                         ),
                 )
@@ -67,7 +73,7 @@ internal class SignUpReducer : Reducer<SignUpState, SignUpEvent, SignUpEffect> {
             SignUpEvent.LoginClick -> {
                 ReducerResult(
                     state = previousState,
-                    effect = SignUpEffect.Ui.NavigateToLogin,
+                    effect = SignUpEffect.NavigateToLogin,
                 )
             }
 
@@ -89,49 +95,9 @@ internal class SignUpReducer : Reducer<SignUpState, SignUpEvent, SignUpEffect> {
             }
 
             SignUpEvent.SignUpClick -> {
-                val validationResult = SignUpValidation.validate(previousState)
-
-                when (validationResult) {
-                    SignUpValidation.Result.Success -> {
-                        ReducerResult(
-                            state = previousState.copy(isLoading = true),
-                            effect =
-                                SignUpEffect.Internal.PerformSignUp(
-                                    signUpCredentials = previousState.toSignUpCredentials(),
-                                ),
-                        )
-                    }
-
-                    is SignUpValidation.Result.Error -> {
-                        val newState =
-                            previousState.copy(
-                                email =
-                                    previousState.email.copy(
-                                        isError = validationResult.emailError != null,
-                                        errorMessage = validationResult.emailError,
-                                    ),
-                                username =
-                                    previousState.username.copy(
-                                        isError = validationResult.usernameError != null,
-                                        errorMessage = validationResult.usernameError,
-                                    ),
-                                password =
-                                    previousState.password.copy(
-                                        isError = validationResult.passwordError != null,
-                                        errorMessage = validationResult.passwordError,
-                                    ),
-                                confirmPassword =
-                                    previousState.confirmPassword.copy(
-                                        isError = validationResult.confirmPasswordError != null,
-                                        errorMessage = validationResult.confirmPasswordError,
-                                    ),
-                            )
-
-                        ReducerResult(
-                            state = newState,
-                        )
-                    }
-                }
+                ReducerResult(
+                    state = previousState.copy(isLoading = true),
+                )
             }
 
             is SignUpEvent.SignUpError -> {
@@ -139,21 +105,52 @@ internal class SignUpReducer : Reducer<SignUpState, SignUpEvent, SignUpEffect> {
 
                 ReducerResult(
                     state = previousState.copy(isLoading = false),
-                    effect = SignUpEffect.Ui.ShowError(error),
+                    effect = SignUpEffect.ShowError(error),
                 )
             }
 
             SignUpEvent.SignUpSuccess -> {
                 ReducerResult(
                     state = previousState.copy(isLoading = false),
-                    effect = SignUpEffect.Ui.NavigateToVerifyEmail,
+                    effect = SignUpEffect.NavigateToVerifyEmail(previousState.email.value),
+                )
+            }
+
+            is SignUpEvent.ValidationError -> {
+                val error = event.error
+                val newState =
+                    previousState.copy(
+                        email =
+                            previousState.email.copy(
+                                isError = error.emailError != null,
+                                errorMessage = error.emailError,
+                            ),
+                        username =
+                            previousState.username.copy(
+                                isError = error.usernameError != null,
+                                errorMessage = error.usernameError,
+                            ),
+                        password =
+                            previousState.password.copy(
+                                isError = error.passwordError != null,
+                                errorMessage = error.passwordError,
+                            ),
+                        confirmPassword =
+                            previousState.confirmPassword.copy(
+                                isError = error.confirmPasswordError != null,
+                                errorMessage = error.confirmPasswordError,
+                            ),
+                    )
+
+                ReducerResult(
+                    state = newState,
                 )
             }
         }
     }
 }
 
-data class SignUpState(
+internal data class SignUpState(
     val email: EmailState,
     val username: UsernameState,
     val password: PasswordState,
@@ -179,7 +176,7 @@ data class SignUpState(
     }
 }
 
-sealed interface SignUpEvent : Reducer.UiEvent {
+internal sealed interface SignUpEvent : Reducer.UiEvent {
     data class EmailChange(val email: String) : SignUpEvent
 
     data class UsernameChange(val username: String) : SignUpEvent
@@ -197,18 +194,14 @@ sealed interface SignUpEvent : Reducer.UiEvent {
     data object SignUpSuccess : SignUpEvent
 
     data class SignUpError(val message: String?) : SignUpEvent
+
+    data class ValidationError(val error: SignUpValidation.Result.Error) : SignUpEvent
 }
 
-sealed interface SignUpEffect : Reducer.UiEffect {
-    sealed interface Ui : SignUpEffect {
-        data object NavigateToLogin : Ui
+internal sealed interface SignUpEffect : Reducer.UiEffect {
+    data object NavigateToLogin : SignUpEffect
 
-        data object NavigateToVerifyEmail : Ui
+    data class NavigateToVerifyEmail(val email: String) : SignUpEffect
 
-        data class ShowError(val message: UiText) : Ui
-    }
-
-    sealed interface Internal : SignUpEffect {
-        data class PerformSignUp(val signUpCredentials: SignUpCredentials) : Internal
-    }
+    data class ShowError(val message: UiText) : SignUpEffect
 }

@@ -16,7 +16,7 @@ fun NavHostController.navigateToSignUp(navOptions: NavOptions? = null) =
 
 fun NavGraphBuilder.signUp(
     onNavigateToLogin: () -> Unit,
-    onNavigateToVerifyEmail: () -> Unit,
+    onNavigateToVerifyEmail: (String) -> Unit,
     onShowSnackbar: ShowSnackbar,
 ) {
     composable<SignUpRoute> {

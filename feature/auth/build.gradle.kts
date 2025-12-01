@@ -62,6 +62,8 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.kotlinx.coroutines.core)
 
+    implementation(libs.otp.compose)
+
     ksp(libs.hilt.compiler)
 
     testImplementation(libs.androidx.ui.test.junit4)
@@ -76,7 +78,9 @@ dependencies {
     testImplementation(libs.roborazzi.rule)
     testImplementation(platform(libs.test.junit5.bom))
     testImplementation(libs.test.junit5.api)
+    testImplementation(libs.test.junit5.params)
     testImplementation(libs.truth)
+    testImplementation(libs.turbine)
     testImplementation(testFixtures(projects.core.presentation))
 
     testRuntimeOnly(libs.test.junit.platform.launcher)

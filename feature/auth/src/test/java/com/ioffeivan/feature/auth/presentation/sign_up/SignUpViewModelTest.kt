@@ -1,9 +1,17 @@
 package com.ioffeivan.feature.auth.presentation.sign_up
 
+import app.cash.turbine.ReceiveTurbine
+import app.cash.turbine.turbineScope
+import com.google.common.truth.Truth.assertThat
 import com.ioffeivan.core.common.result.Result
 import com.ioffeivan.core.presentation.BaseViewModelTest
 import com.ioffeivan.feature.auth.domain.model.SignUpCredentials
 import com.ioffeivan.feature.auth.domain.usecase.SignUpUseCase
+import com.ioffeivan.feature.auth.presentation.utils.DataError
+import com.ioffeivan.feature.auth.presentation.utils.VALID_EMAIL
+import com.ioffeivan.feature.auth.presentation.utils.VALID_PASSWORD
+import com.ioffeivan.feature.auth.presentation.utils.VALID_USERNAME
+import com.ioffeivan.feature.auth.presentation.utils.ValidationErrors
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk
@@ -20,20 +28,17 @@ class SignUpViewModelTest : BaseViewModelTest() {
     private lateinit var signUpViewModel: SignUpViewModel
     private lateinit var signUpUseCase: SignUpUseCase
 
-    private val email = "example@example.com"
-    private val username = "username"
-    private val password = "password"
     private val signUpCredentials =
         SignUpCredentials(
-            email = email,
-            username = username,
-            password = password,
+            email = VALID_EMAIL,
+            username = VALID_USERNAME,
+            password = VALID_PASSWORD,
         )
 
     @BeforeEach
     override fun setUp() {
         super.setUp()
-        signUpUseCase = mockk(relaxed = true)
+        signUpUseCase = mockk()
         signUpViewModel =
             spyk(
                 SignUpViewModel(signUpUseCase),
@@ -46,45 +51,104 @@ class SignUpViewModelTest : BaseViewModelTest() {
         clearAllMocks()
     }
 
+    private suspend fun ReceiveTurbine<SignUpState>.fillAndPerformSignUp() {
+        awaitItem()
+
+        signUpViewModel.onEvent(SignUpEvent.EmailChange(VALID_EMAIL))
+        awaitItem()
+
+        signUpViewModel.onEvent(SignUpEvent.UsernameChange(VALID_USERNAME))
+        awaitItem()
+
+        signUpViewModel.onEvent(SignUpEvent.PasswordChange(VALID_PASSWORD))
+        awaitItem()
+
+        signUpViewModel.onEvent(SignUpEvent.ConfirmPasswordChange(VALID_PASSWORD))
+        awaitItem()
+
+        signUpViewModel.onEvent(SignUpEvent.SignUpClick)
+    }
+
     @Test
-    fun performSignUp_whenSignUpUseCaseReturnsSuccess_shouldCallOnEventSignUpSuccess() =
+    fun signUp_whenUseCaseReturnsSuccess_shouldSetLoadingFalseAndNavigateToVerifyEmail() =
         runTest {
             every { signUpUseCase(signUpCredentials) } returns flowOf(Result.Success(Unit))
 
-            fillState()
-            signUpViewModel.onEvent(SignUpEvent.SignUpClick)
+            turbineScope {
+                val state = signUpViewModel.state.testIn(backgroundScope)
+                val effect = signUpViewModel.effect.testIn(backgroundScope)
 
-            verify(exactly = 1) { signUpViewModel.onEvent(SignUpEvent.SignUpSuccess) }
+                state.fillAndPerformSignUp()
+
+                val loadingState = state.awaitItem()
+                assertThat(loadingState.isLoading).isTrue()
+
+                val successState = state.awaitItem()
+                assertThat(successState.isLoading).isFalse()
+                assertThat(effect.awaitItem()).isEqualTo(
+                    SignUpEffect.NavigateToVerifyEmail(VALID_EMAIL),
+                )
+
+                state.cancel()
+                effect.cancel()
+            }
+
+            verify(exactly = 1) { signUpUseCase(signUpCredentials) }
         }
 
     @Test
-    fun performSignUp_whenSignUpUseCaseReturnsError_shouldCallSendEventSignUpError() =
+    fun signUp_whenUseCaseReturnsError_shouldSetLoadingFalseAndShowErrorEffect() =
         runTest {
-            val errorMessage = "message"
+            val errorMessage = DataError.Message.INVALID_EMAIL
             every { signUpUseCase(signUpCredentials) } returns flowOf(Result.Error(errorMessage))
 
-            fillState()
-            signUpViewModel.onEvent(SignUpEvent.SignUpClick)
+            turbineScope {
+                val state = signUpViewModel.state.testIn(backgroundScope)
+                val effect = signUpViewModel.effect.testIn(backgroundScope)
 
-            verify(exactly = 1) { signUpViewModel.onEvent(SignUpEvent.SignUpError(errorMessage)) }
+                state.fillAndPerformSignUp()
+
+                val loadingState = state.awaitItem()
+                assertThat(loadingState.isLoading).isTrue()
+
+                val errorState = state.awaitItem()
+                assertThat(errorState.isLoading).isFalse()
+                assertThat(effect.awaitItem()).isEqualTo(
+                    SignUpEffect.ShowError(ValidationErrors.emailInvalid),
+                )
+
+                state.cancel()
+                effect.cancel()
+            }
+
+            verify(exactly = 1) { signUpUseCase(signUpCredentials) }
         }
 
     @Test
-    fun performSignUp_whenSignUpUseCaseReturnsException_shouldCallSendEventSignUpError() =
+    fun signUp_whenUseCaseReturnsException_shouldSetLoadingFalseAndShowErrorEffect() =
         runTest {
             val exception = IOException()
             every { signUpUseCase(signUpCredentials) } returns flowOf(Result.Exception(exception))
 
-            fillState()
-            signUpViewModel.onEvent(SignUpEvent.SignUpClick)
+            turbineScope {
+                val state = signUpViewModel.state.testIn(backgroundScope)
+                val effect = signUpViewModel.effect.testIn(backgroundScope)
 
-            verify(exactly = 1) { signUpViewModel.onEvent(SignUpEvent.SignUpError(exception.message)) }
+                state.fillAndPerformSignUp()
+
+                val loadingState = state.awaitItem()
+                assertThat(loadingState.isLoading).isTrue()
+
+                val exceptionState = state.awaitItem()
+                assertThat(exceptionState.isLoading).isFalse()
+                assertThat(effect.awaitItem()).isEqualTo(
+                    SignUpEffect.ShowError(DataError.somethingWentWrong),
+                )
+
+                state.cancel()
+                effect.cancel()
+            }
+
+            verify(exactly = 1) { signUpUseCase(signUpCredentials) }
         }
-
-    private fun fillState() {
-        signUpViewModel.onEvent(SignUpEvent.EmailChange(email))
-        signUpViewModel.onEvent(SignUpEvent.UsernameChange(username))
-        signUpViewModel.onEvent(SignUpEvent.PasswordChange(password))
-        signUpViewModel.onEvent(SignUpEvent.ConfirmPasswordChange(password))
-    }
 }

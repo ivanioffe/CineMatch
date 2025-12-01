@@ -32,7 +32,7 @@ internal val loginInvalidState =
         password =
             PasswordState(
                 value = INVALID_PASSWORD_LENGTH,
-                visibility = true,
+                visibility = false,
                 isError = true,
                 errorMessage =
                     ValidationErrors.passwordInvalidLength(

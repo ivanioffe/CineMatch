@@ -43,7 +43,7 @@ internal val signUpInvalidState =
         password =
             PasswordState(
                 value = INVALID_PASSWORD_LENGTH,
-                visibility = true,
+                visibility = false,
                 isError = true,
                 errorMessage =
                     ValidationErrors.passwordInvalidLength(
@@ -54,7 +54,7 @@ internal val signUpInvalidState =
         confirmPassword =
             PasswordState(
                 value = "",
-                visibility = true,
+                visibility = false,
                 isError = false,
                 errorMessage = null,
             ),

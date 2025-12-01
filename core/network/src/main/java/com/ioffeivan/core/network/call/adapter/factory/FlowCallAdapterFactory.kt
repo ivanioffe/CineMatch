@@ -1,8 +1,8 @@
 package com.ioffeivan.core.network.call.adapter.factory
 
 import com.ioffeivan.core.common.result.Result
-import com.ioffeivan.core.network.call.adapter.BodyCallAdapter
-import com.ioffeivan.core.network.call.adapter.ResultCallAdapter
+import com.ioffeivan.core.network.call.adapter.FlowBodyCallAdapter
+import com.ioffeivan.core.network.call.adapter.FlowResultCallAdapter
 import kotlinx.coroutines.flow.Flow
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
@@ -14,7 +14,7 @@ import java.lang.reflect.Type
  * whose return type is a Kotlin [Flow].
  *
  * This factory inspects the type argument of the Flow to determine which specific
- * adapter ([ResultCallAdapter] or [BodyCallAdapter]) should be created.
+ * adapter ([FlowResultCallAdapter] or [FlowBodyCallAdapter]) should be created.
  */
 class FlowCallAdapterFactory private constructor() : CallAdapter.Factory() {
     override fun get(
@@ -49,9 +49,9 @@ class FlowCallAdapterFactory private constructor() : CallAdapter.Factory() {
                 )
             }
 
-            ResultCallAdapter<Any>(getParameterUpperBound(0, responseType))
+            FlowResultCallAdapter<Any>(getParameterUpperBound(0, responseType))
         } else {
-            BodyCallAdapter<Any>(responseType)
+            FlowBodyCallAdapter<Any>(responseType)
         }
     }
 

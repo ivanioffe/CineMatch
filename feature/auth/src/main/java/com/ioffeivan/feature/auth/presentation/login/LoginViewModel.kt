@@ -7,37 +7,50 @@ import com.ioffeivan.core.common.result.onSuccess
 import com.ioffeivan.core.presentation.BaseViewModel
 import com.ioffeivan.feature.auth.domain.model.LoginCredentials
 import com.ioffeivan.feature.auth.domain.usecase.LoginUseCase
+import com.ioffeivan.feature.auth.presentation.login.utils.LoginValidation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
+internal class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
 ) : BaseViewModel<LoginState, LoginEvent, LoginEffect>(
         initialState = LoginState.initial(),
         reducer = LoginReducer(),
     ) {
-    override fun handleEffect(effect: LoginEffect) {
-        when (effect) {
-            is LoginEffect.Internal.PerformLogin -> {
-                performLogin(effect.loginCredentials)
-            }
-
-            is LoginEffect.Ui -> super.handleEffect(effect)
+    override fun onEvent(event: LoginEvent) {
+        when (event) {
+            is LoginEvent.LoginClick -> onLoginClickEvent()
+            else -> sendEvent(event)
         }
     }
 
-    private fun performLogin(loginCredentials: LoginCredentials) {
+    private fun onLoginClickEvent() {
+        val validationError = LoginValidation.validate(state.value)
+
+        when (validationError) {
+            LoginValidation.Result.Success -> {
+                sendEvent(LoginEvent.LoginClick)
+                login(state.value.toLoginCredentials())
+            }
+
+            is LoginValidation.Result.Error -> {
+                sendEvent(LoginEvent.ValidationError(validationError))
+            }
+        }
+    }
+
+    private fun login(loginCredentials: LoginCredentials) {
         loginUseCase(loginCredentials)
             .onEach { result ->
                 result.onSuccess {
-                    onEvent(LoginEvent.LoginSuccess)
+                    sendEvent(LoginEvent.LoginSuccess)
                 }.onError {
-                    onEvent(LoginEvent.LoginError(it))
+                    sendEvent(LoginEvent.LoginError(it))
                 }.onException {
-                    onEvent(LoginEvent.LoginError(it.message))
+                    sendEvent(LoginEvent.LoginError(it.message))
                 }
             }
             .launchIn(viewModelScope)

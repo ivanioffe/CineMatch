@@ -1,4 +1,4 @@
-package com.ioffeivan.feature.auth.data.source.remote
+package com.ioffeivan.feature.auth.data.source.remote.data_source
 
 import com.ioffeivan.core.common.result.Result
 import com.ioffeivan.feature.auth.data.source.remote.model.LoginCredentialsDto

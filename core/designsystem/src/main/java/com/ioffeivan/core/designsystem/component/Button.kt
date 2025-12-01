@@ -43,15 +43,9 @@ fun PrimaryButton(
     content: @Composable RowScope.() -> Unit,
 ) {
     val shape = RoundedCornerShape(4.dp)
-
-    Button(
-        onClick = onClick,
-        enabled = enabled,
-        shape = shape,
-        contentPadding = contentPadding,
-        modifier =
-            modifier
-                .height(60.dp)
+    val shadowModifier =
+        if (enabled) {
+            Modifier
                 .dropShadow(
                     shape = shape,
                     shadow =
@@ -61,7 +55,20 @@ fun PrimaryButton(
                             color = MaterialTheme.colorScheme.primary,
                             alpha = 0.25f,
                         ),
-                ),
+                )
+        } else {
+            Modifier
+        }
+
+    Button(
+        onClick = onClick,
+        enabled = enabled,
+        shape = shape,
+        contentPadding = contentPadding,
+        modifier =
+            modifier
+                .height(60.dp)
+                .then(shadowModifier),
         content = content,
     )
 }
@@ -188,6 +195,21 @@ private fun PrimaryButtonPreview() {
         PrimaryButton(
             text = "Button",
             onClick = {},
+            modifier =
+                Modifier
+                    .padding(16.dp),
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun DisabledPrimaryButtonPreview() {
+    PreviewContainer {
+        PrimaryButton(
+            text = "Button",
+            onClick = {},
+            enabled = false,
             modifier =
                 Modifier
                     .padding(16.dp),

@@ -62,9 +62,7 @@ abstract class BaseViewModel<State : Reducer.UiState, Event : Reducer.UiEvent, E
      *
      * @param event The [Reducer.UiEvent] triggered by the UI.
      */
-    open fun onEvent(event: Event) {
-        sendEvent(event)
-    }
+    abstract fun onEvent(event: Event)
 
     /**
      * Processes an [Event] through the [reducer], updates the [state],
@@ -72,28 +70,12 @@ abstract class BaseViewModel<State : Reducer.UiState, Event : Reducer.UiEvent, E
      *
      * @param event The [Reducer.UiEvent] to process.
      */
-    private fun sendEvent(event: Event) {
+    protected fun sendEvent(event: Event) {
         val (newState, effect) = reducer.reduce(_state.value, event)
 
         _state.tryEmit(newState)
 
-        effect?.let { handleEffect(effect) }
-    }
-
-    /**
-     * Handles the side effect ([Effect]) emitted by the [Reducer].
-     *
-     * By default, it sends the effect to the [_effect] channel,
-     * making it available for collection by the UI
-     * to perform one-time actions like navigation, showing a Snackbar, or displaying a Dialog.
-     *
-     * Child ViewModels can **override** this function to handle specific effects
-     * within the ViewModel itself thereby keeping asynchronous logic centralized.
-     *
-     * @param effect The [Reducer.UiEffect] to process.
-     */
-    protected open fun handleEffect(effect: Effect) {
-        _effect.trySend(effect)
+        effect?.let { _effect.trySend(effect) }
     }
 
     /**
