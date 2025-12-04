@@ -36,6 +36,9 @@
     <string name="otp_sent_message">Мы только что отправили 5-значный код на адрес %1$s, введите его ниже:</string>
     <string name="resend_code">Получить новый код</string>
     <string name="resend_code_with_timer">Получить новый код %1$s</string>
-    
+
     <string name="invalid_otp">Неверный код</string>
+
+    <string name="account_created_title">Ваш аккаунт был успешно создан!</string>
+    <string name="account_created_description">Всего один клик отделяет Вас от прекрасного мира кино.</string>
 </resources>
