@@ -61,7 +61,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.hilt.android)
     implementation(libs.kotlinx.coroutines.core)
-
+    implementation(libs.lottie.compose)
     implementation(libs.otp.compose)
 
     ksp(libs.hilt.compiler)
