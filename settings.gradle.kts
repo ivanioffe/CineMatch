@@ -16,10 +16,21 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = uri("https://jitpack.io") }
     }
 }
 
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "CineMatch"
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
- 
+
+include(":core:common")
+include(":core:datastore-auth")
+include(":core:designsystem")
+include(":core:network")
+include(":core:presentation")
+include(":core:ui")
+
+include(":feature:auth")
+include(":feature:onboarding")

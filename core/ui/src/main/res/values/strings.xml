@@ -1,0 +1,4 @@
+<resources>
+    <string name="login">Вход</string>
+    <string name="signup">Регистрация</string>
+</resources>
