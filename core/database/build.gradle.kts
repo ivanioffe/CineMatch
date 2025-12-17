@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.room)
 }
 
 android {
@@ -32,6 +35,22 @@ android {
     }
 }
 
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+
 dependencies {
-    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.hilt.android)
+    implementation(libs.room.ktx)
+    implementation(libs.room.paging)
+    implementation(libs.room.runtime)
+
+    ksp(libs.hilt.compiler)
+    ksp(libs.room.compiler)
+
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.truth)
 }
