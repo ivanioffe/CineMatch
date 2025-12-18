@@ -24,6 +24,7 @@ lifecycleViewModelKtx = "2.9.4"
 lottieCompose = "6.7.1"
 mockwebserver = "5.3.0"
 okhttp = "5.1.0"
+paging = "3.3.6"
 retrofit = "3.0.0"
 robolectric = "4.16"
 roborazzi = "1.50.0"
@@ -43,6 +44,8 @@ androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecyc
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewModelKtx" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigationCompose" }
+androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
+androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
@@ -69,6 +72,7 @@ roborazzi-compose = { group = "io.github.takahirom.roborazzi", name = "roborazzi
 roborazzi-rule = { group = "io.github.takahirom.roborazzi", name = "roborazzi-junit-rule", version.ref = "roborazzi" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 test-junit5-api = { group = "org.junit.jupiter", name = "junit-jupiter-api" }
 test-junit5-bom = { group = "org.junit", name = "junit-bom", version.ref = "junit5" }
