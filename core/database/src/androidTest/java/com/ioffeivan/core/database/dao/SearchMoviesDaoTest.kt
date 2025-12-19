@@ -7,7 +7,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
 import com.ioffeivan.core.database.AppDatabase
-import com.ioffeivan.core.database.model.MovieSearchEntity
+import com.ioffeivan.core.database.model.SearchMovieEntity
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
@@ -16,12 +16,12 @@ import org.junit.runner.RunWith
 import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
-class MovieSearchDaoTest {
-    private lateinit var movieSearchDao: MovieSearchDao
+class SearchMoviesDaoTest {
+    private lateinit var searchMoviesDao: SearchMoviesDao
     private lateinit var db: AppDatabase
 
-    private val movieSearchEntityTest1 =
-        MovieSearchEntity(
+    private val searchMovieEntityTest1 =
+        SearchMovieEntity(
             1,
             "Inception",
             listOf("Sci-Fi"),
@@ -29,8 +29,8 @@ class MovieSearchDaoTest {
             "url1",
         )
 
-    private val movieSearchEntityTest2 =
-        MovieSearchEntity(
+    private val searchMovieEntityTest2 =
+        SearchMovieEntity(
             2,
             "Interstellar",
             listOf("Adventure"),
@@ -46,7 +46,7 @@ class MovieSearchDaoTest {
                 context = context,
                 klass = AppDatabase::class.java,
             ).build()
-        movieSearchDao = db.movieSearchDao()
+        searchMoviesDao = db.searchMoviesDao()
     }
 
     @After
@@ -56,66 +56,9 @@ class MovieSearchDaoTest {
     }
 
     @Test
-    fun upsertAll_insertsSingleItemCorrectly() =
-        runTest {
-            movieSearchDao.upsertAll(
-                listOf(movieSearchEntityTest1),
-            )
-
-            val result = loadPagingData("Inception")
-
-            assertThat(result).containsExactly(movieSearchEntityTest1)
-        }
-
-    @Test
-    fun upsertAll_insertsMultipleItemsCorrectly() =
-        runTest {
-            movieSearchDao.upsertAll(listOf(movieSearchEntityTest1, movieSearchEntityTest2))
-
-            val result = loadPagingData("In")
-
-            assertThat(result).containsExactly(movieSearchEntityTest1, movieSearchEntityTest2)
-        }
-
-    @Test
-    fun upsertAll_updatesExistingItem() =
-        runTest {
-            val original = movieSearchEntityTest1
-            movieSearchDao.upsertAll(listOf(original))
-
-            val updated = original.copy(genres = listOf("Sci-Fi", "Thriller"))
-            movieSearchDao.upsertAll(listOf(updated))
-
-            val result = loadPagingData("Inception")
-
-            assertThat(result).containsExactly(updated)
-        }
-
-    @Test
-    fun upsertAll_handlesEmptyList() =
-        runTest {
-            movieSearchDao.upsertAll(emptyList())
-
-            val result = loadPagingData("anything")
-
-            assertThat(result).isEmpty()
-        }
-
-    @Test
-    fun clearAll_removesAllData() =
-        runTest {
-            movieSearchDao.upsertAll(listOf(movieSearchEntityTest1))
-            movieSearchDao.clearAll()
-
-            val result = loadPagingData("Inception")
-
-            assertThat(result).isEmpty()
-        }
-
-    @Test
     fun pagingSource_handlesNoMatchQuery() =
         runTest {
-            movieSearchDao.upsertAll(listOf(movieSearchEntityTest1))
+            searchMoviesDao.upsertAll(listOf(searchMovieEntityTest1))
 
             val result = loadPagingData("Nonexistent")
 
@@ -125,23 +68,80 @@ class MovieSearchDaoTest {
     @Test
     fun pagingSource_handlesPartialMatch() =
         runTest {
-            movieSearchDao.upsertAll(listOf(movieSearchEntityTest1))
+            searchMoviesDao.upsertAll(listOf(searchMovieEntityTest1))
 
             val result = loadPagingData("cep")
-            assertThat(result).containsExactly(movieSearchEntityTest1)
+            assertThat(result).containsExactly(searchMovieEntityTest1)
         }
 
     @Test
     fun pagingSource_handlesCaseInsensitivity() =
         runTest {
-            movieSearchDao.upsertAll(listOf(movieSearchEntityTest1))
+            searchMoviesDao.upsertAll(listOf(searchMovieEntityTest1))
 
             val result = loadPagingData("inception")
-            assertThat(result).containsExactly(movieSearchEntityTest1)
+            assertThat(result).containsExactly(searchMovieEntityTest1)
         }
 
-    private suspend fun loadPagingData(query: String): List<MovieSearchEntity> {
-        val pagingSource = movieSearchDao.pagingSource(query)
+    @Test
+    fun upsertAll_insertsSingleItemCorrectly() =
+        runTest {
+            searchMoviesDao.upsertAll(
+                listOf(searchMovieEntityTest1),
+            )
+
+            val result = loadPagingData("Inception")
+
+            assertThat(result).containsExactly(searchMovieEntityTest1)
+        }
+
+    @Test
+    fun upsertAll_insertsMultipleItemsCorrectly() =
+        runTest {
+            searchMoviesDao.upsertAll(listOf(searchMovieEntityTest1, searchMovieEntityTest2))
+
+            val result = loadPagingData("In")
+
+            assertThat(result).containsExactly(searchMovieEntityTest1, searchMovieEntityTest2)
+        }
+
+    @Test
+    fun upsertAll_updatesExistingItem() =
+        runTest {
+            val original = searchMovieEntityTest1
+            searchMoviesDao.upsertAll(listOf(original))
+
+            val updated = original.copy(genres = listOf("Sci-Fi", "Thriller"))
+            searchMoviesDao.upsertAll(listOf(updated))
+
+            val result = loadPagingData("Inception")
+
+            assertThat(result).containsExactly(updated)
+        }
+
+    @Test
+    fun upsertAll_handlesEmptyList() =
+        runTest {
+            searchMoviesDao.upsertAll(emptyList())
+
+            val result = loadPagingData("anything")
+
+            assertThat(result).isEmpty()
+        }
+
+    @Test
+    fun clearAll_removesAllData() =
+        runTest {
+            searchMoviesDao.upsertAll(listOf(searchMovieEntityTest1))
+            searchMoviesDao.clearAll()
+
+            val result = loadPagingData("Inception")
+
+            assertThat(result).isEmpty()
+        }
+
+    private suspend fun loadPagingData(query: String): List<SearchMovieEntity> {
+        val pagingSource = searchMoviesDao.pagingSource(query)
         val loadResult =
             pagingSource.load(
                 PagingSource.LoadParams.Refresh(

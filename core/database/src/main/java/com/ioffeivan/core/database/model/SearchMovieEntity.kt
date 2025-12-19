@@ -6,11 +6,11 @@ import androidx.room.PrimaryKey
 @Entity(
     tableName = "movie_search",
 )
-data class MovieSearchEntity(
+data class SearchMovieEntity(
     @PrimaryKey
     val id: Int,
     val title: String,
     val genres: List<String>,
     val year: Int,
-    val image: String,
+    val imageUrl: String,
 )
