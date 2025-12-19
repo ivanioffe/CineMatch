@@ -35,3 +35,4 @@ include(":core:ui")
 
 include(":feature:auth")
 include(":feature:onboarding")
+include(":feature:search-movies")
