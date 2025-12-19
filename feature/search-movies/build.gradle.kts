@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ktlint)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
@@ -35,8 +37,22 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.database)
+    implementation(projects.core.network)
+
     implementation(libs.androidx.paging.runtime)
     implementation(libs.hilt.android)
 
     ksp(libs.hilt.compiler)
+
+    testImplementation(libs.junit.vintage.engine)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockwebserver)
+    testImplementation(platform(libs.test.junit5.bom))
+    testImplementation(libs.test.junit5.api)
+    testImplementation(libs.test.junit5.params)
+    testImplementation(libs.truth)
+
+    testRuntimeOnly(libs.test.junit.platform.launcher)
+    testRuntimeOnly(libs.test.junit5.engine)
 }
