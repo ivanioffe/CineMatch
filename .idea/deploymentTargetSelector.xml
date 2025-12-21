@@ -13,16 +13,7 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="AccountCreatedScreenPreview">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="MovieSearchDaoTest">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="upsertAll_insertsDataCorrectly()">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="upsertAll_insertsSingleItemCorrectly()">
+      <SelectionState runConfigName="pagingSource_handlesPartialMatch()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

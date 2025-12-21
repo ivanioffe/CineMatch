@@ -2,7 +2,7 @@ package com.ioffeivan.core.database.converter
 
 import androidx.room.TypeConverter
 
-class StringListConverter {
+internal class StringListConverter {
     @TypeConverter
     fun fromStringList(list: List<String>): String {
         return list.joinToString(",")

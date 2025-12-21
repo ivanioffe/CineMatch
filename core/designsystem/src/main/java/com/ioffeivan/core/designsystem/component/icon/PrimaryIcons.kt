@@ -10,6 +10,7 @@ import com.ioffeivan.core.designsystem.R
 object PrimaryIcons {
     val AccountCircle = R.drawable.ic_account_circle
     val ArrowBack = R.drawable.ic_arrow_back
+    val Clear = R.drawable.ic_clear
     val Mail = R.drawable.ic_mail
     val Favourite = R.drawable.ic_favorite
     val Home = R.drawable.ic_home

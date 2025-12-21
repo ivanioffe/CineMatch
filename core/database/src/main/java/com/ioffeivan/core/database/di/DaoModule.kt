@@ -1,7 +1,8 @@
 package com.ioffeivan.core.database.di
 
 import com.ioffeivan.core.database.AppDatabase
-import com.ioffeivan.core.database.dao.MovieSearchDao
+import com.ioffeivan.core.database.dao.RemoteKeyDao
+import com.ioffeivan.core.database.dao.SearchMoviesDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,5 +14,10 @@ internal object DaoModule {
     @Provides
     fun provideMovieSearchDao(
         database: AppDatabase,
-    ): MovieSearchDao = database.movieSearchDao()
+    ): SearchMoviesDao = database.searchMoviesDao()
+
+    @Provides
+    fun provideRemoteKeyDao(
+        database: AppDatabase,
+    ): RemoteKeyDao = database.remoteKeyDao()
 }
