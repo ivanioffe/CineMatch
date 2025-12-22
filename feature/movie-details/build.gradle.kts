@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -33,4 +36,21 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.common)
+    implementation(projects.core.network)
+
+    implementation(libs.hilt.android)
+
+    ksp(libs.hilt.compiler)
+
+    testImplementation(libs.junit.vintage.engine)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockk)
+    testImplementation(platform(libs.test.junit5.bom))
+    testImplementation(libs.test.junit5.api)
+    testImplementation(libs.test.junit5.params)
+    testImplementation(libs.truth)
+
+    testRuntimeOnly(libs.test.junit.platform.launcher)
+    testRuntimeOnly(libs.test.junit5.engine)
 }
