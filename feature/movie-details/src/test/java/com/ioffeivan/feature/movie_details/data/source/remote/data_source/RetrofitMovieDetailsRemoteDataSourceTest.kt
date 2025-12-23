@@ -2,7 +2,7 @@ package com.ioffeivan.feature.movie_details.data.source.remote.data_source
 
 import com.google.common.truth.Truth.assertThat
 import com.ioffeivan.core.common.result.Result
-import com.ioffeivan.feature.movie_details.data.GetMovieDetailsResultDtoArgumentsProvider
+import com.ioffeivan.feature.movie_details.GetMovieDetailsResultDtoArgumentsProvider
 import com.ioffeivan.feature.movie_details.data.source.remote.api.MovieDetailsApiService
 import com.ioffeivan.feature.movie_details.data.source.remote.model.MovieDetailsDto
 import io.mockk.clearAllMocks

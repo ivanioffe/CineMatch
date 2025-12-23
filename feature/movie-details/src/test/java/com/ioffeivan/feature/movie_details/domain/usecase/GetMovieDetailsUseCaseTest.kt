@@ -2,7 +2,7 @@ package com.ioffeivan.feature.movie_details.domain.usecase
 
 import com.google.common.truth.Truth.assertThat
 import com.ioffeivan.core.common.result.Result
-import com.ioffeivan.feature.movie_details.domain.GetMovieDetailsResultDomainArgumentsProvider
+import com.ioffeivan.feature.movie_details.GetMovieDetailsResultDomainArgumentsProvider
 import com.ioffeivan.feature.movie_details.domain.model.MovieDetails
 import com.ioffeivan.feature.movie_details.domain.repository.MovieDetailsRepository
 import io.mockk.clearAllMocks

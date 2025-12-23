@@ -2,10 +2,10 @@ package com.ioffeivan.feature.movie_details.data.repository
 
 import com.google.common.truth.Truth.assertThat
 import com.ioffeivan.core.common.result.Result
-import com.ioffeivan.feature.movie_details.data.movieDetailsDtoTest
 import com.ioffeivan.feature.movie_details.data.source.remote.data_source.MovieDetailsRemoteDataSource
-import com.ioffeivan.feature.movie_details.domain.movieDetailsTest
 import com.ioffeivan.feature.movie_details.domain.repository.MovieDetailsRepository
+import com.ioffeivan.feature.movie_details.movieDetailsDtoTest
+import com.ioffeivan.feature.movie_details.movieDetailsTest
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify

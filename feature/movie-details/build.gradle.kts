@@ -39,6 +39,7 @@ android {
 dependencies {
     implementation(projects.core.common)
     implementation(projects.core.network)
+    implementation(projects.core.presentation)
 
     implementation(libs.hilt.android)
 
@@ -52,7 +53,11 @@ dependencies {
     testImplementation(libs.test.junit5.api)
     testImplementation(libs.test.junit5.params)
     testImplementation(libs.truth)
+    testImplementation(libs.turbine)
+    testImplementation(testFixtures(projects.core.presentation))
 
     testRuntimeOnly(libs.test.junit.platform.launcher)
     testRuntimeOnly(libs.test.junit5.engine)
+
+    androidTestImplementation(libs.androidx.test.runner)
 }

@@ -4,7 +4,7 @@ import com.google.common.truth.Truth.assertThat
 import com.ioffeivan.core.common.result.Result
 import com.ioffeivan.core.network.call.adapter.factory.ResultCallAdapterFactory
 import com.ioffeivan.core.network.utils.NetworkJson
-import com.ioffeivan.feature.movie_details.data.movieDetailsDtoTest
+import com.ioffeivan.feature.movie_details.movieDetailsDtoTest
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
