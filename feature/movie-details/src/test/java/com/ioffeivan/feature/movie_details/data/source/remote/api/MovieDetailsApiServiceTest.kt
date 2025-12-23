@@ -45,7 +45,7 @@ class MovieDetailsApiServiceTest {
                 val request = mockWebServer.takeRequest()
 
                 assertThat(request.method).isEqualTo("GET")
-                assertThat(request.path).isEqualTo("/movie?id=1")
+                assertThat(request.path).isEqualTo("/movies/1")
             }
 
         @Test
