@@ -14,9 +14,9 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ErrorScreen(
-    errorMessage: String,
     onRetryClick: () -> Unit,
     modifier: Modifier = Modifier,
+    errorMessage: String = stringResource(R.string.loading_error),
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
