@@ -119,7 +119,6 @@ internal fun SearchMoviesScreen(
 
                                     is LoadState.Error -> {
                                         ErrorScreen(
-                                            errorMessage = stringResource(R.string.error_unknown),
                                             onRetryClick = {
                                                 pagingState.retry()
                                             },
@@ -142,7 +141,6 @@ internal fun SearchMoviesScreen(
 
                         is LoadState.Error -> {
                             ErrorScreen(
-                                errorMessage = stringResource(R.string.error_unknown),
                                 onRetryClick = {
                                     pagingState.retry()
                                 },

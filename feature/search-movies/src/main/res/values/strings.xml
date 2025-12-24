@@ -4,5 +4,4 @@
     <string name="search_cancel">Отмена</string>
     <string name="search_initial_prompt">Начинайте вводить название фильма</string>
     <string name="search_no_results">По Вашему запросу ничего не найдено</string>
-    <string name="error_unknown">Произошла ошибка при загрузке данных. Повторите попытку позже</string>
 </resources>

@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 internal interface SearchMoviesApiService {
-    @GET("movie")
+    @GET("movies")
     suspend fun search(
         @Query("title") query: String,
         @Query("page") page: Int,

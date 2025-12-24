@@ -29,7 +29,6 @@ jobs:
           path: '**/build/reports/ktlint/'
 
   verify-screenshots:
-    needs: [ ktlint ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
@@ -74,7 +73,6 @@ jobs:
           path: '**/build/reports/tests/testDebugUnitTest/'
 
   unit-test:
-    needs: [ verify-screenshots ]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -103,7 +101,7 @@ jobs:
           path: '**/build/reports/tests/testDebugUnitTest/'
 
   instrumentation-test:
-    needs: [ unit-test ]
+    needs: [ ktlint, unit-test, verify-screenshots ]
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
