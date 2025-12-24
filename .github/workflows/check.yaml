@@ -29,7 +29,6 @@ jobs:
           path: '**/build/reports/ktlint/'
 
   verify-screenshots:
-    needs: [ ktlint ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
@@ -40,6 +39,12 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 17
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: wrapper
+          cache-read-only: false
 
       - name: Run Roborazzi Verification
         run: ./gradlew verifyRoborazziDebug --stacktrace
@@ -68,7 +73,6 @@ jobs:
           path: '**/build/reports/tests/testDebugUnitTest/'
 
   unit-test:
-    needs: [ verify-screenshots ]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -81,6 +85,12 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: wrapper
+          cache-read-only: false
+
       - name: Run unit tests
         run: ./gradlew testDebugUnitTest
 
@@ -91,7 +101,7 @@ jobs:
           path: '**/build/reports/tests/testDebugUnitTest/'
 
   instrumentation-test:
-    needs: [ unit-test ]
+    needs: [ ktlint, unit-test, verify-screenshots ]
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -100,6 +110,7 @@ jobs:
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
+          ls /dev/kvm
 
       - name: Checkout the code
         uses: actions/checkout@v4
@@ -109,6 +120,12 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 17
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: wrapper
+          cache-read-only: false
 
       - name: Run instrumentation tests
         uses: reactivecircus/android-emulator-runner@v2

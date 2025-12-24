@@ -1,11 +1,13 @@
 package com.ioffeivan.core.network.di
 
+import com.ioffeivan.core.network.api.TokenApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.create
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -32,6 +34,14 @@ internal object UnauthorizedNetworkModule {
         return baseRetrofitBuilder
             .client(client)
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideTokenApiService(
+        @Unauthorized retrofit: Retrofit,
+    ): TokenApiService {
+        return retrofit.create()
     }
 }
 

@@ -6,6 +6,9 @@
       <module name="build-logic.convention.main" target="17" />
       <module name="build-logic.convention.test" target="17" />
       <module name="CineMatch.feature.d" target="21" />
+      <module name="CineMatch.feature.home" target="21" />
+      <module name="CineMatch.feature.movie-detail" target="21" />
+      <module name="CineMatch.feature.search" target="21" />
       <module name="CineMatch.feature.sign-up" target="21" />
     </bytecodeTargetLevel>
   </component>

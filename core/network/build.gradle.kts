@@ -55,6 +55,7 @@ android {
 
 dependencies {
     implementation(projects.core.common)
+    implementation(projects.core.datastoreAuth)
 
     implementation(libs.hilt.android)
     implementation(libs.kotlinx.coroutines.core)
