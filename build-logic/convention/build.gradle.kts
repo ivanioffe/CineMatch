@@ -13,3 +13,32 @@ kotlin {
         jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }
+
+dependencies {
+    compileOnly(libs.android.gradleApiPlugin)
+    compileOnly(libs.kotlin.gradlePlugin)
+}
+
+tasks {
+    validatePlugins {
+        enableStricterValidation = true
+        failOnWarning = true
+    }
+}
+
+gradlePlugin {
+    plugins {
+        register("androidApplication") {
+            id = libs.plugins.cinematch.android.application.get().pluginId
+            implementationClass = "AndroidApplicationConventionPlugin"
+        }
+        register("androidLibrary") {
+            id = libs.plugins.cinematch.android.library.get().pluginId
+            implementationClass = "AndroidLibraryConventionPlugin"
+        }
+        register("jvmLibrary") {
+            id = libs.plugins.cinematch.jvm.library.get().pluginId
+            implementationClass = "JvmLibraryConventionPlugin"
+        }
+    }
+}
