@@ -17,6 +17,7 @@ kotlin {
 dependencies {
     compileOnly(libs.android.gradleApiPlugin)
     compileOnly(libs.kotlin.gradlePlugin)
+    compileOnly(libs.ksp.gradlePlugin)
 }
 
 tasks {
@@ -35,6 +36,10 @@ gradlePlugin {
         register("androidLibrary") {
             id = libs.plugins.cinematch.android.library.get().pluginId
             implementationClass = "AndroidLibraryConventionPlugin"
+        }
+        register("hilt") {
+            id = libs.plugins.cinematch.hilt.get().pluginId
+            implementationClass = "HiltConventionPlugin"
         }
         register("jvmLibrary") {
             id = libs.plugins.cinematch.jvm.library.get().pluginId
