@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  ktlint:
+  check-build-logic-and-lint:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4
@@ -19,17 +19,29 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: wrapper
+          cache-read-only: false
+
+      - name: Check Convention Plugins
+        run: ./gradlew :build-logic:convention:check
+
       - name: Run ktlint
         run: ./gradlew ktlintCheck
 
       - name: Upload ktlint report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: ktlint.html
           path: '**/build/reports/ktlint/'
 
   verify-screenshots:
+    needs: [ check-build-logic-and-lint ]
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4
@@ -73,6 +85,7 @@ jobs:
           path: '**/build/reports/tests/testDebugUnitTest/'
 
   unit-test:
+    needs: [ check-build-logic-and-lint ]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -101,7 +114,7 @@ jobs:
           path: '**/build/reports/tests/testDebugUnitTest/'
 
   instrumentation-test:
-    needs: [ ktlint, unit-test, verify-screenshots ]
+    needs: [ verify-screenshots, unit-test ]
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
