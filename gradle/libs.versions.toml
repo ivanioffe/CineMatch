@@ -89,6 +89,7 @@ turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine
 android-gradleApiPlugin = { group = "com.android.tools.build", name = "gradle-api", version.ref = "agp" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -108,3 +109,4 @@ cinematch-android-library = { id = "cinematch.android.library" }
 cinematch-compose = { id = "cinematch.compose" }
 cinematch-hilt = { id = "cinematch.hilt" }
 cinematch-jvm-library = { id = "cinematch.jvm.library" }
+cinematch-room = { id = "cinematch.room" }

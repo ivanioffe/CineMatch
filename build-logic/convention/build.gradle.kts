@@ -18,6 +18,7 @@ dependencies {
     compileOnly(libs.android.gradleApiPlugin)
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.ksp.gradlePlugin)
+    compileOnly(libs.room.gradlePlugin)
 }
 
 tasks {
@@ -48,6 +49,10 @@ gradlePlugin {
         register("jvmLibrary") {
             id = libs.plugins.cinematch.jvm.library.get().pluginId
             implementationClass = "JvmLibraryConventionPlugin"
+        }
+        register("room") {
+            id = libs.plugins.cinematch.room.get().pluginId
+            implementationClass = "RoomConventionPlugin"
         }
     }
 }
