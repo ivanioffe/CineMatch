@@ -37,6 +37,10 @@ gradlePlugin {
             id = libs.plugins.cinematch.android.library.get().pluginId
             implementationClass = "AndroidLibraryConventionPlugin"
         }
+        register("compose") {
+            id = libs.plugins.cinematch.compose.get().pluginId
+            implementationClass = "ComposeConventionPlugin"
+        }
         register("hilt") {
             id = libs.plugins.cinematch.hilt.get().pluginId
             implementationClass = "HiltConventionPlugin"
