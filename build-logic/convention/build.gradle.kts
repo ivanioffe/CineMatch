@@ -34,6 +34,10 @@ gradlePlugin {
             id = libs.plugins.cinematch.android.application.get().pluginId
             implementationClass = "AndroidApplicationConventionPlugin"
         }
+        register("androidFeatureUi") {
+            id = libs.plugins.cinematch.android.feature.ui.get().pluginId
+            implementationClass = "AndroidFeatureUiConventionPlugin"
+        }
         register("androidLibrary") {
             id = libs.plugins.cinematch.android.library.get().pluginId
             implementationClass = "AndroidLibraryConventionPlugin"

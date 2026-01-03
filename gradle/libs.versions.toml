@@ -106,6 +106,7 @@ room = { id = "androidx.room", version.ref = "room" }
 
 cinematch-android-application = { id = "cinematch.android.application" }
 cinematch-android-library = { id = "cinematch.android.library" }
+cinematch-android-feature-ui = { id = "cinematch.android.feature.ui" }
 cinematch-compose = { id = "cinematch.compose" }
 cinematch-hilt = { id = "cinematch.hilt" }
 cinematch-jvm-library = { id = "cinematch.jvm.library" }
