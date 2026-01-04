@@ -20,18 +20,13 @@ android {
             )
         }
     }
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-            isReturnDefaultValues = true
-        }
-    }
 }
 
 dependencies {
-    testImplementation(libs.androidx.ui.test.junit4)
-    testImplementation(libs.androidx.ui.test.manifest)
-    testImplementation(libs.junit.vintage.engine)
-    testImplementation(libs.robolectric)
-    testImplementation(libs.truth)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.truth)
+
+    debugImplementation(libs.androidx.ui.test.manifest)
 }
