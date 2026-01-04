@@ -32,11 +32,12 @@ jobs:
         run: ./gradlew ktlintCheck
 
       - name: Upload ktlint report
-        if: always()
+        if: ${{ failure() }}
         uses: actions/upload-artifact@v4
         with:
           name: ktlint.html
           path: '**/build/reports/ktlint/'
+          retention-days: 7
 
   verify-screenshots:
     needs: [ check-build-logic-and-lint ]
@@ -77,13 +78,6 @@ jobs:
           path: '**/build/outputs/roborazzi/'
           retention-days: 7
 
-      - name: Upload test report
-        if: ${{ failure() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: unit_test_report
-          path: '**/build/reports/tests/testDebugUnitTest/'
-
   unit-test:
     needs: [ check-build-logic-and-lint ]
     runs-on: ubuntu-latest
@@ -108,10 +102,12 @@ jobs:
         run: ./gradlew testDebugUnitTest
 
       - name: Upload test report
+        if: ${{ failure() }}
         uses: actions/upload-artifact@v4
         with:
           name: unit_test_report
           path: '**/build/reports/tests/testDebugUnitTest/'
+          retention-days: 7
 
   instrumentation-test:
     needs: [ verify-screenshots, unit-test ]
@@ -147,7 +143,9 @@ jobs:
           script: ./gradlew connectedDebugAndroidTest
 
       - name: Upload test report
+        if: ${{ failure() }}
         uses: actions/upload-artifact@v4
         with:
           name: instrumentation_test_report
           path: '**/build/reports/androidTests/connected/'
+          retention-days: 7
