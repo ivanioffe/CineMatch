@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.cinematch.compose)
     alias(libs.plugins.cinematch.hilt)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ktlint)
 }
 
 android {

@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.cinematch.android.feature.ui)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ktlint)
     alias(libs.plugins.roborazzi)
 }
 

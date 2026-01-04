@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.cinematch.android.feature.ui)
     alias(libs.plugins.cinematch.hilt)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ktlint)
 }
 
 android {

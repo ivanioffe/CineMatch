@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.cinematch.jvm.library)
-    alias(libs.plugins.ktlint)
 }
 
 dependencies {
