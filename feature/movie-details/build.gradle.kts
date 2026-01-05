@@ -27,8 +27,8 @@ dependencies {
     implementation(projects.core.common)
     implementation(projects.core.network)
     implementation(projects.core.presentation)
-    implementation(libs.coil.compose)
-    implementation(libs.coil.network.okhttp)
+
+    implementation(libs.bundles.coil)
 
     testImplementation(libs.androidx.ui.test.junit4)
     testImplementation(libs.androidx.ui.test.manifest)
