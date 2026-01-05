@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.cinematch.android.feature.ui)
     alias(libs.plugins.cinematch.hilt)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ktlint)
 }
 
 android {
@@ -29,8 +28,7 @@ dependencies {
 
     implementation(libs.androidx.paging.runtime)
     implementation(libs.androidx.paging.compose)
-    implementation(libs.coil.compose)
-    implementation(libs.coil.network.okhttp)
+    implementation(libs.bundles.coil)
     implementation(libs.room.runtime)
 
     testImplementation(libs.junit.vintage.engine)

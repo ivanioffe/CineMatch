@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.cinematch.android.library)
     alias(libs.plugins.cinematch.hilt)
     alias(libs.plugins.cinematch.room)
-    alias(libs.plugins.ktlint)
 }
 
 android {

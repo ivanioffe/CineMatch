@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.cinematch.android.library)
-    alias(libs.plugins.ktlint)
 }
 
 android {
