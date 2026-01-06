@@ -38,3 +38,5 @@ include(":feature:auth")
 include(":feature:movie-details")
 include(":feature:onboarding")
 include(":feature:search-movies")
+
+include(":core:screenshot-testing")
