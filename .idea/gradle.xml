@@ -39,7 +39,6 @@
             <option value="$PROJECT_DIR$/feature/movie-details" />
             <option value="$PROJECT_DIR$/feature/onboarding" />
             <option value="$PROJECT_DIR$/feature/search-movies" />
-            <option value="$PROJECT_DIR$/screenshot-testing" />
           </set>
         </option>
       </GradleProjectSettings>
