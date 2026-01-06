@@ -63,10 +63,7 @@ class ScreenshotTestingConventionPlugin : Plugin<Project> {
                     "testImplementation"(libs.findLibrary("junit").get())
                     "testImplementation"(libs.findLibrary("junit.vintage.engine").get())
                     "testImplementation"(libs.findLibrary("robolectric").get())
-                    "testImplementation"(libs.findLibrary("roborazzi").get())
-                    "testImplementation"(libs.findLibrary("roborazzi.compose").get())
                     "testImplementation"(libs.findLibrary("roborazzi.previewScanner").get())
-                    "testImplementation"(libs.findLibrary("roborazzi.rule").get())
                 }
             }
         }
