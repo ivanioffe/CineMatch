@@ -8,6 +8,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.google.common.truth.Truth.assertThat
+import com.ioffeivan.feature.onboarding.presentation.OnboardingScreen
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
