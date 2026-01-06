@@ -19,6 +19,7 @@ dependencies {
     compileOnly(libs.android.gradleApiPlugin)
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.ksp.gradlePlugin)
+    compileOnly(libs.roborazzi.gradlePlugin)
     compileOnly(libs.room.gradlePlugin)
 }
 
@@ -58,6 +59,10 @@ gradlePlugin {
         register("room") {
             id = libs.plugins.cinematch.room.get().pluginId
             implementationClass = "RoomConventionPlugin"
+        }
+        register("screenshotTesting") {
+            id = libs.plugins.cinematch.screenshotTesting.get().pluginId
+            implementationClass = "ScreenshotTestingConventionPlugin"
         }
     }
 }
