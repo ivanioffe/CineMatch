@@ -238,3 +238,18 @@ private fun EmailVerificationScreenLoadingPreview() {
         )
     }
 }
+
+@Preview
+@Composable
+private fun EmailVerificationScreenFinishedTimerPreview() {
+    PreviewContainer {
+        EmailVerificationScreen(
+            state =
+                EmailVerificationState.initial(email = VALID_EMAIL)
+                    .copy(
+                        timerState = EmailVerificationState.TimerState.Finished,
+                    ),
+            onEvent = {},
+        )
+    }
+}
