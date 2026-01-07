@@ -249,7 +249,7 @@ private fun LoginScreenDefaultPreview() {
 
 @Preview
 @Composable
-private fun LoginScreenValidPreview() {
+private fun LoginScreenFilledPreview() {
     PreviewContainer {
         LoginScreen(
             state = loginValidState,
@@ -271,7 +271,7 @@ private fun LoginScreenLoadingPreview() {
 
 @Preview
 @Composable
-private fun LoginScreenInvalidPreview() {
+private fun LoginScreenValidationErrorPreview() {
     PreviewContainer {
         LoginScreen(
             state = loginInvalidState,

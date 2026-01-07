@@ -2,14 +2,13 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="17">
-      <module name="build-logic.convention" target="17" />
-      <module name="build-logic.convention.main" target="17" />
-      <module name="build-logic.convention.test" target="17" />
+      <module name="CineMatch.core.module" target="21" />
       <module name="CineMatch.feature.d" target="21" />
       <module name="CineMatch.feature.home" target="21" />
       <module name="CineMatch.feature.movie-detail" target="21" />
       <module name="CineMatch.feature.search" target="21" />
       <module name="CineMatch.feature.sign-up" target="21" />
+      <module name="CineMatch.screenshot-testing" target="21" />
     </bytecodeTargetLevel>
   </component>
 </project>
