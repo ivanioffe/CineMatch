@@ -22,6 +22,11 @@ android {
     testFixtures {
         enable = true
     }
+    packaging {
+        resources {
+            excludes += "META-INF/versions/9/OSGI-INF/MANIFEST.MF"
+        }
+    }
 }
 
 dependencies {
@@ -30,8 +35,6 @@ dependencies {
     testFixturesImplementation(libs.androidx.ui.test.manifest)
     testFixturesImplementation(libs.composable.preview.scanner)
     testFixturesImplementation(libs.junit)
-    testFixturesImplementation(libs.junit.vintage.engine)
     testFixturesImplementation(libs.robolectric)
     testFixturesImplementation(libs.roborazzi.previewScanner)
-    testFixturesImplementation(libs.roborazzi.rule)
 }
