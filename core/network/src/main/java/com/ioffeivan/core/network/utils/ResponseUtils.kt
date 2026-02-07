@@ -10,7 +10,7 @@ import retrofit2.Response
  * @param T The type of the response body.
  * @return A [Result] representing success, error, or exception.
  */
-fun <T> Response<T>.toResult(): Result<T> {
+internal fun <T> Response<T>.toResult(): Result<T> {
     return try {
         if (this.isSuccessful) {
             val body = this.body()
