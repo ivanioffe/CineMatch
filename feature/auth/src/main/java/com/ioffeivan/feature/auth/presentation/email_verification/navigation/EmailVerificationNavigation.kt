@@ -12,7 +12,7 @@ import com.ioffeivan.feature.auth.presentation.email_verification.composable.Ema
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class EmailVerificationRoute(
+internal data class EmailVerificationRoute(
     val email: String,
 )
 
@@ -26,7 +26,7 @@ fun NavHostController.navigateToEmailVerification(
     )
 }
 
-fun NavGraphBuilder.emailVerification(
+internal fun NavGraphBuilder.emailVerification(
     onNavigateToAccountCreated: () -> Unit,
     onShowSnackbar: ShowSnackbar,
 ) {

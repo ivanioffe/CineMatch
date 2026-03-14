@@ -8,12 +8,12 @@ import com.ioffeivan.feature.auth.presentation.account_created.AccountCreatedScr
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object AccountCreatedRoute
+internal data object AccountCreatedRoute
 
 fun NavController.navigateToAccountCreated(navOptions: NavOptions? = null) =
     navigate(AccountCreatedRoute, navOptions)
 
-fun NavGraphBuilder.accountCreated(
+internal fun NavGraphBuilder.accountCreated(
     onLoginClick: () -> Unit,
 ) {
     composable<AccountCreatedRoute> {
